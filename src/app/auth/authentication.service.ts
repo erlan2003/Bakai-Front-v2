@@ -1,46 +1,56 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { CredentialsService, Credentials } from './credentials.service';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 
-import { Credentials, CredentialsService } from './credentials.service';
-
-export interface LoginContext {
-  username: string;
-  password: string;
-  remember?: boolean;
-}
-
-/**
- * Provides a base for authentication workflow.
- * The login/logout methods should be replaced with proper implementation.
- */
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  constructor(private credentialsService: CredentialsService) {}
+  private apiUrl = 'http://localhost:8080/api';
+  isAuthenticated = false;
 
-  /**
-   * Authenticates the user.
-   * @param context The login parameters.
-   * @return The user credentials.
-   */
-  login(context: LoginContext): Observable<Credentials> {
-    // Replace by proper authentication call
-    const data = {
-      username: context.username,
-      token: '123456',
-    };
-    this.credentialsService.setCredentials(data, context.remember);
-    return of(data);
+  constructor(private router: Router, private http: HttpClient, private credentialsService: CredentialsService) {}
+
+  login(username: string, password: string): Observable<any> {
+    const loginPayload = { username, password };
+
+    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/token`, loginPayload).pipe(
+      tap((response) => {
+        const credentials: Credentials = {
+          token: response.token,
+        };
+        this.credentialsService.setCredentials(credentials, true);
+        this.isAuthenticated = true;
+        console.log(`Авторизация прошла успешно для пользователя: ${username}`);
+      }),
+      catchError(this.handleError)
+    );
   }
 
-  /**
-   * Logs out the user and clear credentials.
-   * @return True if the user was logged out successfully.
-   */
-  logout(): Observable<boolean> {
-    // Customize credentials invalidation here
-    this.credentialsService.setCredentials();
-    return of(true);
+  logout(): Observable<void> {
+    return new Observable<void>((observer) => {
+      this.credentialsService.setCredentials(undefined, false);
+      console.log('Пользователь вышел из системы');
+      this.router.navigate(['/login'], { replaceUrl: true });
+      observer.next();
+      observer.complete();
+    });
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Неизвестная ошибка!';
+    if (error.status === 401) {
+      errorMessage = 'Неавторизованный запрос. Пожалуйста, проверьте свои учетные данные.';
+    } else if (error.status === 0) {
+      errorMessage = 'Ошибка сети. Пожалуйста, проверьте ваше подключение.';
+    } else {
+      errorMessage = `Ошибка: ${error.statusText}`;
+    }
+    console.error('HTTP ошибка:', error);
+    return throwError(errorMessage);
   }
 }

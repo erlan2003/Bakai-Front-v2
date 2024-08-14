@@ -1,28 +1,162 @@
-@import "src/theme/theme-variables";
-
 :host {
   display: flex;
-  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
   background-color: #f5f5f5;
 }
 
-.inline-loader {
-  display: inline-block;
-}
-
-.version {
+html,
+body {
+  height: 100%;
   margin: 0;
 }
 
-.login-container,
-.mat-form-field {
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+.login-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
 }
 
-.login-fields > :not(:last-child) {
-  margin-bottom: 8px;
+.headText {
+  padding-top: 12px;
+  padding-bottom: 40px;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 32px;
+  font-weight: 590;
+  color: #07203a;
+  text-align: center;
+}
+
+.login-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  position: relative;
+}
+
+.custom-input {
+  width: 353px;
+  border: none;
+  background-color: #f7f8fa;
+  height: 53px;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #07203a;
+  padding-left: 8px;
+  border-radius: 8px;
+  padding-right: 40px;
+}
+
+.floating-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.floating-placeholder {
+  font-family: "SF Pro Display", sans-serif;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 0.2s ease all;
+  background-color: none;
+  padding: 0 4px;
+  color: #2d465b;
+  pointer-events: none;
+  font-size: 16px;
+}
+
+.custom-input:focus ~ .floating-placeholder,
+.custom-input:not(:placeholder-shown) ~ .floating-placeholder {
+  font-family: "SF Pro Display", sans-serif;
+  transform: translateY(-40px);
+  color: #2d465b;
+  font-size: 12px;
+}
+
+.clear-button,
+.toggle-password-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.error-message::before {
+  content: "⚠️";
+  margin-right: 6px;
+  font-size: 1rem;
+}
+
+.submit-button {
+  background-color: #005caa;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 16px;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.close-text {
+  margin-top: 5px;
+  padding-bottom: 32px;
+  font-family: "SF Pro Display", sans-serif;
+  background-color: none;
+  color: #2d465b;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .login-error {
-  color: mat-color($app-warn);
+  font-family: "SF Pro Display", sans-serif;
+  background-color: none;
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  padding-bottom: 40px;
+  padding-left: 5px;
+}
+
+.toggle-icon {
+  filter: invert(29%) sepia(100%) saturate(6568%) hue-rotate(189deg) brightness(99%) contrast(109%);
 }

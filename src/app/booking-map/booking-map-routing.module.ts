@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { marker } from '@biesbjerg/ngx-translate-extract-marker';
 
-import { HomeComponent } from './home.component';
+import { BookingMapComponent } from './booking-map.component';
 import { Shell } from '@app/shell/shell.service';
 
 const routes: Routes = [
   Shell.childRoutes([
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent, data: { title: marker('Home') } },
+    { path: '', redirectTo: '/map', pathMatch: 'full' },
+    { path: 'map', component: BookingMapComponent, data: { title: marker('Map') } },
   ]),
 ];
 
@@ -17,4 +17,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [],
 })
-export class HomeRoutingModule {}
+export class BookingMapRoutingModule {}

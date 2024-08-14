@@ -11,6 +11,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
   styleUrls: ['./shell.component.scss'],
 })
 export class ShellComponent implements OnInit {
+  isExpanded = false;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -25,10 +26,10 @@ export class ShellComponent implements OnInit {
     this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
   }
 
-  get username(): string | null {
-    const credentials = this.credentialsService.credentials;
-    return credentials ? credentials.username : null;
-  }
+  // get username(): string | null {
+  //   const credentials = this.credentialsService.credentials;
+  //   return credentials ? credentials.username : null;
+  // }
 
   get isMobile(): boolean {
     return this.breakpoint.isMatched(Breakpoints.Small) || this.breakpoint.isMatched(Breakpoints.XSmall);
@@ -36,5 +37,9 @@ export class ShellComponent implements OnInit {
 
   get title(): string {
     return this.titleService.getTitle();
+  }
+
+  toggleExpand() {
+    this.isExpanded = !this.isExpanded; // Переключаем ширину панели
   }
 }

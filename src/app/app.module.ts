@@ -7,14 +7,16 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
+import { BookingMapModule } from './booking-map/booking-map.module';
 
 import { environment } from '@env/environment';
 import { RouteReusableStrategy, ApiPrefixInterceptor, ErrorHandlerInterceptor, SharedModule } from '@shared';
 import { AuthModule } from '@app/auth';
-import { HomeModule } from './home/home.module';
 import { ShellModule } from './shell/shell.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ReportsModule } from './reports/reports.module';
+import { ConferenceModule } from './conference/conference.module';
 
 @NgModule({
   imports: [
@@ -28,8 +30,10 @@ import { AppRoutingModule } from './app-routing.module';
     MaterialModule,
     SharedModule,
     ShellModule,
-    HomeModule,
     AuthModule,
+    BookingMapModule,
+    ReportsModule,
+    ConferenceModule,
     AppRoutingModule, // must be imported as the last module as it contains the fallback route
   ],
   declarations: [AppComponent],

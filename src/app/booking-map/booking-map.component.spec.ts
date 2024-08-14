@@ -5,23 +5,23 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
-import { HomeComponent } from './home.component';
+import { BookingMapComponent } from './booking-map.component';
 import { QuoteService } from './quote.service';
 
 describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+  let component: BookingMapComponent;
+  let fixture: ComponentFixture<BookingMapComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule, FlexLayoutModule, MaterialModule, SharedModule, HttpClientTestingModule],
-      declarations: [HomeComponent],
+      declarations: [BookingMapComponent],
       providers: [QuoteService],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(BookingMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

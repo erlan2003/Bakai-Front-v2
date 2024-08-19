@@ -1,9 +1,9 @@
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-
+import { EmployeeService, Employee } from '../employees/employee.service';
 import { AuthenticationService, CredentialsService } from '@app/auth';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-shell',
@@ -12,34 +12,68 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 })
 export class ShellComponent implements OnInit {
   isExpanded = false;
+  currentMonthYear: string = '';
+  currentEmployee: Employee | null = null;
+  isLoading = false;
+  lastNameInitial: string = '';
+
   constructor(
+    private breakpoint: BreakpointObserver,
     private router: Router,
     private titleService: Title,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private breakpoint: BreakpointObserver
+    private employeeService: EmployeeService
   ) {}
 
-  ngOnInit() {}
-
-  logout() {
-    this.authenticationService.logout().subscribe(() => this.router.navigate(['/login'], { replaceUrl: true }));
+  ngOnInit() {
+    this.loadCurrentEmployee();
+    this.setCurrentMonthYear();
   }
 
-  // get username(): string | null {
-  //   const credentials = this.credentialsService.credentials;
-  //   return credentials ? credentials.username : null;
-  // }
+  setCurrentMonthYear() {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long' } as const;
+    let formattedDate = now.toLocaleDateString('ru-RU', options);
 
-  get isMobile(): boolean {
-    return this.breakpoint.isMatched(Breakpoints.Small) || this.breakpoint.isMatched(Breakpoints.XSmall);
+    formattedDate = formattedDate.replace(' г.', '');
+    this.currentMonthYear = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
   }
 
-  get title(): string {
-    return this.titleService.getTitle();
+  loadCurrentEmployee() {
+    this.isLoading = true;
+    this.employeeService.getCurrentEmployee().subscribe(
+      (data) => {
+        this.currentEmployee = data;
+        this.setLastNameInitial();
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error('Error fetching current employee', error);
+        this.isLoading = false;
+      }
+    );
+  }
+
+  setLastNameInitial() {
+    if (this.currentEmployee && this.currentEmployee.lastName) {
+      this.lastNameInitial = this.currentEmployee.lastName.charAt(0).toUpperCase();
+    }
   }
 
   toggleExpand() {
-    this.isExpanded = !this.isExpanded; // Переключаем ширину панели
+    this.isExpanded = !this.isExpanded;
+  }
+
+  getHeadContainerWidth() {
+    return this.isExpanded ? 'calc(100% - 169px)' : 'calc(100% - 0px)';
+  }
+
+  getHeadContainerMargin() {
+    return this.isExpanded ? '169px' : '0px';
+  }
+
+  get isMobile(): boolean {
+    return this.breakpoint.isMatched(Breakpoints.Small) || this.breakpoint.isMatched(Breakpoints.XSmall);
   }
 }

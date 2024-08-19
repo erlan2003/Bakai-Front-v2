@@ -21,16 +21,14 @@ export class BookingMapComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoading = true;
-    this.quoteService
-      .getRandomQuote({ category: 'dev' })
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        })
-      )
-      .subscribe((quote: string) => {
-        this.quote = quote;
-      });
+    // this.route.queryParams.subscribe((params) => {
+    //   const dateParam = params['date'];
+    //   if (dateParam) {
+    //     this.selectedDate = new Date(dateParam);
+    //   } else {
+    //     this.selectedDate = new Date();
+    //   }
+    //   this.fetchPlaces();
+    // });
   }
 }

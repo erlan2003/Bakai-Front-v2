@@ -5,71 +5,125 @@
   flex: 1;
 }
 
-.mat-sidenav {
+.main-container {
+  width: 100%;
+  display: flex;
+}
+
+.sidenav {
   width: 88px;
-  transition: width 0.3s ease;
+  --sidenav-width: 88px;
 
   &.expanded {
     width: 256px;
+    --sidenav-width: 256px;
+  }
+
+  .nav-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 0px;
+    gap: 8px;
   }
 
   .nav-log {
     display: flex;
+    justify-content: center;
     align-items: center;
-    width: 56px;
-    height: 56px;
-
-    margin-top: 24px;
-    margin-bottom: 16px;
     background-color: #ffffff;
     border: none;
+    padding: 0px;
+    margin-top: 24px;
+  }
 
-    a {
+  .log-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 16px;
+
+    .log-img-1 {
+      display: block;
+      width: 56px;
+      height: 56px;
+    }
+
+    .log-img-2 {
       display: none;
+      width: 126px;
+      height: 29px;
     }
   }
 
-  .nav-items {
+  .nav-item-map {
     display: flex;
-    flex-direction: column;
-    padding-left: 28px;
-    width: 100%;
-    gap: 20px;
-    padding-top: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: #005caa;
+    border: none;
+    padding: 0px;
+    margin-left: 16px;
+    margin-top: 8px;
+    border-radius: 4px;
+
+    a {
+      font-family: "SF Pro Display", sans-serif;
+      font-size: 17px;
+      color: #ffffff;
+      font-weight: 590;
+      display: none;
+      justify-content: start;
+      padding-right: 41px;
+    }
+  }
+
+  .map-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
   }
 
   .nav-item {
     display: flex;
+    justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #ffff;
     border: none;
+    padding: 0px;
+    margin-left: 16px;
 
     a {
+      font-family: "SF Pro Display", sans-serif;
+      font-size: 17px;
+      color: #07203a;
+      font-weight: 590;
       display: none;
-    }
-  }
-
-  .nav-map-item {
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-    background-color: #005caa;
-    border: none;
-    height: 56px;
-
-    a {
-      display: flex;
       justify-content: start;
-      width: 169px;
-      display: none;
     }
   }
 
-  .map-img {
-    margin: 12px;
+  .nav-back-icon {
+    display: none;
+    margin-top: 163px;
+    margin-left: 186px;
   }
 
-  &.expanded .nav-map-item a {
+  .item-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+  }
+
+  &.expanded .nav-back-icon {
+    display: block;
+  }
+
+  &.expanded .nav-item-map a {
     display: block;
   }
 
@@ -77,13 +131,76 @@
     display: block;
   }
 
-  &.expanded .nav-log a {
+  &.expanded .log-img .log-img-1 {
+    display: none;
+  }
+
+  &.expanded .log-img .log-img-2 {
     display: block;
   }
 }
 
+.content {
+  flex: 1;
+  transition: width 0.3s ease;
+}
+
 .head-container {
+  flex: 1;
+  display: flex;
   width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
   height: 72px;
-  background-color: aqua;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+
+.right-container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 16px;
+  margin-right: 24px;
+}
+
+.current-month-year-cobtainer {
+  padding-left: 24px;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 34px;
+  color: #07203a;
+  font-weight: 700;
+}
+
+.notification-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 48px;
+  background-color: #0000000d;
+}
+
+.user-avatarka {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 64px;
+  background-color: #0000000d;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 18px;
+  color: #005caa;
+  font-weight: 590;
+}
+
+.user-FIO {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 20px;
+  color: #000000;
+  font-weight: 500;
 }

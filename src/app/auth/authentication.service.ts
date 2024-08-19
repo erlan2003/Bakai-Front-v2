@@ -10,7 +10,6 @@ import { of } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthenticationService {
-  private apiUrl = 'http://localhost:8080/api';
   isAuthenticated = false;
 
   constructor(private router: Router, private http: HttpClient, private credentialsService: CredentialsService) {}
@@ -18,7 +17,7 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<any> {
     const loginPayload = { username, password };
 
-    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/token`, loginPayload).pipe(
+    return this.http.post<{ token: string }>(`auth/token`, loginPayload).pipe(
       tap((response) => {
         const credentials: Credentials = {
           token: response.token,

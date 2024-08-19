@@ -1,1 +1,50 @@
-<p>profile works!</p>
+<div class="container">
+  <div class="user-info">
+    <div class="user">
+      <div class="user-img"></div>
+      <div class="user-fio">Эмилбекова Элиза Эмилбекова</div>
+      <div class="user-email">emilbekovaeliza203@gmail.com</div>
+    </div>
+  </div>
+  <div class="tabs-container">
+    <button class="tab-button active">Профиль</button>
+    <button class="tab-button">Бронирование</button>
+    <button class="tab-button">Статистика</button>
+  </div>
+
+  <div class="text-field text-field_floating">
+    <input class="text-field__input" type="text" id="surname" required />
+    <label class="text-field__label" for="surname">Фамилия</label>
+    <img class="text-field__icon" src="../../assets/img/profile-img/Edit_icon.png" alt="Edit_icon" />
+  </div>
+
+  <div class="text-field text-field_floating">
+    <input class="text-field__input" type="text" id="first-name" required />
+    <label class="text-field__label" for="first-name">Имя</label>
+    <img class="text-field__icon" src="../../assets/img/profile-img/Edit_icon.png" alt="Edit_icon" />
+  </div>
+
+  <div class="text-field text-field_floating">
+    <input class="text-field__input" type="text" id="patronymic" required />
+    <label class="text-field__label" for="patronymic">Отчество</label>
+    <img class="text-field__icon" src="../../assets/img/profile-img/Edit_icon.png" alt="Edit_icon" />
+  </div>
+
+  <div class="text-field text-field_floating">
+    <input class="text-field__input1" type="text" id="position" required />
+    <label class="text-field__label" for="position">Должность</label>
+    <button class="text-field__select"><img src="../../assets/img/profile-img/Shevron_icon.png" alt="" /></button>
+  </div>
+
+  <div class="text-field text-field_floating">
+    <input class="text-field__input1" type="text" id="team" required />
+    <label class="text-field__label" for="team">Команда</label>
+    <button class="text-field__select"><img src="../../assets/img/profile-img/Shevron_icon.png" alt="" /></button>
+  </div>
+
+  <div mat-dialog-actions>
+    <button class="logout">
+      Выйти <img src="../../assets/img/profile-img/log-out-img.png" alt="Button Icon" class="button-icon" />
+    </button>
+  </div>
+</div>

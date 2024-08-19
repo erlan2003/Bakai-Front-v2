@@ -1,0 +1,204 @@
+.mat-dialog-container {
+  width: 594px;
+  height: 762px;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 17px;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.user-email {
+  font-weight: 400;
+  font-size: 15px;
+  padding-top: 4px;
+  font-family: "SF Pro Display", sans-serif;
+}
+.user-fio {
+  margin-top: 17px;
+  font-weight: 600;
+  font-family: "SF Pro Display", sans-serif;
+}
+.user-img {
+  background-image: url("../../assets/img/shell-img/userImg.png");
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+.logout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 538px;
+  height: 52px;
+  background-color: #e05a61;
+  border: none;
+  border-radius: 6px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+  font-family: "SF Pro", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
+  line-height: 22px;
+  letter-spacing: -0.41px;
+  text-align: center;
+  color: #fff;
+  padding: 0 16px;
+}
+
+.button-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+}
+
+.tabs-container {
+  display: flex;
+  background-color: #f7f8fa;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  width: 537px;
+  height: 48px;
+  margin-top: 10px;
+}
+
+.tab-button {
+  width: 537px;
+  height: 48px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: #2d465b;
+  font-weight: 510;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 6px 0 0 0;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #ffffff;
+  color: #07203a;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button:hover {
+  background-color: #9ba6b2;
+}
+
+.text-field {
+  position: relative;
+  margin-bottom: 16px;
+  margin-top: 10px;
+
+  &__input {
+    margin-bottom: -10px;
+    width: 538px;
+    height: 72px;
+    margin-top: 16px;
+    padding: 0px 14px;
+    background-color: #f7f8fa;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #07203a;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      background-color: #ecf1f3;
+    }
+
+    &:focus ~ .text-field__label,
+    &:not(:placeholder-shown) ~ .text-field__label {
+      transform: translateY(-18px) scale(0.8);
+      font-size: 14px;
+      padding-left: 4px;
+      color: #2d465b;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translateY(-70%);
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+    background-color: transparent;
+    padding: 0 4px;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 65%;
+    right: 28px;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    pointer-events: none;
+  }
+
+  &__select {
+    position: absolute;
+    top: 65%;
+    right: 28px;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    pointer-events: none;
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+  &__input1 {
+    margin-bottom: -10px;
+    width: 538px;
+    height: 72px;
+    margin-top: 16px;
+    background-color: #ffff;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #07203a;
+    box-sizing: border-box;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    &:focus {
+      outline: none;
+      background-color: #ecf1f3;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); // Усиливает тень при фокусе
+    }
+
+    &:focus ~ .text-field__label,
+    &:not(:placeholder-shown) ~ .text-field__label {
+      transform: translateY(-18px) scale(0.8);
+      font-size: 14px;
+      padding-left: 4px;
+      color: #2d465b;
+    }
+  }
+}
+.text-field text-field_floating {
+  width: 538px;
+  height: 72px;
+}

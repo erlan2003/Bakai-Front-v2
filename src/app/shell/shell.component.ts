@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { EmployeeService, Employee } from '../employees/employee.service';
 import { AuthenticationService, CredentialsService } from '@app/auth';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-shell',
@@ -23,7 +25,8 @@ export class ShellComponent implements OnInit {
     private titleService: Title,
     private authenticationService: AuthenticationService,
     private credentialsService: CredentialsService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private _dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -75,5 +78,9 @@ export class ShellComponent implements OnInit {
 
   get isMobile(): boolean {
     return this.breakpoint.isMatched(Breakpoints.Small) || this.breakpoint.isMatched(Breakpoints.XSmall);
+  }
+
+  openProfileForm() {
+    this._dialog.open(ProfileComponent);
   }
 }

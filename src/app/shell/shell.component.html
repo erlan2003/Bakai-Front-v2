@@ -59,9 +59,9 @@
           <img src="../../assets/img/nav-img/bx-bell.svg" alt="Click me" width="24" height="24" />
         </div>
 
-        <div class="user-avatarka">
+        <button class="user-avatarka" (click)="openProfileForm()">
           <p>{{ lastNameInitial }}</p>
-        </div>
+        </button>
 
         <div class="user-FIO" *ngIf="currentEmployee">
           {{ currentEmployee.lastName }} {{ currentEmployee.firstName }} {{ currentEmployee.middleName }}

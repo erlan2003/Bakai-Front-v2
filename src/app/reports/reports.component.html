@@ -1,1 +1,53 @@
-<p>reports works!</p>
+<div class="main-container">
+    <div class="content-container">
+      <div class="header">
+        <h1>Отчет</h1>
+        <button class="download-button">Скачать</button>
+      </div>
+      <div class="search-section">
+        <div class="search-container">
+          <input type="text" placeholder="Сотрудник" class="search-input" />
+          <button class="button-done">Готово</button>
+        </div>
+        <div class="controls">
+          <select class="button-team">
+            <option value="">Тип команды</option>
+            <!-- Добавьте здесь список команд -->
+            <option value="team1">Команда 1</option>
+            <option value="team2">Команда 2</option>
+            <option value="team3">Команда 3</option>
+          </select>
+          <div class="date-container">
+            <input type="text" placeholder="С: 01.08.2024" class="date-input" />
+            <input type="text" placeholder="По: 15.08.2024" class="date-input" />
+          </div>
+          <button class="button-done">Готово</button>
+        </div>
+      </div>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Команда</th>
+            <th>Должность</th>
+            <th>Место</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{employee.lastName}}</td>
+            <td>{{employee.firstName}}</td>
+            <td>{{employee.middleName}}</td>
+            <td>{{employee.team}}</td>
+            <td>{{employee.position}}</td>
+            <td>{{employee.location}}</td>
+            <td>{{employee.date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

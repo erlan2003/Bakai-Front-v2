@@ -8,9 +8,11 @@
 .main-container {
   width: 100%;
   display: flex;
+  overflow-x: auto;
 }
 
 .sidenav {
+  z-index: 1000;
   width: 88px;
   --sidenav-width: 88px;
 
@@ -20,6 +22,10 @@
   }
 
   .nav-bar {
+    position: fixed;
+    height: 100vh;
+    z-index: 1000;
+    background-color: #ffff;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -35,6 +41,7 @@
     border: none;
     padding: 0px;
     margin-top: 24px;
+    margin-bottom: 8px;
   }
 
   .log-img {
@@ -56,42 +63,13 @@
     }
   }
 
-  .nav-item-map {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffffff;
-    border: none;
-    padding: 0px;
-    margin-left: 16px;
-    margin-top: 8px;
-    border-radius: 4px;
-
-    a {
-      font-family: "SF Pro Display", sans-serif;
-      font-size: 17px;
-      color: #000000;
-      font-weight: 590;
-      display: none;
-      justify-content: start;
-      padding-right: 41px;
-    }
-  }
-
-  .map-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 56px;
-    height: 56px;
-  }
-
   .nav-item {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ffff;
     border: none;
+    border-radius: 4px;
     padding: 0px;
     margin-left: 16px;
 
@@ -101,7 +79,9 @@
       color: #07203a;
       font-weight: 590;
       display: none;
-      justify-content: start;
+      width: 156px;
+      text-align: left;
+      border-radius: 4px 4px 4px 4px;
     }
   }
 
@@ -146,9 +126,11 @@
 }
 
 .head-container {
+  position: fixed;
+  z-index: 1000;
   flex: 1;
   display: flex;
-  width: 100%;
+  width: 95%;
   align-items: center;
   justify-content: space-between;
   align-items: center;
@@ -196,6 +178,7 @@
   font-size: 18px;
   color: #005caa;
   font-weight: 590;
+  border: none;
 }
 
 .user-FIO {

@@ -8,39 +8,109 @@
         </div>
       </button>
 
-      <button routerLink="/map" class="nav-item-map">
-        <div class="map-item">
-          <img src="../../assets/img/nav-img/Map.svg" alt="Click me" width="32" height="32" />
+      <button
+        routerLink="/map"
+        class="nav-item"
+        [ngStyle]="{
+          'background-color': buttonsState[0] ? '#005CAA' : '#ffff',
+          color: buttonsState[0] ? '#ffffff' : '#000000'
+        }"
+        (click)="toggleColor(0)"
+      >
+        <div class="item-img">
+          <img
+            src="../../assets/img/nav-img/Map.svg"
+            [ngStyle]="{ filter: buttonsState[0] ? 'brightness(0) invert(1)' : 'none' }"
+            alt="Click me"
+            width="32"
+            height="32"
+          />
         </div>
-        <a>Карта этажа</a>
+        <a [ngStyle]="{ filter: buttonsState[0] ? 'brightness(0) invert(1)' : 'none' }">Карта этажа</a>
       </button>
 
-      <button routerLink="/conference" class="nav-item">
+      <button
+        routerLink="/conference"
+        class="nav-item"
+        [ngStyle]="{
+          'background-color': buttonsState[1] ? '#005CAA' : '#ffff',
+          color: buttonsState[1] ? '#ffffff' : '#000000'
+        }"
+        (click)="toggleColor(1)"
+      >
         <div class="item-img">
-          <img src="../../assets/img/nav-img/meeting.svg" alt="Click me" width="32" height="32" />
+          <img
+            src="../../assets/img/nav-img/meeting.svg"
+            [ngStyle]="{ filter: buttonsState[1] ? 'brightness(0) invert(1)' : 'none' }"
+            alt="Click me"
+            width="32"
+            height="32"
+          />
         </div>
-        <a>Совещание</a>
+        <a [ngStyle]="{ filter: buttonsState[1] ? 'brightness(0) invert(1)' : 'none' }">Совещание</a>
       </button>
 
-      <button routerLink="/employees" class="nav-item">
+      <button
+        routerLink="/employees"
+        class="nav-item"
+        [ngStyle]="{
+          'background-color': buttonsState[2] ? '#005CAA' : '#ffff',
+          color: buttonsState[2] ? '#ffffff' : '#000000'
+        }"
+        (click)="toggleColor(2)"
+      >
         <div class="item-img">
-          <img src="../../assets/img/nav-img/employees.svg" alt="Click me" width="32" height="32" />
+          <img
+            src="../../assets/img/nav-img/employees.svg"
+            [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }"
+            alt="Click me"
+            width="32"
+            height="32"
+          />
         </div>
-        <a>Сотрудники</a>
+        <a [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }">Сотрудники</a>
       </button>
 
-      <button routerLink="/reports" class="nav-item">
+      <button
+        routerLink="/reports"
+        class="nav-item"
+        [ngStyle]="{
+          'background-color': buttonsState[3] ? '#005CAA' : '#ffff',
+          color: buttonsState[3] ? '#ffffff' : '#000000'
+        }"
+        (click)="toggleColor(3)"
+      >
         <div class="item-img">
-          <img src="../../assets/img/nav-img/reports.svg" alt="Click me" width="32" height="32" />
+          <img
+            src="../../assets/img/nav-img/reports.svg"
+            [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }"
+            alt="Click me"
+            width="32"
+            height="32"
+          />
         </div>
-        <a>Отчеты</a>
+        <a [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }">Отчеты</a>
       </button>
 
-      <button routerLink="/settings" class="nav-item">
+      <button
+        routerLink="/settings"
+        class="nav-item"
+        [ngStyle]="{
+          'background-color': buttonsState[4] ? '#005CAA' : '#ffff',
+          color: buttonsState[4] ? '#ffffff' : '#000000'
+        }"
+        (click)="toggleColor(4)"
+      >
         <div class="item-img">
-          <img src="../../assets/img/nav-img/settings.svg" alt="Click me" width="32" height="32" />
+          <img
+            src="../../assets/img/nav-img/settings.svg"
+            [ngStyle]="{ filter: buttonsState[4] ? 'brightness(0) invert(1)' : 'none' }"
+            alt="Click me"
+            width="32"
+            height="32"
+          />
         </div>
-        <a>Настройки</a>
+        <a [ngStyle]="{ filter: buttonsState[4] ? 'brightness(0) invert(1)' : 'none' }">Настройки</a>
       </button>
 
       <div class="nav-back-icon" (click)="toggleExpand()">

@@ -1,7 +1,214 @@
 <div class="map-container">
-  <div class="tables-container">
-    <div class="table">
-      <img src="../../assets/img/reservation-img/places-A.svg" class="table-img" />
+  <div class="top-tables">
+    <!-- Table A -->
+    <div class="table-A">
+      <div class="container" *ngFor="let place of filteredPlacesA">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table B -->
+    <div class="table-B">
+      <div class="container" *ngFor="let place of filteredPlacesB">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table C -->
+    <div class="table-C">
+      <div class="container" *ngFor="let place of filteredPlacesC">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table D -->
+    <div class="table-D">
+      <div class="container" *ngFor="let place of filteredPlacesD">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table E -->
+    <div class="table-E">
+      <div class="container" *ngFor="let place of filteredPlacesE">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="J-1-2-3-4">
+      <!-- Table J_1_2 -->
+      <div class="table-J_1_2">
+        <div class="container" *ngFor="let place of filteredPlacesJ_1_2">
+          <button class="place-button" [id]="'place-' + place.id">
+            <div class="place" [ngClass]="getPlaceClass(place)">
+              {{ place.code }}
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table J_7_8 -->
+      <div class="table-J_7_8">
+        <div class="container" *ngFor="let place of filteredPlacesJ_7_8">
+          <button class="place-button" [id]="'place-' + place.id">
+            <div class="place" [ngClass]="getPlaceClass(place)">
+              {{ place.code }}
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="J-3-4-5-6-9-10">
+      <!-- Table J_3_4 -->
+      <div class="table-J_3_4">
+        <div class="container" *ngFor="let place of filteredPlacesJ_3_4">
+          <button class="place-button" [id]="'place-' + place.id">
+            <div class="place" [ngClass]="getPlaceClass(place)">
+              {{ place.code }}
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table J_5_6 -->
+      <div class="table-J_5_6">
+        <div class="container" *ngFor="let place of filteredPlacesJ_5_6">
+          <button class="place-button" [id]="'place-' + place.id">
+            <div class="place" [ngClass]="getPlaceClass(place)">
+              {{ place.code }}
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Table J_9_10 -->
+      <div class="table-J_9_10">
+        <div class="container" *ngFor="let place of filteredPlacesJ_9_10">
+          <button class="place-button" [id]="'place-' + place.id">
+            <div class="place" [ngClass]="getPlaceClass(place)">
+              {{ place.code }}
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- The meeting room -->
+    <div class="table-meeting-room">
+      <div class="container" *ngFor="let place of filteredPlacesMeetingRoom">
+        <button class="meeting-button" [id]="'place-' + place.id">
+          <div class="meeting-room" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="table-U">
+      <div class="container" *ngFor="let place of filteredPlacesU">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
     </div>
   </div>
+
+  <div class="bottom-tables">
+    <!-- Table F -->
+    <div class="table-F">
+      <div class="container" *ngFor="let place of filteredPlacesF">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table G -->
+    <div class="table-G">
+      <div class="container" *ngFor="let place of filteredPlacesG">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table H -->
+    <div class="table-H">
+      <div class="container" *ngFor="let place of filteredPlacesH">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table I -->
+    <div class="table-I">
+      <div class="container" *ngFor="let place of filteredPlacesI">
+        <button class="place-button" [id]="'place-' + place.id">
+          <div class="place" [ngClass]="getPlaceClass(place)">
+            {{ place.code }}
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wall_1"></div>
+  <div class="wall_2"></div>
+  <div class="wall_3"></div>
+  <div class="wall_4"></div>
+  <div class="wall_5"></div>
+  <div class="wall_6"></div>
+  <div class="wall_7"></div>
+  <div class="wall_8"></div>
+  <div class="wall_9"></div>
+  <div class="wall_10"></div>
+  <div class="wall_11"></div>
+  <div class="wall_12"></div>
+  <div class="wall_13"></div>
+  <div class="wall_14"></div>
+  <div class="wall_15"></div>
+  <div class="wall_16"></div>
+  <div class="wall_17"></div>
+  <div class="wall_18"></div>
+  <div class="wall_19"></div>
+  <div class="wall_20"></div>
+  <div class="wall_21"></div>
+  <div class="wall_22"></div>
+  <div class="toilet-icon-J"></div>
+  <div class="toilet-icon-M"></div>
+</div>
+
+<div class="date-container">
+  <button class="date-button" (click)="selectToday()">Сегодня</button>
+  <button class="date-button" (click)="selectTomorrow()">Завтра</button>
 </div>

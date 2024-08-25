@@ -6,6 +6,7 @@ import { AuthenticationService, CredentialsService } from '@app/auth';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
+import { SettingsComponent } from '@app/settings/settings.component';
 
 @Component({
   selector: 'app-shell',
@@ -87,5 +88,9 @@ export class ShellComponent implements OnInit {
 
   toggleColor(index: number) {
     this.buttonsState = this.buttonsState.map((state, i) => i === index);
+  }
+
+  openSettingForm() {
+    this._dialog.open(SettingsComponent);
   }
 }

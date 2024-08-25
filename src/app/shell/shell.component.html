@@ -92,25 +92,11 @@
         <a [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }">Отчеты</a>
       </button>
 
-      <button
-        routerLink="/settings"
-        class="nav-item"
-        [ngStyle]="{
-          'background-color': buttonsState[4] ? '#005CAA' : '#ffff',
-          color: buttonsState[4] ? '#ffffff' : '#000000'
-        }"
-        (click)="toggleColor(4)"
-      >
+      <button class="nav-item" (click)="openSettingForm()">
         <div class="item-img">
-          <img
-            src="../../assets/img/nav-img/settings.svg"
-            [ngStyle]="{ filter: buttonsState[4] ? 'brightness(0) invert(1)' : 'none' }"
-            alt="Click me"
-            width="32"
-            height="32"
-          />
+          <img src="../../assets/img/nav-img/settings.svg" alt="Click me" width="32" height="32" />
         </div>
-        <a [ngStyle]="{ filter: buttonsState[4] ? 'brightness(0) invert(1)' : 'none' }">Настройки</a>
+        <a>Настройки</a>
       </button>
 
       <div class="nav-back-icon" (click)="toggleExpand()">

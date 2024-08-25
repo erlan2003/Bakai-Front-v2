@@ -1,0 +1,146 @@
+.mat-dialog-container {
+  width: 594px;
+  height: 345px;
+  font-family: "SF Pro Display", sans-serif;
+  background-color: white;
+  padding: 28px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+h5 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #07203a;
+
+  text-align: left;
+  margin: 10px 0px 15px;
+}
+
+.text-field {
+  position: relative;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.text-field__select {
+  position: absolute;
+  top: 45%;
+  right: 5px;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  pointer-events: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+.text-field__input {
+  width: 350px;
+  height: 56px;
+  margin-top: 16px;
+  padding: 16px 14px 0 14px;
+  background-color: #f7f8fa;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #07203a;
+  box-sizing: border-box;
+  margin-bottom: -10px;
+}
+
+.text-field__input.empty {
+  width: 538px;
+  height: 48px;
+  padding: 16px 14px 0 14px;
+  background-color: #ffff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #07203a;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px 0px 20px;
+
+  &:focus {
+    outline: none;
+    background-color: #ecf1f3;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); // Усиливает тень при фокусе
+  }
+}
+
+.text-field__input:focus {
+  outline: none;
+  background-color: #ecf1f3;
+}
+
+.text-field__input:focus ~ .text-field__label,
+.text-field__input:not(:placeholder-shown) ~ .text-field__label {
+  transform: translateY(-18px) scale(0.8);
+  font-size: 16px;
+  padding-left: 4px;
+  color: #2d465b;
+}
+
+.text-field__label {
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #2d465b;
+  transition: 0.2s ease all;
+  pointer-events: none;
+}
+
+.ready {
+  background-color: #005caa;
+  color: #ffffff;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 148px;
+  height: 52px;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.add {
+  background-color: #005caa;
+  color: #ffffff;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 538px;
+  height: 52px;
+  text-align: center;
+  margin: 20px 0px 10px;
+}
+
+.add:hover {
+  background-color: #004a94;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #8a8a8a;
+}
+
+.close-button:hover {
+  color: #005caa;
+}

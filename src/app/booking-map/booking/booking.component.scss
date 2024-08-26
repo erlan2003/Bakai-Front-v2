@@ -1,0 +1,77 @@
+.main-text {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 20px;
+  color: #07203a;
+  font-weight: 590;
+}
+
+.container {
+  margin-top: 36px;
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.work-button {
+  flex: 1;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
+  width: 269px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #a0b9cd26;
+}
+
+.work-button.active {
+  background-color: #ffff;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.work-button:disabled {
+  border-radius: none;
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+mat-form-field {
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      background-color: white;
+      border-radius: 50px; // Овальная форма
+    }
+
+    .mat-form-field-outline {
+      border-radius: 50px; // Овальная форма
+    }
+
+    .mat-form-field-outline.mat-form-field-outline--filled {
+      border-radius: 50px; // Овальная форма
+    }
+  }
+
+  .mat-form-field-label {
+    color: #000; // Цвет метки
+  }
+
+  .mat-select {
+    .mat-select-trigger {
+      border-radius: 50px; // Овальная форма
+      background-color: white; // Белый фон
+      border: 1px solid #ccc; // Легкая граница
+    }
+
+    .mat-select-arrow {
+      color: #000; // Цвет стрелки
+    }
+  }
+}
+
+/* Дополнительные стили для mat-option */
+mat-option {
+  background-color: white; // Белый фон
+  color: #000; // Цвет текста
+}

@@ -1,13 +1,20 @@
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+
 .map-container {
+  width: 90vw;
+  height: 90%;
   background-color: #f1f5ff;
   border: 8px solid hwb(223 61% 9%);
-  margin-left: 10px;
-  margin-top: 90px;
+  margin-left: 20px;
+  margin-top: 31px;
   border-radius: 14px;
   position: relative;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
 
 .top-tables {
+  width: 50%;
   padding: 26px 0px 0px 24px;
   display: flex;
   gap: 48px;
@@ -24,6 +31,7 @@
 .table-H,
 .table-I,
 .table-meeting-room {
+  flex-shrink: 0;
   width: 132px;
   height: 288px;
   background-image: url("../../assets/img/reservation-img/8-place.svg");
@@ -37,6 +45,7 @@
 
 .table-A,
 .table-C {
+  flex-shrink: 0;
   width: 132px;
   height: 360px;
   background-image: url("../../assets/img/reservation-img/places-A.svg");
@@ -49,6 +58,7 @@
 
 .table-B,
 .table-D {
+  flex-shrink: 0;
   width: 132px;
   height: 216px;
   background-image: url("../../assets/img/reservation-img/places-B.svg");
@@ -59,7 +69,15 @@
   flex-wrap: wrap;
 }
 
+.container {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: black;
+}
+
 .table-E {
+  flex-shrink: 0;
   width: 132px;
   height: 72px;
   background-image: url("../../assets/img/reservation-img/2-place.svg");
@@ -74,6 +92,7 @@
 .table-J_3_4,
 .table-J_5_6,
 .table-J_9_10 {
+  flex-shrink: 0;
   width: 132px;
   height: 72px;
   background-image: url("../../assets/img/reservation-img/2-place.svg");
@@ -86,6 +105,7 @@
 }
 
 .table-J_7_8 {
+  flex-shrink: 0;
   width: 72px;
   height: 132px;
   background-image: url("../../assets/img/reservation-img/2-place-perev.svg");
@@ -97,6 +117,7 @@
 }
 
 .table-U {
+  flex-shrink: 0;
   width: 72px;
   height: 102px;
   background-image: url("../../assets/img/reservation-img/1-place.svg");
@@ -110,6 +131,10 @@
 }
 
 .place-button {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
   width: 66px;
   height: 72px;
   display: flex;
@@ -117,6 +142,16 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 0);
   border: none;
+}
+
+.place-button.booked {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 11px;
+  font-weight: 510;
+  display: flex;
+  flex-direction: column;
+  color: black;
+  width: 70px;
 }
 
 .table-meeting-room {
@@ -160,11 +195,19 @@
 }
 
 .place.booked {
-  background-color: rgba(0, 92, 170, 0.6);
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 18px;
+  font-weight: 590;
+  width: 40px;
+  height: 40px;
+  color: #005caa;
+  background-color: #f2f2f2;
+  border: 2px solid white;
 }
 
 .place.locked {
   background-color: #ffffff99;
+  color: black;
 }
 
 .wall_1 {
@@ -413,24 +456,39 @@
   background-image: url("../../assets/img/reservation-img/t-icon-M.svg");
 }
 
-/* WebKit браузеры */
-::-webkit-scrollbar {
-  width: 12px;
+.date-container {
+  position: absolute; /* Зафиксировать элемент на экране */
+  width: 400px;
+  height: 104px;
+  top: 540px;
+  left: 800px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: red;
-  border-radius: 6px;
-  border: 3px solid #fff;
+.date-button {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
+  width: 172px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  background-color: #a0b9cd26;
 }
 
-::-webkit-scrollbar-track {
-  background-color: blue;
-  border-radius: 6px;
+.date-button.active {
+  background-color: #ffff;
+  color: black;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Firefox */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #888 #f1f1f1;
+.date-button:disabled {
+  border-radius: none;
+  background-color: #e0e0e0;
+  cursor: not-allowed;
 }

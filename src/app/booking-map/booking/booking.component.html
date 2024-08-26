@@ -1,0 +1,23 @@
+<div class="booking-container">
+  <div class="main-text">Бронирование</div>
+  <div class="container">
+    <button class="work-button" [class.active]="isWork" (click)="selectWork()">Рабочие места</button>
+    <button class="work-button" [class.active]="!isWork" (click)="selectMeeting()">Переговорные</button>
+  </div>
+
+  <div class="content-container">
+    <ng-container *ngIf="isWork">
+      <div mat-dialog-content>
+        <mat-form-field>
+          <mat-select [(value)]="selectedPlace" (selectionChange)="onPlaceChange($event.value)">
+            <mat-option *ngFor="let place of allPlaces" [value]="place">
+              {{ place.code }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button class="booking-button" (click)="sendBooking()">Забронировать</button>
+    </ng-container>
+    <ng-container *ngIf="!isWork"> </ng-container>
+  </div>
+</div>

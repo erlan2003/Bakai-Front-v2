@@ -1,4 +1,4 @@
-.mat-dialog-container {
+.container {
   background-color: white;
   width: 594px; // Adjust the width as necessary
   height: 357px;
@@ -7,6 +7,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   font-family: SF Pro, sans-serif;
   position: relative;
+  background: transparent;
 }
 
 p {

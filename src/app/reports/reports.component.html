@@ -1,53 +1,130 @@
 <div class="main-container">
-    <div class="content-container">
-      <div class="header">
-        <h1>Отчет</h1>
-        <button class="download-button">Скачать</button>
-      </div>
-      <div class="search-section">
+  <div class="content-container">
+    <div class="header">
+      <h1>Отчет</h1>
+      <button class="download-button">Скачать</button>
+    </div>
+
+    <div class="search-section">
+      <div class="search-container222">
         <div class="search-container">
-          <input type="text" placeholder="Сотрудник" class="search-input" />
-          <button class="button-done">Готово</button>
+          <input type="text" placeholder="Сотрудник" class="search-input" [(ngModel)]="employeeName" />
         </div>
         <div class="controls">
-          <select class="button-team">
+          <select class="button-team" [(ngModel)]="selectedTeam">
             <option value="">Тип команды</option>
-            <!-- Добавьте здесь список команд -->
             <option value="team1">Команда 1</option>
             <option value="team2">Команда 2</option>
             <option value="team3">Команда 3</option>
           </select>
-          <div class="date-container">
-            <input type="text" placeholder="С: 01.08.2024" class="date-input" />
-            <input type="text" placeholder="По: 15.08.2024" class="date-input" />
-          </div>
-          <button class="button-done">Готово</button>
+          <input type="date" placeholder="С: 01.08.2024" class="date-input" [(ngModel)]="fromDate" />
+          <input type="date" placeholder="По: 15.08.2024" class="date-input" [(ngModel)]="toDate" />
         </div>
       </div>
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
-            <th>Команда</th>
-            <th>Должность</th>
-            <th>Место</th>
-            <th>Дата</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{employee.lastName}}</td>
-            <td>{{employee.firstName}}</td>
-            <td>{{employee.middleName}}</td>
-            <td>{{employee.team}}</td>
-            <td>{{employee.position}}</td>
-            <td>{{employee.location}}</td>
-            <td>{{employee.date}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="button-done111">
+        <button class="button-done" (click)="onDoneClick()">Готово</button>
+      </div>
     </div>
+
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Фамилия</th>
+          <th>Имя</th>
+          <th>Отчество</th>
+          <th>Команда</th>
+          <th>Должность</th>
+          <th>Место</th>
+          <th>Дата</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{ employee.employee.lastName }}</td>
+          <td>{{ employee.employee.firstName }}</td>
+          <td>{{ employee.employee.middleName || 'N/A' }}</td>
+          <td>{{ employee.employee.team || 'N/A' }}</td>
+          <td>{{ employee.employee.position || 'N/A' }}</td>
+          <td>{{ employee.placeCode }}</td>
+          <td>{{ employee.bookingDate }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  
+</div>
+
+<!--<div class="main-container">-->
+<!--  <div class="content-container">-->
+<!--    <div class="header">-->
+<!--      <h1>Отчет</h1>-->
+<!--      <button class="download-button" (click)="downloadReport()">Скачать</button>-->
+<!--    </div>-->
+<!--    <div class="search-section">-->
+<!--      <div class="search-container">-->
+<!--        <input-->
+<!--          type="text"-->
+<!--          placeholder="Сотрудник"-->
+<!--          class="search-input"-->
+<!--          [(ngModel)]="searchFIO"-->
+<!--        />-->
+<!--        <button class="button-done" (click)="loadStats(fromDate, toDate, searchFIO)">Готово</button>-->
+<!--      </div>-->
+<!--      <div class="controls">-->
+<!--        <select-->
+<!--          class="button-team"-->
+<!--          [(ngModel)]="selectedTeamId"-->
+<!--        >-->
+<!--          <option value="">Тип команды</option>-->
+<!--          &lt;!&ndash; Добавьте здесь список команд &ndash;&gt;-->
+<!--          <option value="1">Команда 1</option>-->
+<!--          <option value="2">Команда 2</option>-->
+<!--          <option value="3">Команда 3</option>-->
+<!--        </select>-->
+<!--        <div class="date-container">-->
+<!--          <input-->
+<!--            type="text"-->
+<!--            placeholder="С: 01.08.2024"-->
+<!--            class="date-input"-->
+<!--            [(ngModel)]="fromDate"-->
+<!--          />-->
+<!--          <input-->
+<!--            type="text"-->
+<!--            placeholder="По: 15.08.2024"-->
+<!--            class="date-input"-->
+<!--            [(ngModel)]="toDate"-->
+<!--          />-->
+<!--        </div>-->
+<!--        <button-->
+<!--          class="button-done"-->
+<!--          (click)="loadStats(fromDate, toDate, searchFIO, selectedPositionId, selectedTeamId)"-->
+<!--        >-->
+<!--          Готово-->
+<!--        </button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <table class="report-table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th>Фамилия</th>-->
+<!--        <th>Имя</th>-->
+<!--        <th>Отчество</th>-->
+<!--        <th>Команда</th>-->
+<!--        <th>Должность</th>-->
+<!--        <th>Место</th>-->
+<!--        <th>Дата</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let employee of employees">-->
+<!--        <td>{{ employee.lastName }}</td>-->
+<!--        <td>{{ employee.firstName }}</td>-->
+<!--        <td>{{ employee.middleName }}</td>-->
+<!--        <td>{{ employee.team }}</td>-->
+<!--        <td>{{ employee.position }}</td>-->
+<!--        <td>{{ employee.location }}</td>-->
+<!--        <td>{{ employee.date }}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->

@@ -5,12 +5,22 @@
     </div>
 
     <div class="search-section">
-      <div class="search-container">
-        <input type="text" placeholder="Ф.И.О. / Команда" class="search-input" />
-        <button class="button-done">Готово</button>
+      <div class="search-container222">
+        <div class="search-container">
+          <div class="search-container333">
+            <input type="text" placeholder="Ф.И.О. / Команда" class="search-input" [(ngModel)]="searchQuery" />
+            <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
+            <button class="close-icon" (click)="clearSearch()">
+              <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+            </button>
+          </div>
+          <div class="button-done111">
+            <button class="button-done" (click)="filterEmployees()">Готово</button>
+          </div>
+        </div>
       </div>
       <div class="controls">
-        <select class="button-team">
+        <select class="button-team" [(ngModel)]="selectedTeam">
           <option value="">Тип команды</option>
           <option value="team1">Команда 1</option>
           <option value="team2">Команда 2</option>
@@ -18,28 +28,27 @@
       </div>
     </div>
 
-    <div class="table-container">
+    <div class="scroll-table">
       <table class="report-table">
         <thead>
           <tr>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Отчество</th>
+            <th>Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th>Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th>Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
             <th>Команда</th>
             <th>Должность</th>
             <th>Почта</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Фамилия</td>
-            <td>Имя</td>
-            <td>Отчество</td>
-            <td>Команда</td>
-            <td>Должность</td>
-            <td>Emailgmail.com</td>
+          <tr *ngFor="let employee of filteredEmployees">
+            <td>{{ employee.lastName }}</td>
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.middleName || 'null' }}</td>
+            <td>{{ employee.team || 'null' }}</td>
+            <td>{{ employee.position || 'N/A' }}</td>
+            <td>{{ employee.email }}</td>
           </tr>
-          <!-- Повторите строки по необходимости -->
         </tbody>
       </table>
     </div>

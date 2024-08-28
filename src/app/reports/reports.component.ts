@@ -42,8 +42,8 @@ import { ReportsService } from '@app/reports/reports.service';
 export class ReportsComponent implements OnInit {
   employees: any[] = [];
   employeeName: string = '';
-  fromDate: string = '2024-08-26';
-  toDate: string = '2024-08-26';
+  fromDate: string = '';
+  toDate: string = '';
   selectedTeam: string = '';
 
   constructor(private reportsService: ReportsService) {}
@@ -53,21 +53,50 @@ export class ReportsComponent implements OnInit {
   }
 
   loadReports(): void {
-    const FIO = this.employeeName || 'Admin';
-    const from = this.fromDate;
-    const to = this.toDate;
+    const FIO = this.employeeName || '';
+    const from = this.fromDate || '2020-01-01';
+    const to = this.toDate || '2040-01-01';
 
     this.reportsService.getReports(from, to, FIO).subscribe(
       (data) => {
-        console.log('Полученные данные:', data); // Логирование данных
-        this.employees = data; // Присвоение данных массиву employees
+        console.log('Полученные данные:', data);
+        this.employees = data;
       },
       (error) => {
         console.error('Ошибка при загрузке отчетов:', error);
       }
     );
   }
+
   onDoneClick(): void {
     this.loadReports(); // Обновление данных на основе введенных параметров
+  }
+
+  clearSearch(): void {
+    this.employeeName = ''; // Очистка текста в поле ввода
+    this.loadReports(); // Перезагрузка данных после очистки
+  }
+
+  downloadReport(): void {
+    const FIO = this.employeeName;
+    const from = this.fromDate;
+    const to = this.toDate;
+
+    this.reportsService.downloadReport(from, to, FIO, undefined).subscribe(
+      (response: Blob) => {
+        const blob = new Blob([response], {
+          type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'report.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      (error) => {
+        console.error('Ошибка при загрузке отчета:', error);
+      }
+    );
   }
 }

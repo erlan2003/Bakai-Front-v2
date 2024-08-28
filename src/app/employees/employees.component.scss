@@ -1,15 +1,17 @@
 .main-container {
-  width: 1352px;
+  max-width: 1431px;
   height: 902px;
-  margin: 19px auto;
-  background-color: #f5f5f5;
+  margin: auto;
+
+  background: #f7f8fa;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .content-container {
-  width: 1152px;
+  max-width: 1152px;
+  width: 100%;
   height: 864px;
   background-color: #ffffff;
   padding: 20px;
@@ -18,8 +20,11 @@
 }
 
 .header {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -29,36 +34,78 @@ h1 {
   margin: 0;
 }
 
+.download-button {
+  background: #a0b9cd26;
+  color: #2d465b66;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 115px;
+  height: 40px;
+  display: flex;
+  gap: 10px;
+}
+
 .search-section {
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
   gap: 16px;
-  margin-bottom: 20px;
+
+  margin-bottom: 24px;
+  flex-direction: column;
 }
 
 .search-container {
+  max-width: 100%;
+  //width: 939px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  gap: 16px;
+}
+.search-container222 {
+  //display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.search-container333 {
+  display: flex;
+  max-width: 939px;
+  width: 100%;
+  align-items: center;
+  position: relative;
+  align-items: center;
 }
 
 .search-input {
-  width: 932px;
+  max-width: 939px;
+  width: 100%;
   height: 52px;
-  padding: 0 16px;
+  padding: 0 40px;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
   font-size: 16px;
+  background: #a0b9cd26;
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  pointer-events: none;
 }
 
-.button-done {
-  width: 148px;
-  height: 52px;
-  background-color: rgba(0, 92, 170, 1);
-  color: white;
+.close-icon {
+  position: absolute;
+  right: 12px;
+  background: none;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .controls {
@@ -69,8 +116,9 @@ h1 {
 }
 
 .button-team {
-  width: 207px;
-  height: 48px;
+  max-width: 207px;
+  width: 100%;
+  height: 52px;
   background-color: #ffffff;
   color: rgba(0, 92, 170, 1);
   border: 1px solid rgba(0, 92, 170, 1);
@@ -78,25 +126,111 @@ h1 {
   font-size: 16px;
   padding: 0 16px;
   appearance: none;
+  //margin-right: 100px;
 }
 
-.table-container {
+.date-container {
+  display: flex;
+  gap: 16px;
+}
+
+.date-input {
+  width: 350px;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 16px;
+  //margin-left: 53px;
+  background: #a0b9cd26;
+}
+
+.button-done {
+  max-width: 100%;
+  height: 52px;
+  background-color: rgba(0, 92, 170, 1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+.button-done:hover {
+  cursor: pointer;
+
+  box-shadow: 0 0 0 4px #cbd6ee;
+}
+
+.button-done111 {
+  display: flex;
+  flex-flow: column;
+  width: 148px;
+}
+
+.scroll-table {
+  max-height: 610px;
   overflow-y: auto;
-  height: calc(100% - 160px); /* Подгонка под оставшееся пространство */
+  background: transparent;
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding-right: 6px;
+}
+.scroll-table {
+  max-height: 610px;
+  overflow-y: auto;
+  background: transparent;
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding-right: 6px;
+}
+.scroll-table::-webkit-scrollbar {
+  width: 10px;
+}
+.scroll-table::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+.scroll-table::-webkit-scrollbar-thumb {
+  background: #005caa;
+  border-radius: 10px;
 }
 
 .report-table {
-  width: 1088px;
-  margin-top: 24px;
-  border-collapse: collapse;
+  width: 100%;
+  //border-collapse: collapse;
   font-size: 16px;
+  border: 1.5px solid #d5dde3;
+  border-radius: 8px;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
 }
 
-.report-table th,
+th,
+td {
+  border-collapse: collapse;
+  border-top: 1px solid #d5dde3;
+}
+.report-table th {
+  font-family: "SF Pro Display";
+  font-size: 14px;
+  font-weight: 600;
+  height: 50px;
+  background: #f4f6f8;
+  border-color: transparent;
+}
 .report-table td {
+  font-family: "SF Pro Display";
+  font-size: 14px;
+  font-weight: 400;
   padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #dcdcdc;
+  //text-align: left;
+  text-align: center;
+}
+
+.arrow {
+  padding-left: 5px;
 }
 
 @media (max-width: 1400px) {
@@ -111,8 +245,9 @@ h1 {
   }
 
   .search-input,
-  .button-done,
-  .button-team {
+  .date-input,
+  .button-team,
+  .button-done {
     width: 100%;
   }
 

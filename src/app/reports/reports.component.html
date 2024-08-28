@@ -2,13 +2,19 @@
   <div class="content-container">
     <div class="header">
       <h1>Отчет</h1>
-      <button class="download-button">Скачать</button>
+      <button class="download-button" (click)="downloadReport()">
+        Скачать <img src="assets/img/reports-img/download-icon.svg" alt="иконка скачивания" />
+      </button>
     </div>
 
     <div class="search-section">
       <div class="search-container222">
         <div class="search-container">
           <input type="text" placeholder="Сотрудник" class="search-input" [(ngModel)]="employeeName" />
+          <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
+          <button class="close-icon" (click)="clearSearch()">
+            <img src="assets/img/reports-img/close-icon.svg" alt="Иконка поиска" class="close-icon" />
+          </button>
         </div>
         <div class="controls">
           <select class="button-team" [(ngModel)]="selectedTeam">
@@ -17,39 +23,117 @@
             <option value="team2">Команда 2</option>
             <option value="team3">Команда 3</option>
           </select>
-          <input type="date" placeholder="С: 01.08.2024" class="date-input" [(ngModel)]="fromDate" />
-          <input type="date" placeholder="По: 15.08.2024" class="date-input" [(ngModel)]="toDate" />
+          <input type="date" class="date-input" [(ngModel)]="fromDate" />
+          <input type="date" class="date-input" [(ngModel)]="toDate" />
         </div>
       </div>
       <div class="button-done111">
         <button class="button-done" (click)="onDoneClick()">Готово</button>
       </div>
     </div>
-
-    <table class="report-table">
-      <thead>
-        <tr>
-          <th>Фамилия</th>
-          <th>Имя</th>
-          <th>Отчество</th>
-          <th>Команда</th>
-          <th>Должность</th>
-          <th>Место</th>
-          <th>Дата</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of employees">
-          <td>{{ employee.employee.lastName }}</td>
-          <td>{{ employee.employee.firstName }}</td>
-          <td>{{ employee.employee.middleName || 'N/A' }}</td>
-          <td>{{ employee.employee.team || 'N/A' }}</td>
-          <td>{{ employee.employee.position || 'N/A' }}</td>
-          <td>{{ employee.placeCode }}</td>
-          <td>{{ employee.bookingDate }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="scroll-table">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th>Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th>Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th>Команда</th>
+            <th>Должность</th>
+            <th>Место</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'null' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.employee.lastName }}</td>
+            <td>{{ employee.employee.firstName }}</td>
+            <td>{{ employee.employee.middleName || 'null' }}</td>
+            <td>{{ employee.employee.team || 'null' }}</td>
+            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.placeCode }}</td>
+            <td>{{ employee.bookingDate }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

@@ -19,7 +19,7 @@ export class ShellComponent implements OnInit {
   currentEmployee: Employee | null = null;
   isLoading = false;
   lastNameInitial: string = '';
-  buttonsState = [false, false, false, false, false];
+  buttonsState = [true, false, false, false, false];
 
   constructor(
     private breakpoint: BreakpointObserver,
@@ -83,7 +83,10 @@ export class ShellComponent implements OnInit {
   }
 
   openProfileForm() {
-    this._dialog.open(ProfileComponent);
+    this._dialog.open(ProfileComponent, {
+      // width: '594px',
+      // height: '720px',
+    });
   }
 
   toggleColor(index: number) {

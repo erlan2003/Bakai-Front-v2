@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService, Employee } from './employee.service';
+
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -10,43 +11,43 @@ export class EmployeesComponent implements OnInit {
   filteredEmployees: Employee[] = [];
   searchQuery: string = '';
   selectedTeam: string = '';
+  currentEmployee: Employee | null = null;
+  lastNameInitial: string = '';
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
     this.employeeService.getEmployees().subscribe(
-      (data) => {
-        console.log('Employees data from API:', data);
+      (data: Employee[]) => {
         this.employees = data;
-        this.filteredEmployees = data; // Изначально показываем всех сотрудников
+        this.filteredEmployees = data;
       },
-      (error) => {
-        console.error('Error fetching employees:', error);
+      (error: any) => {
+        console.error('Error fetching employees', error);
       }
     );
   }
 
-  filterEmployees(): void {
-    console.log('Search Query:', this.searchQuery);
-    console.log('Selected Team:', this.selectedTeam);
+  clearSearch() {
+    this.searchQuery = '';
+    this.selectedTeam = '';
+    this.filteredEmployees = this.employees;
+  }
 
+  filterEmployees() {
     this.filteredEmployees = this.employees.filter((employee) => {
-      const fullName = `${employee.firstName ?? ''} ${employee.lastName ?? ''} ${
-        employee.middleName ?? ''
-      }`.toLowerCase();
-      const matchesName = fullName.includes(this.searchQuery.toLowerCase());
-      const matchesTeam =
-        (employee.team ?? '').toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-        employee.team === this.selectedTeam;
+      const query = this.searchQuery.toLowerCase();
+      const teamMatches = employee.team?.name.toLowerCase().includes(query);
+      const nameMatches =
+        employee.firstName.toLowerCase().includes(query) ||
+        employee.lastName.toLowerCase().includes(query) ||
+        employee.middleName?.toLowerCase().includes(query);
 
-      console.log(`Employee: ${fullName}, Matches Name: ${matchesName}, Matches Team: ${matchesTeam}`);
-      return matchesName || matchesTeam;
+      return nameMatches || teamMatches;
     });
 
-    console.log('Filtered Employees:', this.filteredEmployees);
-  }
-  clearSearch(): void {
-    this.searchQuery = ''; // Очистка текста в поле ввода
-    this.ngOnInit(); // Перезагрузка данных после очистки
+    if (this.selectedTeam) {
+      this.filteredEmployees = this.filteredEmployees.filter((employee) => employee.team?.name === this.selectedTeam);
+    }
   }
 }

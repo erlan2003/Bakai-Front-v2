@@ -45,8 +45,8 @@
             <td>{{ employee.lastName }}</td>
             <td>{{ employee.firstName }}</td>
             <td>{{ employee.middleName || 'null' }}</td>
-            <td>{{ employee.team || 'null' }}</td>
-            <td>{{ employee.position || 'N/A' }}</td>
+            <td>{{ employee.team?.name || 'null' }}</td>
+            <td>{{ employee.position?.name || 'N/A' }}</td>
             <td>{{ employee.email }}</td>
           </tr>
         </tbody>

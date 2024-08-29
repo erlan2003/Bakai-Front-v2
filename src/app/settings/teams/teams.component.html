@@ -1,17 +1,24 @@
 <div class="container">
-  <button class="close-button">&times;</button>
-  <h5>Команды</h5>
-
+  <div class="header">
+    <h4>Команды</h4>
+    <button class="close-icon" (click)="closeDialog()">
+      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+    </button>
+  </div>
   <div class="text-field text-field_floating">
-    <input class="text-field__input" type="text" id="bf" required />
+    <input class="text-field__input" type="text" id="bf" required [(ngModel)]="teamName" />
+    <!-- Bind input to teamName -->
     <label class="text-field__label" for="day_input">Создать команду</label>
 
-    <button class="ready">Готово</button>
+    <button class="ready" (click)="createTeam()">Готово</button>
+    <!-- Trigger createTeam method -->
   </div>
 
   <div class="text-field">
     <div class="text-field__input empty">Список пуст</div>
-    <button class="text-field__select"><img src="../../assets/img/nav-img/Shevron_icon.png" alt="" /></button>
+    <button class="text-field__select">
+      <img src="../../assets/img/nav-img/Shevron_icon.png" alt="" />
+    </button>
   </div>
 
   <button class="add">Сохранить изменения</button>

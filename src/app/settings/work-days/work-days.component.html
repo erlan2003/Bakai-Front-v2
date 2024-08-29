@@ -1,11 +1,15 @@
 <div class="container">
-  <button class="close-button">&times;</button>
-  <h5>Рабочие дни</h5>
+  <div class="header">
+    <h4>Бронь рабочих мест</h4>
+    <button class="close-icon" (click)="closeDialog()">
+      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+    </button>
+  </div>
 
   <div class="text-field text-field_floating">
     <input class="text-field__input" type="text" id="bf" required />
     <label class="text-field__label" for="day_input">Рабочие дни</label>
-    <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.png" alt="Edit_icon" />
+    <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
   </div>
 
   <h5>Нерабочие дни</h5>

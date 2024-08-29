@@ -8,22 +8,49 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
+.container {
+  background-color: white;
+  width: 538px;
+  height: 353px;
+  border-radius: 8px;
+  margin: 4px;
+  position: relative;
+}
+
+.close-icon {
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: #a0b9cd;
+  align-items: center;
+}
+
+.header {
+  align-items: center;
+  max-width: 538px;
+  width: 100%;
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+}
 
 h4 {
+  font-family: SF Pro, sans-serif;
   font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 20px;
-  text-align: left;
-  margin-top: 10px;
-  color: #07203a;
+  font-weight: bold;
+  margin: 0;
 }
 
 h5 {
-  font-size: 16px;
+  font-family: SF Pro, sans-serif;
+  font-size: 17px;
   font-weight: 600;
   color: #07203a;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   text-align: left;
+  margin-top: 36px;
 }
 
 .time {
@@ -39,7 +66,6 @@ h5 {
 .timee__input {
   width: 100%;
   height: 56px;
-  margin-top: 10px;
   padding: 16px 14px 0 14px;
   background-color: #f7f8fa;
   border: 1px solid transparent;
@@ -63,12 +89,14 @@ h5 {
 }
 
 .timee__label {
+  font-family: SF Pro, sans-serif;
+  font-weight: 400;
   position: absolute;
   top: 60%;
   left: 10px;
   transform: translateY(-50%);
-  font-size: 16px;
-  color: #8a8a8a;
+  font-size: 14px;
+  color: #2d465b;
   transition: 0.2s ease all;
   pointer-events: none;
 }
@@ -106,11 +134,13 @@ h5 {
 }
 
 .text-field__label {
+  font-family: SF Pro, sans-serif;
+  font-weight: 400;
   position: absolute;
   top: 60%;
   left: 6px;
   transform: translateY(-50%);
-  font-size: 16px;
+  font-size: 12px;
   color: #8a8a8a;
   transition: 0.2s ease all;
   pointer-events: none;
@@ -127,6 +157,7 @@ h5 {
 
 .save {
   background-color: #005caa;
+  font-family: SF Pro, sans-serif;
   color: #ffffff;
   padding: 10px 16px;
   font-size: 16px;

@@ -16,16 +16,15 @@
 <div class="container">
   <div class="header">
     <h1>Настройки</h1>
-    <!--    <button class="close-icon"-->
-    <!--            (click)="#">-->
-    <!--      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка поиска" class="close-icon">-->
-    <!--    </button>-->
-    <div class="btns">
-      <button>Распределение команд по столам</button>
-      <button (click)="openBooking_WorkplaceForm()">Бронь рабочих мест</button>
-      <button (click)="openBooking_MeetingroomForm()">Бронь переговорной</button>
-      <button (click)="openWork_DaysForm()">Рабочие дни</button>
-      <button (click)="openTeams_Form()">Команды</button>
-    </div>
+    <button class="close-icon" (click)="closeDialog()">
+      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+    </button>
+  </div>
+  <div class="btns">
+    <button>Распределение команд по столам</button>
+    <button (click)="openBooking_WorkplaceForm()">Бронь рабочих мест</button>
+    <button (click)="openBooking_MeetingroomForm()">Бронь переговорной</button>
+    <button (click)="openWork_DaysForm()">Рабочие дни</button>
+    <button (click)="openTeams_Form()">Команды</button>
   </div>
 </div>

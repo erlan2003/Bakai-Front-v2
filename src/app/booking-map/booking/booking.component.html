@@ -7,15 +7,14 @@
 
   <div class="content-container">
     <ng-container *ngIf="isWork">
-      <div mat-dialog-content>
-        <mat-form-field>
-          <mat-select [(value)]="selectedPlace" (selectionChange)="onPlaceChange($event.value)">
-            <mat-option *ngFor="let place of allPlaces" [value]="place">
-              {{ place.code }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <mat-form-field appearance="outline">
+        <mat-select [(value)]="selectedPlace" (selectionChange)="onPlaceChange($event.value)">
+          <mat-option *ngFor="let place of allPlaces" [value]="place">
+            {{ place.code }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <button class="booking-button" (click)="sendBooking()">Забронировать</button>
     </ng-container>
     <ng-container *ngIf="!isWork"> </ng-container>

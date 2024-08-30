@@ -100,7 +100,6 @@ export class BookingMapComponent implements OnInit {
         }
       });
 
-      // Update filtered places
       this.filteredPlacesA = this.places.filter((place) => place.code.startsWith('A'));
       this.filteredPlacesB = this.places.filter((place) => place.code.startsWith('B'));
       this.filteredPlacesC = this.places.filter((place) => place.code.startsWith('С'));

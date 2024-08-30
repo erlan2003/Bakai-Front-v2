@@ -98,6 +98,10 @@ body {
   font-size: 12px;
 }
 
+.custom-input:placeholder-shown ~ .floating-label {
+  opacity: 0; /* Скрыть плейсхолдер, если поле пустое */
+}
+
 .clear-button,
 .toggle-password-button {
   position: absolute;

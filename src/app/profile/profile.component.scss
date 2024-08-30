@@ -82,6 +82,9 @@
 }
 
 .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   position: relative;
   display: flex;
   border: none;
@@ -104,6 +107,20 @@
   color: #2d465b;
   pointer-events: none;
   font-size: 13px;
+  padding-left: 12px;
+}
+
+.placeholder_2 {
+  font-family: "SF Pro Display", sans-serif;
+  position: absolute;
+  top: 5px;
+  transition: 0.2s ease all;
+  background-color: none;
+  padding: 0 4px;
+  color: #2d465b;
+  pointer-events: none;
+  font-size: 12px;
+  width: 250px;
   padding-left: 12px;
 }
 
@@ -144,4 +161,18 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   margin-top: 24px;
   border-radius: 12px;
+}
+
+.delete-icon {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  right: 20px;
+  top: 12px;
+  background-color: #ffffff;
+  border: none;
+}
+
+.not-place {
+  margin-top: 3px;
 }

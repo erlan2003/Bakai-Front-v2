@@ -64,7 +64,6 @@ export class BookingComponent implements OnInit {
       return;
     }
 
-    // Форматирование даты вручную без изменения часового пояса
     const formattedDate = this.formatDate(this.selectedDate);
 
     const bookingData = {
@@ -86,6 +85,7 @@ export class BookingComponent implements OnInit {
       (response) => {
         console.log('Бронирование успешно:', response);
         this.openMessageDialog('Место успешно забронировано');
+        // window.location.reload();
       },
       (error) => {
         console.error('Ошибка при бронировании:', error);
@@ -110,15 +110,16 @@ export class BookingComponent implements OnInit {
 
   // Метод для открытия диалога с сообщением
   openMessageDialog(message: string): void {
-    console.log('Opening message dialog with message:', message); // Добавьте это для отладки
     this.dialog
       .open(BookingResultDialogComponent, {
-        width: '250px',
+        width: '334px',
+        height: '176px',
         data: { message },
       })
       .afterClosed()
       .subscribe(() => {
-        this.dialogRef.close(); // Закрытие текущего диалога
+        // this.dialogRef.close();
+        // window.location.reload();
       });
   }
 

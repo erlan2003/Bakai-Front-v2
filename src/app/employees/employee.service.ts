@@ -80,7 +80,7 @@ export class EmployeeService {
     return this.http.put<Employee>(url, profileData, { headers });
   }
 
-  getTodayBookingsForCurrentEmployee(): Observable<any> {
+  getTodayBookingsForCurrentEmployee(): Observable<{ bookingDate: string; place: string; id: number }[]> {
     const today = this.formatDate(new Date());
 
     return this.getCurrentEmployee().pipe(
@@ -89,12 +89,19 @@ export class EmployeeService {
           throw new Error('Employee not found or not logged in');
         }
         return this.getBookingStats(today, employee.id);
-      })
+      }),
+      map((bookings) =>
+        bookings.map((booking) => ({
+          bookingDate: booking.bookingDate,
+          place: booking.placeCode || 'Место не определено',
+          id: booking.id, // Добавляем идентификатор брони
+        }))
+      )
     );
   }
 
-  // Получение бронирований на завтра для текущего пользователя
-  getTomorrowBookingsForCurrentEmployee(): Observable<any> {
+  // Получение бронирований на завтра
+  getTomorrowBookingsForCurrentEmployee(): Observable<{ bookingDate: string; place: string; id: number }[]> {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const formattedTomorrow = this.formatDate(tomorrow);
@@ -105,12 +112,19 @@ export class EmployeeService {
           throw new Error('Employee not found or not logged in');
         }
         return this.getBookingStats(formattedTomorrow, employee.id);
-      })
+      }),
+      map((bookings) =>
+        bookings.map((booking) => ({
+          bookingDate: booking.bookingDate,
+          place: booking.placeCode || 'Место не определено',
+          id: booking.id, // Добавляем идентификатор брони
+        }))
+      )
     );
   }
 
-  // Метод отправляет запрос на API с параметрами from и employeeId
-  getBookingStats(date: string, employeeId: number): Observable<any> {
+  // Метод для получения бронирований по дате и id сотрудника
+  getBookingStats(date: string, employeeId: number): Observable<any[]> {
     const token = this.credentialsService.token;
     if (!token) {
       throw new Error('Token not available');
@@ -119,9 +133,9 @@ export class EmployeeService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `${this.apiUrl}bookings/places/stats?from=${date}&to=${date}&employeeId=${employeeId}`;
 
-    console.log('Запрашиваемый URL:', url); // Логирование URL
+    console.log('Запрашиваемый URL:', url);
 
-    return this.http.get<any>(url, { headers });
+    return this.http.get<any[]>(url, { headers });
   }
 
   private formatDate(date: Date): string {
@@ -129,5 +143,17 @@ export class EmployeeService {
       .getDate()
       .toString()
       .padStart(2, '0')}`;
+  }
+
+  deleteTomorrowBooking(bookingId: number): Observable<void> {
+    const token = this.credentialsService.token;
+    if (!token) {
+      throw new Error('Token not available');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this.apiUrl}bookings/places/${bookingId}`; // URL для удаления брони
+
+    return this.http.delete<void>(url, { headers });
   }
 }

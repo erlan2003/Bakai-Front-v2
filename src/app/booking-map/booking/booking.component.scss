@@ -26,6 +26,7 @@
 }
 
 .work-button.active {
+  border-radius: 8px;
   background-color: #ffff;
   color: black;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -37,41 +38,19 @@
   cursor: not-allowed;
 }
 
-mat-form-field {
-  .mat-form-field-appearance-fill {
-    .mat-form-field-flex {
-      background-color: white;
-      border-radius: 50px; // Овальная форма
-    }
-
-    .mat-form-field-outline {
-      border-radius: 50px; // Овальная форма
-    }
-
-    .mat-form-field-outline.mat-form-field-outline--filled {
-      border-radius: 50px; // Овальная форма
-    }
-  }
-
-  .mat-form-field-label {
-    color: #000; // Цвет метки
-  }
-
-  .mat-select {
-    .mat-select-trigger {
-      border-radius: 50px; // Овальная форма
-      background-color: white; // Белый фон
-      border: 1px solid #ccc; // Легкая граница
-    }
-
-    .mat-select-arrow {
-      color: #000; // Цвет стрелки
-    }
-  }
+.mat-form-field {
+  padding: 0px;
+  margin-top: 24px;
+  width: 100%;
+  background-color: #ffffff;
+  border: none;
 }
 
-/* Дополнительные стили для mat-option */
-mat-option {
-  background-color: white; // Белый фон
-  color: #000; // Цвет текста
+.booking-button {
+  width: 100%;
+  height: 52px;
+  background-color: #005caa;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
 }

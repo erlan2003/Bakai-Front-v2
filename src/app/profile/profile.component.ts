@@ -20,11 +20,10 @@ export class ProfileComponent implements OnInit {
   selectedSection: 'profile' | 'booking' | 'statistics' = 'profile';
   todayBookings: Place[] = [];
   tomorrowBookings: Place[] = [];
-  userBookings: Booking[] = [];
-  todayDate: string = '';
-  tomorrowDate: string = '';
-  todayBookings$: Observable<any> | undefined;
-  tomorrowBookings$: Observable<any> | undefined;
+  hasTodayBookings: boolean = true;
+  hasTomorrowBookings: boolean = true;
+  todayBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
+  tomorrowBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
 
   constructor(
     private router: Router,
@@ -39,11 +38,12 @@ export class ProfileComponent implements OnInit {
 
     this.todayBookings$.subscribe(
       (data) => {
+        this.hasTodayBookings = data.length > 0;
         console.log('Бронирования на сегодня:', data);
-        // Обработка данных для отображения
       },
       (error) => {
         console.error('Ошибка при получении бронирований на сегодня:', error);
+        this.hasTodayBookings = false;
       }
     );
   }
@@ -53,20 +53,14 @@ export class ProfileComponent implements OnInit {
 
     this.tomorrowBookings$.subscribe(
       (data) => {
+        this.hasTomorrowBookings = data.length > 0;
         console.log('Бронирования на завтра:', data);
-        // Обработка данных для отображения
       },
       (error) => {
         console.error('Ошибка при получении бронирований на завтра:', error);
+        this.hasTomorrowBookings = false;
       }
     );
-  }
-
-  formatDate(date: Date): string {
-    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date
-      .getDate()
-      .toString()
-      .padStart(2, '0')}`;
   }
 
   selectProfile(): void {
@@ -126,20 +120,17 @@ export class ProfileComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // getBookingStats(): void {
-  //   // Используем метод с нужными параметрами
-  //   this.bookingStats$ = this.employeeService.getBookingStats('2024-08-29', '2024-08-30', 'Эрлан');
+  deleteBooking(bookingId: number): void {
+    if (!bookingId) return;
 
-  //   // Подписка на Observable для обработки данных или ошибок
-  //   this.bookingStats$.subscribe(
-  //     (data) => {
-  //       console.log('Полученные данные:', data);
-  //       // Здесь можно обработать данные, например, присвоить их в переменную для отображения
-  //     },
-  //     (error) => {
-  //       console.error('Ошибка при получении данных:', error);
-  //       // Обработка ошибок
-  //     }
-  //   );
-  // }
+    this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
+      () => {
+        console.log('Бронь успешно удалена');
+        this.getTomorrowBookings();
+      },
+      (error) => {
+        console.error('Ошибка при удалении брони:', error);
+      }
+    );
+  }
 }

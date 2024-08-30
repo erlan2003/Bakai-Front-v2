@@ -80,6 +80,7 @@
         </div>
 
         <div class="input-container">
+          <label class="placeholder" for="team">Команда</label>
           <input
             type="text"
             id="team"
@@ -88,72 +89,70 @@
             class="user-information-input"
             readonly
           />
-          <label class="placeholder" for="team">Команда</label>
         </div>
       </div>
-      <button class="logout-button">
+      <button class="logout-button" (click)="logoutSystem()">
         Выйти
-        <img src="../../assets/img/nav-img/log out.svg" class="logout-img" (click)="logoutSystem()" />
+        <img src="../../assets/img/nav-img/log out.svg" class="logout-img" />
       </button>
     </ng-container>
     <ng-container *ngIf="selectedSection === 'booking'">
-      <!-- <div class="booking-container">
-        <h2>Забронированные места</h2>
-        <p>Запрашиваемые даты:</p>
-        <ul>
-          <li>Сегодня: {{ todayDate }}</li>
-          <li>Завтра: {{ tomorrowDate }}</li>
-        </ul>
-      
-        <div *ngIf="userBookings.length > 0; else noBookings">
-          <ul>
-            <li *ngFor="let booking of userBookings">
-              <p>Место ID: {{ booking.placeId }}</p>
-              <p>Дата бронирования: {{ booking.bookingDate }}</p>
-            </li>
-          </ul>
-        </div>
-        <ng-template #noBookings>
-          <p>Нет забронированных мест на сегодня и завтра.</p>
-        </ng-template>
-      </div>       -->
-
       <div class="profile-booking-container">
         <div class="input-container">
           <input type="text" id="today" value="Сегодня" class="user-information-input" readonly />
 
-          <!-- <label class = "placeholder" ></label> -->
+          <label for="today">
+            <div class="placeholder_2" *ngIf="todayBookings$ | async as todayBookings; else loadingToday">
+              <div *ngIf="hasTodayBookings; else noTodayBookings">
+                <div *ngFor="let booking of todayBookings">
+                  {{ booking.place }}
+                </div>
+              </div>
+            </div>
+            <ng-template #loadingToday>
+              <p>Загрузка данных на сегодня...</p>
+            </ng-template>
+            <ng-template #noTodayBookings>
+              <p class="not-place">На сегодня нет бронирований</p>
+            </ng-template>
+          </label>
         </div>
 
         <div class="input-container">
           <input type="text" id="tomorrow" value="Завтра" class="user-information-input" readonly />
+          <label for="tomorrow">
+            <div class="placeholder_2" *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
+              <div *ngIf="hasTomorrowBookings; else noTomorrowBookings">
+                <div *ngFor="let booking of tomorrowBookings">
+                  {{ booking.place }}
+                </div>
+              </div>
+            </div>
+            <ng-template #loadingTomorrow>
+              <p>Загрузка данных на завтра...</p>
+            </ng-template>
+            <ng-template class="not-place" #noTomorrowBookings>
+              <p>На завтра нет бронирований</p>
+            </ng-template>
+          </label>
 
-          <h2>Бронирования на сегодня</h2>
-          <div *ngIf="todayBookings$ | async as todayBookings; else loadingToday">
-            <ul>
-              <li *ngFor="let booking of todayBookings">
-                {{ booking | json }}
-                <!-- Измените отображение по вашим данным -->
-              </li>
-            </ul>
-          </div>
-          <ng-template #loadingToday>
-            <p>Загрузка данных на сегодня...</p>
-          </ng-template>
-
-          <h2>Бронирования на завтра</h2>
           <div *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
-            <ul>
-              <li *ngFor="let booking of tomorrowBookings">
-                {{ booking | json }}
-                <!-- Измените отображение по вашим данным -->
-              </li>
-            </ul>
+            <div *ngIf="tomorrowBookings.length > 0">
+              <div *ngFor="let booking of tomorrowBookings">
+                <button class="delete-icon">
+                  <img
+                    src="../../assets/img/nav-img/red-close-icon.svg"
+                    width="20"
+                    height="20"
+                    (click)="deleteBooking(booking.id)"
+                  />
+                </button>
+              </div>
+            </div>
           </div>
           <ng-template #loadingTomorrow>
             <p>Загрузка данных на завтра...</p>
           </ng-template>
-          <!-- <label class="placeholder" ></label> -->
         </div>
 
         <!-- <div class="input-container">
@@ -168,8 +167,6 @@
           </div> -->
       </div>
     </ng-container>
-    <ng-container *ngIf="selectedSection === 'statistics'">
-      <h1>statics</h1>
-    </ng-container>
+    <ng-container *ngIf="selectedSection === 'statistics'"> </ng-container>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ReportsService, Team } from 'src/app/settings/teams/teams.service'; // Скорректируйте путь импорта при необходимости
+import { ReportsService, Team } from 'src/app/settings/teams/teams.service'; // Adjust the import path as needed
 
 @Component({
   selector: 'app-teams',
@@ -8,61 +8,54 @@ import { ReportsService, Team } from 'src/app/settings/teams/teams.service'; // 
   styleUrls: ['./teams.component.scss'],
 })
 export class TeamsComponent implements OnInit {
-  teamName: string = ''; // Свойство для хранения имени команды
-  teams: Team[] = []; // Свойство для хранения списка команд
-  isDropdownVisible: boolean = false; // Свойство для управления видимостью выпадающего списка
+  teamName: string = ''; // Property to store the team name
+  teams: Team[] = []; // Property to store the list of teams
+  isDropdownVisible: boolean = false; // Toggle for dropdown visibility
 
   constructor(
     private dialogRef: MatDialogRef<TeamsComponent>,
-    private reportsService: ReportsService // Инъекция сервиса ReportsService
+    private reportsService: ReportsService // Inject the ReportsService
   ) {}
 
-  ngOnInit(): void {
-    // Загружать команды можно и при инициализации компонента, если нужно сразу отображать данные
-    this.getTeams();
-  }
-
-  getTeams(): void {
-    this.reportsService.getTeams().subscribe(
-      (response) => {
-        this.teams = response;
-        console.log('Команды успешно загружены:', this.teams);
-      },
-      (error) => {
-        console.error('Ошибка при загрузке команд:', error);
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   createTeam(): void {
     if (!this.teamName) {
-      console.error('Имя команды обязательно');
+      console.error('Team name is required');
       return;
     }
 
-    const teamData = { name: this.teamName }; // Подготовка объекта данных команды
+    const teamData = { name: this.teamName }; // Prepare the team data object
     this.reportsService.createEmployees(teamData).subscribe(
       (response) => {
-        console.log('Команда успешно создана:', response);
-        this.getTeams(); // Обновление списка команд после успешного создания
-        this.closeDialog(); // Опционально закрыть диалог после успешного создания
+        console.log('Team created successfully:', response);
+        this.closeDialog(); // Optionally close the dialog after successful creation
       },
       (error) => {
-        console.error('Ошибка при создании команды:', error);
+        console.error('Error creating team:', error);
       }
     );
   }
 
-  toggleDropdown(): void {
-    this.isDropdownVisible = !this.isDropdownVisible; // Переключение видимости списка
+  toggleTeamsDropdown(): void {
     if (this.isDropdownVisible) {
-      this.getTeams(); // Загружаем список команд при первом показе выпадающего списка
+      this.isDropdownVisible = false; // Hide dropdown if it's already visible
+    } else {
+      this.reportsService.getTeams().subscribe(
+        (response) => {
+          this.teams = response;
+          this.isDropdownVisible = true; // Show dropdown when teams are loaded
+        },
+        (error) => {
+          console.error('Error fetching teams:', error);
+        }
+      );
     }
   }
 
-  selectTeam(team: string): void {
-    this.teamName = team; // Установка выбранного имени команды в поле ввода
-    this.isDropdownVisible = false; // Скрытие списка после выбора
+  selectTeam(team: Team): void {
+    this.teamName = team.name; // Update the input field with the selected team's name
+    this.isDropdownVisible = false; // Hide dropdown after selection
   }
 
   closeDialog(): void {

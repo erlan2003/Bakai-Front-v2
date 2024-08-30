@@ -6,19 +6,29 @@
     </button>
   </div>
   <div class="text-field text-field_floating">
-    <input class="text-field__input" type="text" id="bf" required [(ngModel)]="teamName" />
-    <!-- Bind input to teamName -->
+    <input
+      class="text-field__input"
+      type="text"
+      id="bf"
+      required
+      [(ngModel)]="teamName"
+      (click)="toggleTeamsDropdown()"
+    />
     <label class="text-field__label" for="day_input">Создать команду</label>
 
     <button class="ready" (click)="createTeam()">Готово</button>
-    <!-- Trigger createTeam method -->
   </div>
 
   <div class="text-field">
-    <div class="text-field__input empty">Список пуст</div>
-    <button class="text-field__select">
-      <img src="../../assets/img/nav-img/Shevron_icon.png" alt="" />
-    </button>
+    <div class="text-field__input empty" (click)="toggleTeamsDropdown()">
+      Список пуст
+      <button class="close-icon" (click)="toggleTeamsDropdown()">
+        <img src="../../assets/img/nav-img/Shevron_icon.png" alt="Иконка поиска" class="close-icon" />
+      </button>
+    </div>
+    <ul *ngIf="isDropdownVisible" class="dropdown-list">
+      <li *ngFor="let team of teams" (click)="selectTeam(team)">{{ team.name }}</li>
+    </ul>
   </div>
 
   <button class="add">Сохранить изменения</button>

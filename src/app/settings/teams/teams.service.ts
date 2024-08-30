@@ -23,7 +23,7 @@ export class ReportsService {
   }
 
   getTeams(): Observable<Team[]> {
-    // Новый метод для получения списка команд
+    // New method to fetch all teams
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });

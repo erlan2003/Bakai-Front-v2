@@ -49,85 +49,8 @@
             <td>{{ employee.employee.lastName }}</td>
             <td>{{ employee.employee.firstName }}</td>
             <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'null' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
-            <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>{{ employee.employee.lastName }}</td>
-            <td>{{ employee.employee.firstName }}</td>
-            <td>{{ employee.employee.middleName || 'null' }}</td>
-            <td>{{ employee.employee.team || 'null' }}</td>
-            <td>{{ employee.employee.position || 'N/A' }}</td>
+            <td>{{ employee.employee.team?.name || 'null' }}</td>
+            <td>{{ employee.employee.position?.name || 'null' }}</td>
             <td>{{ employee.placeCode }}</td>
             <td>{{ employee.bookingDate }}</td>
           </tr>

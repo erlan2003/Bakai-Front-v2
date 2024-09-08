@@ -6,30 +6,33 @@
     </button>
   </div>
   <div class="text-field text-field_floating">
-    <input
-      class="text-field__input"
-      type="text"
-      id="bf"
-      required
-      [(ngModel)]="teamName"
-      (click)="toggleTeamsDropdown()"
-    />
+    <input class="text-field__input" type="text" id="bf" required [(ngModel)]="teamName" />
     <label class="text-field__label" for="day_input">Создать команду</label>
-
     <button class="ready" (click)="createTeam()">Готово</button>
   </div>
-
   <div class="text-field">
-    <div class="text-field__input empty" (click)="toggleTeamsDropdown()">
-      Список пуст
+    <div class="text-field__input empty">
+      <p>Список команд</p>
       <button class="close-icon" (click)="toggleTeamsDropdown()">
-        <img src="../../assets/img/nav-img/Shevron_icon.png" alt="Иконка поиска" class="close-icon" />
+        <img src="../../assets/img/nav-img/Shevron_icon.png" alt="Стрелка" class="close-icon" />
       </button>
     </div>
     <ul *ngIf="isDropdownVisible" class="dropdown-list">
-      <li *ngFor="let team of teams" (click)="selectTeam(team)">{{ team.name }}</li>
+      <li *ngFor="let team of teams" (click)="selectTeam(team)">
+        {{ team.name }}
+        <div class="edit-delete">
+          <!-- Кнопка редактирования -->
+          <button class="close-icon">
+            <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
+          </button>
+
+          <!-- Кнопка удаления с проверкой на существование team.id -->
+          <button class="close-icon" (click)="team.id ? deleteTeam(team.id) : null; $event.stopPropagation()">
+            <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+          </button>
+        </div>
+      </li>
     </ul>
   </div>
-
   <button class="add">Сохранить изменения</button>
 </div>

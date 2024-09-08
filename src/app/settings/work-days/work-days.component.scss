@@ -11,7 +11,8 @@
 
 .container {
   background-color: white;
-  width: 538px;
+  max-width: 538px;
+  max-height: 600px;
   height: 426px;
   border-radius: 8px;
   margin: 4px;
@@ -208,4 +209,33 @@ h5 {
 
 .close-button:hover {
   color: #005caa;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-select {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  box-shadow: 0px 8px 32px 0px #00000014;
+}
+
+.mat-select-trigger {
+  font-family: "SF Pro Display", sans-serif;
+  color: #333;
+}
+
+.mat-select-panel {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+}
+
+.mat-option {
+  color: #000;
+  font-family: "SF Pro Display", sans-serif;
+}
+
+.mat-option:hover {
+  background-color: #e0e0e0;
 }

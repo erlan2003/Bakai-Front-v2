@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CredentialsService } from '@app/auth/credentials.service';
 
 export interface Team {
+  id?: number;
   name: string;
 }
 
@@ -23,10 +24,23 @@ export class ReportsService {
   }
 
   getTeams(): Observable<Team[]> {
-    // New method to fetch all teams
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
     return this.http.get<Team[]>(`${this.apiUrl}teams`, { headers });
+  }
+
+  deleteTeam(id: number): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.credentialsService.token}`,
+    });
+    return this.http.delete(`${this.apiUrl}teams/${id}`, { headers });
+  }
+
+  updateTeam(team: Team): Observable<Team> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.credentialsService.token}`,
+    });
+    return this.http.put<Team>(`${this.apiUrl}teams/${team.id}`, team, { headers });
   }
 }

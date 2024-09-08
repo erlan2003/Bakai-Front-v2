@@ -48,6 +48,11 @@ h1 {
   gap: 10px;
 }
 
+.download-button:hover {
+  background: #005caa;
+  color: aliceblue;
+}
+
 .search-section {
   display: flex;
   //flex-direction: column;

@@ -3,7 +3,6 @@
     <div class="header">
       <h1>Сотрудники</h1>
     </div>
-
     <div class="search-section">
       <div class="search-container222">
         <div class="search-container">
@@ -46,7 +45,7 @@
             <td>{{ employee.firstName }}</td>
             <td>{{ employee.middleName || 'null' }}</td>
             <td>{{ employee.team?.name || 'null' }}</td>
-            <td>{{ employee.position?.name || 'N/A' }}</td>
+            <td>{{ employee.position?.name || 'null' }}</td>
             <td>{{ employee.email }}</td>
           </tr>
         </tbody>

@@ -14,9 +14,14 @@
 
   <h5>Нерабочие дни</h5>
 
-  <div class="text-field">
-    <input class="text-field__input empty" type="text" id="bf" required placeholder="Список пуст" />
-  </div>
+  <mat-form-field>
+    <mat-label>Не рабочие дни</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let day of nonWorkingDays" [value]="day.date">
+        {{ day.date | date : 'd MMMM' }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <label class="switch">
     <input type="checkbox" />
@@ -24,5 +29,6 @@
     <span class="switch-label">Доступ бронирования в нерабочие дни</span>
   </label>
 
-  <button class="add">Добавить нерабочий день</button>
+  <!--  <button class="add" >Добавить нерабочий день</button>-->
+  <button class="add" (click)="openCalendarDialog()">Добавить нерабочий день</button>
 </div>

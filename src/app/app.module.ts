@@ -8,6 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { BookingMapModule } from './booking-map/booking-map.module';
+import { NotificationsModule } from './notifications/notifications.module';
 
 import { environment } from '@env/environment';
 import { RouteReusableStrategy, ApiPrefixInterceptor, ErrorHandlerInterceptor, SharedModule } from '@shared';
@@ -34,7 +35,8 @@ import { ConferenceModule } from './conference/conference.module';
     BookingMapModule,
     ReportsModule,
     ConferenceModule,
-    AppRoutingModule, // must be imported as the last module as it contains the fallback route
+    AppRoutingModule,
+    NotificationsModule,
   ],
   declarations: [AppComponent],
   providers: [

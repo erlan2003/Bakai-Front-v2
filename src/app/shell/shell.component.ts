@@ -7,6 +7,7 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
 import { SettingsComponent } from '@app/settings/settings.component';
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 @Component({
   selector: 'app-shell',
@@ -87,6 +88,10 @@ export class ShellComponent implements OnInit {
       // width: '594px',
       // height: '720px',
     });
+  }
+
+  openNotificationForm() {
+    this._dialog.open(NotificationsComponent, {});
   }
 
   toggleColor(index: number) {

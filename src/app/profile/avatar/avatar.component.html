@@ -1,0 +1,6 @@
+<div *ngIf="currentEmployee">
+  <div *ngIf="currentEmployee.avatar">
+    <h3>Аватар</h3>
+    <img [src]="'data:image/jpeg;base64,' + currentEmployee.avatar" alt="Аватар" width="100" />
+  </div>
+</div>

@@ -5,6 +5,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { BookingService, Place } from '../booking-map/booking.service';
 import { EmployeeService, Employee, Booking } from '../employees/employee.service';
 import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { AvatarComponent } from '../profile/avatar/avatar.component';
 
 @Component({
   selector: 'app-profile',
@@ -24,13 +26,15 @@ export class ProfileComponent implements OnInit {
   hasTomorrowBookings: boolean = true;
   todayBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
   tomorrowBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
+  selectedFile: File | null = null;
 
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private dialogRef: MatDialogRef<ProfileComponent>,
     private employeeService: EmployeeService,
-    private bookingService: BookingService
+    private bookingService: BookingService,
+    private dialog: MatDialog
   ) {}
 
   getTodayBookings(): void {
@@ -132,5 +136,30 @@ export class ProfileComponent implements OnInit {
         console.error('Ошибка при удалении брони:', error);
       }
     );
+  }
+
+  openAvatarForm() {
+    this.dialog.open(AvatarComponent);
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadAvatar(): void {
+    if (this.selectedFile && this.currentEmployee) {
+      this.employeeService.uploadEmployeeAvatar(this.currentEmployee.id, this.selectedFile).subscribe(
+        () => {
+          console.log('Аватар успешно загружен');
+          this.loadCurrentEmployee(); // Обновляем данные сотрудника после загрузки аватара
+        },
+        (error) => {
+          console.error('Ошибка загрузки аватара', error);
+        }
+      );
+    }
   }
 }

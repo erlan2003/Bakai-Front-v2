@@ -10,6 +10,21 @@
 .profile-container {
   width: 538px;
 }
+
+.avat-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 64px;
+  background-color: #0000000d;
+  font-size: 18px;
+  color: #005caa;
+  font-weight: 590;
+  border: none;
+}
+
 .user-avatarka {
   display: flex;
   justify-content: center;

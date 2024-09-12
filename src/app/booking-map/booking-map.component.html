@@ -36,6 +36,7 @@
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
                   {{ getEmployeeNameInitial(place) }}
                 </ng-container>
+
                 <ng-template #availablePlace>
                   {{ place.code }}
                 </ng-template>
@@ -323,6 +324,7 @@
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
                   {{ getEmployeeNameInitial(place) }}
+                  <!-- {{ getEmployeeAvatar(place) }} -->
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}

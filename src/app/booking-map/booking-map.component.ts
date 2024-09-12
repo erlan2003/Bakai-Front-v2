@@ -11,6 +11,7 @@ export interface Employee {
   firstName: string;
   lastName: string;
   middleName: string;
+  avatar: string;
 }
 
 export interface BookingInfo {
@@ -193,4 +194,14 @@ export class BookingMapComponent implements OnInit {
     }
     return '';
   }
+
+  // getEmployeeAvatar(place: Place): string {
+  //   if (place.bookingInfo && place.bookingInfo.employee && place.bookingInfo.employee.avatar) {
+  //     const avatarUrl = `data:image/jpeg;base64,${place.bookingInfo.employee.avatar}`;
+  //     console.log('Employee Avatar URL:', avatarUrl); // Выводим значение на консоль
+  //     return avatarUrl;
+  //   }
+  //   console.log('No avatar found for employee'); // Выводим сообщение, если аватар отсутствует
+  //   return '';
+  // }
 }

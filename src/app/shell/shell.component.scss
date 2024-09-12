@@ -162,6 +162,27 @@
   border: none;
 }
 
+.notification-img:hover {
+  background-color: #00000026; /* Более темный фон при наведении */
+  transform: scale(1.1); /* Легкое увеличение при наведении */
+  cursor: pointer; /* Указывает, что элемент кликабелен */
+}
+
+.avat-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 64px;
+  background-color: #0000000d;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 18px;
+  color: #005caa;
+  font-weight: 590;
+  border: none;
+}
+
 .user-avatarka {
   display: flex;
   justify-content: center;

@@ -23,6 +23,7 @@ export interface Employee {
   middleName: string;
   position: Position | null;
   team: Team | null;
+  avatar: string;
 }
 
 export interface Booking {
@@ -94,13 +95,12 @@ export class EmployeeService {
         bookings.map((booking) => ({
           bookingDate: booking.bookingDate,
           place: booking.placeCode || 'Место не определено',
-          id: booking.id, // Добавляем идентификатор брони
+          id: booking.id,
         }))
       )
     );
   }
 
-  // Получение бронирований на завтра
   getTomorrowBookingsForCurrentEmployee(): Observable<{ bookingDate: string; place: string; id: number }[]> {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -117,13 +117,12 @@ export class EmployeeService {
         bookings.map((booking) => ({
           bookingDate: booking.bookingDate,
           place: booking.placeCode || 'Место не определено',
-          id: booking.id, // Добавляем идентификатор брони
+          id: booking.id,
         }))
       )
     );
   }
 
-  // Метод для получения бронирований по дате и id сотрудника
   getBookingStats(date: string, employeeId: number): Observable<any[]> {
     const token = this.credentialsService.token;
     if (!token) {
@@ -152,8 +151,23 @@ export class EmployeeService {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `${this.apiUrl}bookings/places/${bookingId}`; // URL для удаления брони
+    const url = `${this.apiUrl}bookings/places/${bookingId}`;
 
     return this.http.delete<void>(url, { headers });
+  }
+
+  uploadEmployeeAvatar(employeeId: number, file: File): Observable<any> {
+    const token = this.credentialsService.token;
+    if (!token) {
+      throw new Error('Token not available');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    const url = `${this.apiUrl}employees/${employeeId}/avatar`;
+
+    return this.http.post(url, formData, { headers });
   }
 }

@@ -84,10 +84,7 @@ export class ShellComponent implements OnInit {
   }
 
   openProfileForm() {
-    this._dialog.open(ProfileComponent, {
-      // width: '594px',
-      // height: '720px',
-    });
+    this._dialog.open(ProfileComponent, {});
   }
 
   openNotificationForm() {

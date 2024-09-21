@@ -3,25 +3,26 @@
     <button class="close-button" (click)="closeDialog()">
       <img src="../../assets/img/nav-img/close-icon.svg" width="20" height="20" />
     </button>
-    <div>
-      <input type="file" (change)="onFileSelected($event)" />
-      <button (click)="uploadAvatar()" [disabled]="!selectedFile">Загрузить аватар</button>
-    </div>
   </div>
   <div class="head-container">
-    <button class="user-avatarka" (click)="openAvatarForm()">
-      <img
-        class="avat-img"
-        *ngIf="currentEmployee?.avatar; else showInitial"
-        [src]="'data:image/jpeg;base64,' + currentEmployee?.avatar"
-        alt="Аватар"
-        width="100"
-      />
-
-      <ng-template #showInitial>
-        <p>{{ lastNameInitial }}</p>
-      </ng-template>
-    </button>
+    <div class="avatar-container">
+      <button class="user-avatarka">
+        <img
+          class="avat-img"
+          *ngIf="currentEmployee?.avatar; else showInitial"
+          [src]="'data:image/jpeg;base64,' + currentEmployee?.avatar"
+          alt="Аватар"
+          width="60"
+          height="60"
+        />
+        <ng-template #showInitial>
+          <p>{{ lastNameInitial }}</p>
+        </ng-template>
+      </button>
+      <button class="avatar-edit" (click)="openAvatarForm()">
+        <img src="../../assets/img/auth-img/edit.svg" width="20" height="20" />
+      </button>
+    </div>
 
     <div class="user-FIO" *ngIf="currentEmployee">
       {{ currentEmployee.lastName }} {{ currentEmployee.firstName }} {{ currentEmployee.middleName }}

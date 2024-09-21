@@ -1,6 +1,24 @@
-<div *ngIf="currentEmployee">
-  <div *ngIf="currentEmployee.avatar">
-    <h3>Аватар</h3>
-    <img [src]="'data:image/jpeg;base64,' + currentEmployee.avatar" alt="Аватар" width="100" />
+<div class="avatar-upload-container">
+  <input type="file" (change)="onFileSelected($event)" class="file-input" />
+
+  <div class="image-cropper-container">
+    <image-cropper
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1"
+      [resizeToWidth]="200"
+      format="jpeg"
+      (imageCropped)="imageCropped($event)"
+      [cropperMinWidth]="200"
+      [cropperMinHeight]="200"
+      class="image-cropper"
+    >
+    </image-cropper>
   </div>
+
+  <div class="cropped-image-container">
+    <img *ngIf="croppedImage" [src]="croppedImage" alt="Обрезанное изображение" class="cropped-image" />
+  </div>
+
+  <button (click)="uploadAvatar()" [disabled]="!croppedImage" class="upload-button">Загрузить аватар</button>
 </div>

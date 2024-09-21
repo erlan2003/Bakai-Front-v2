@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { CredentialsService } from '../auth/credentials.service';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 export interface Position {
   id: number;
@@ -36,23 +36,28 @@ export interface Booking {
 })
 export class EmployeeService {
   private apiUrl = localStorage.getItem('apiBaseUrl') || '';
+  private currentEmployeeSubject = new BehaviorSubject<Employee | null>(null);
+  currentEmployee$ = this.currentEmployeeSubject.asObservable();
 
-  constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
-
-  getEmployees(): Observable<Employee[]> {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${this.credentialsService.token}`,
-    });
-    return this.http.get<Employee[]>(`${this.apiUrl}employees`, { headers });
+  constructor(private http: HttpClient, private credentialsService: CredentialsService) {
+    this.loadCurrentEmployee();
   }
 
-  getCurrentEmployee(): Observable<Employee> {
+  private getAuthHeaders(): HttpHeaders {
     const token = this.credentialsService.token;
     if (!token) {
       throw new Error('Token not available');
     }
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  getEmployees(): Observable<Employee[]> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<Employee[]>(`${this.apiUrl}employees`, { headers });
+  }
+
+  getCurrentEmployee(): Observable<Employee> {
+    const headers = this.getAuthHeaders();
     return this.http.get<Employee>(`${this.apiUrl}employees/me`, { headers });
   }
 
@@ -70,12 +75,7 @@ export class EmployeeService {
       roles: string[];
     }
   ): Observable<Employee> {
-    const token = this.credentialsService.token;
-    if (!token) {
-      throw new Error('Token not available');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}employees/${id}`;
 
     return this.http.put<Employee>(url, profileData, { headers });
@@ -124,12 +124,7 @@ export class EmployeeService {
   }
 
   getBookingStats(date: string, employeeId: number): Observable<any[]> {
-    const token = this.credentialsService.token;
-    if (!token) {
-      throw new Error('Token not available');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}bookings/places/stats?from=${date}&to=${date}&employeeId=${employeeId}`;
 
     console.log('Запрашиваемый URL:', url);
@@ -145,29 +140,26 @@ export class EmployeeService {
   }
 
   deleteTomorrowBooking(bookingId: number): Observable<void> {
-    const token = this.credentialsService.token;
-    if (!token) {
-      throw new Error('Token not available');
-    }
-
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}bookings/places/${bookingId}`;
 
     return this.http.delete<void>(url, { headers });
   }
 
-  uploadEmployeeAvatar(employeeId: number, file: File): Observable<any> {
-    const token = this.credentialsService.token;
-    if (!token) {
-      throw new Error('Token not available');
-    }
+  loadCurrentEmployee() {
+    this.getCurrentEmployee().subscribe(
+      (employee) => this.currentEmployeeSubject.next(employee),
+      (error) => console.error('Error fetching current employee', error)
+    );
+  }
 
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const formData = new FormData();
-    formData.append('avatar', file);
-
+  uploadEmployeeAvatar(employeeId: number, formData: FormData): Observable<any> {
+    const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}employees/${employeeId}/avatar`;
 
-    return this.http.post(url, formData, { headers });
+    return this.http.post(url, formData, { headers }).pipe(
+      switchMap(() => this.getCurrentEmployee()),
+      tap((employee) => this.currentEmployeeSubject.next(employee))
+    );
   }
 }

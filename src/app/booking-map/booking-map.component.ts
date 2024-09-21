@@ -4,6 +4,7 @@ import { CredentialsService } from '../auth/credentials.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingComponent } from './booking/booking.component';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { StateService } from '../profile/state.service';
 
 export interface Employee {
   id: number;
@@ -58,7 +59,8 @@ export class BookingMapComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private credentialsService: CredentialsService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private stateService: StateService
   ) {}
 
   ngOnInit(): void {
@@ -67,13 +69,36 @@ export class BookingMapComponent implements OnInit {
       this.selectedDate = dateParam ? new Date(dateParam) : new Date();
       this.fetchPlaces();
     });
+
+    this.stateService.bookingUpdated$.subscribe(() => {
+      this.fetchPlaces();
+    });
   }
+
+  // openBookingModule(place: Place): void {
+  //   const dialogRef = this.dialog.open(BookingComponent, {
+  //     width: '594px',
+  //     height: '325px',
+  //     data: { selectedPlace: place, selectedDate: this.selectedDate },
+  //   });
+
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     console.log('Модальное окно закрыто');
+  //     if (result) {
+  //       console.log('Выбранное место:', result);
+  //     }
+  //   });
+  // }
 
   openBookingModule(place: Place): void {
     const dialogRef = this.dialog.open(BookingComponent, {
       width: '594px',
       height: '325px',
       data: { selectedPlace: place, selectedDate: this.selectedDate },
+    });
+
+    dialogRef.componentInstance.bookingMapUpdated.subscribe(() => {
+      this.fetchPlaces();
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -119,6 +144,35 @@ export class BookingMapComponent implements OnInit {
     });
   }
 
+  // fetchEmployeeInfo(place: Place): void {
+  //   const token = this.credentialsService.token;
+  //   if (!token) {
+  //     throw new Error('Token not available');
+  //   }
+
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   const url = `http://localhost:8080/api/places/${place.id}?date=${this.formatDate(this.selectedDate)}`;
+
+  //   this.http.get<{ booking: BookingInfo }>(url, { headers }).subscribe(
+  //     (response) => {
+  //       if (response && response.booking && response.booking.employee) {
+  //         place.bookingInfo = response.booking;
+  //         const { firstName, lastName, middleName } = response.booking.employee;
+  //         console.log(`Забронировавший сотрудник: ${lastName} ${firstName} ${middleName}`);
+  //       } else {
+  //         console.log('Данные о сотруднике не найдены.');
+  //       }
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       if (error.status === 404) {
+  //         console.log(`Место с ID ${place.id} на дату ${this.formatDate(this.selectedDate)} не забронировано.`);
+  //       } else {
+  //         console.error('Ошибка при получении данных о бронировании:', error);
+  //       }
+  //     }
+  //   );
+  // }
+
   fetchEmployeeInfo(place: Place): void {
     const token = this.credentialsService.token;
     if (!token) {
@@ -132,8 +186,8 @@ export class BookingMapComponent implements OnInit {
       (response) => {
         if (response && response.booking && response.booking.employee) {
           place.bookingInfo = response.booking;
-          const { firstName, lastName, middleName } = response.booking.employee;
-          console.log(`Забронировавший сотрудник: ${lastName} ${firstName} ${middleName}`);
+          const employeeId = response.booking.employee.id;
+          this.fetchBookingStats(employeeId, place);
         } else {
           console.log('Данные о сотруднике не найдены.');
         }
@@ -146,6 +200,49 @@ export class BookingMapComponent implements OnInit {
         }
       }
     );
+  }
+
+  fetchBookingStats(employeeId: number, place: Place): void {
+    const token = this.credentialsService.token;
+    if (!token) {
+      throw new Error('Token not available');
+    }
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `http://localhost:8080/api/bookings/places/stats?from=${this.formatDate(
+      this.selectedDate
+    )}&to=${this.formatDate(new Date(this.selectedDate.getTime() + 24 * 60 * 60 * 1000))}`;
+
+    this.http.get<any[]>(url, { headers }).subscribe(
+      (stats) => {
+        const bookingInfo = stats.find((stat) => stat.employee.id === employeeId);
+        if (bookingInfo && bookingInfo.employee) {
+          const avatarUrl = bookingInfo.employee.avatar;
+          console.log('URL аватара:', avatarUrl);
+          if (place.bookingInfo?.employee) {
+            place.bookingInfo.employee.avatar = avatarUrl;
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.error('Ошибка при получении данных о статистике бронирований:', error);
+      }
+    );
+  }
+
+  convertToBase64(url: string): Promise<string> {
+    return fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve(reader.result as string);
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      });
   }
 
   getPlaceClass(place: Place): string {
@@ -187,6 +284,7 @@ export class BookingMapComponent implements OnInit {
     }
     return '';
   }
+
   getEmployeeNameInitial(place: Place): string {
     if (place.bookingInfo && place.bookingInfo.employee) {
       const { lastName } = place.bookingInfo.employee;
@@ -194,14 +292,4 @@ export class BookingMapComponent implements OnInit {
     }
     return '';
   }
-
-  // getEmployeeAvatar(place: Place): string {
-  //   if (place.bookingInfo && place.bookingInfo.employee && place.bookingInfo.employee.avatar) {
-  //     const avatarUrl = `data:image/jpeg;base64,${place.bookingInfo.employee.avatar}`;
-  //     console.log('Employee Avatar URL:', avatarUrl); // Выводим значение на консоль
-  //     return avatarUrl;
-  //   }
-  //   console.log('No avatar found for employee'); // Выводим сообщение, если аватар отсутствует
-  //   return '';
-  // }
 }

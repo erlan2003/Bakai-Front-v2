@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Place } from '../booking-map.component';
@@ -17,13 +17,14 @@ export class BookingComponent implements OnInit {
   selectedPlace: Place | undefined;
   selectedDate: Date;
   isWork: boolean = true;
+  @Output() bookingMapUpdated = new EventEmitter<void>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<BookingComponent>,
     private http: HttpClient,
     private credentialsService: CredentialsService,
-    private dialog: MatDialog // Внедряем MatDialog
+    private dialog: MatDialog
   ) {
     this.selectedPlaceId = data.selectedPlace?.id;
     this.selectedDate = data.selectedDate;
@@ -40,12 +41,11 @@ export class BookingComponent implements OnInit {
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = 'places'; // URL для получения всех мест
+    const url = 'places';
 
     this.http.get<Place[]>(url, { headers }).subscribe(
       (places) => {
         this.allPlaces = places;
-        // Устанавливаем выбранное место на основе идентификатора
         this.selectedPlace = this.allPlaces.find((place) => place.id === this.selectedPlaceId);
       },
       (error) => {
@@ -85,7 +85,8 @@ export class BookingComponent implements OnInit {
       (response) => {
         console.log('Бронирование успешно:', response);
         this.openMessageDialog('Место успешно забронировано');
-        // window.location.reload();
+        this.bookingMapUpdated.emit();
+        this.dialogRef.close();
       },
       (error) => {
         console.error('Ошибка при бронировании:', error);
@@ -100,7 +101,6 @@ export class BookingComponent implements OnInit {
     );
   }
 
-  // Метод для форматирования даты вручную
   formatDate(date: Date): string {
     return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date
       .getDate()
@@ -108,7 +108,6 @@ export class BookingComponent implements OnInit {
       .padStart(2, '0')}`;
   }
 
-  // Метод для открытия диалога с сообщением
   openMessageDialog(message: string): void {
     this.dialog
       .open(BookingResultDialogComponent, {
@@ -117,10 +116,7 @@ export class BookingComponent implements OnInit {
         data: { message },
       })
       .afterClosed()
-      .subscribe(() => {
-        // this.dialogRef.close();
-        // window.location.reload();
-      });
+      .subscribe(() => {});
   }
 
   selectWork(): void {

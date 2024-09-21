@@ -13,7 +13,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -34,7 +43,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
 
                 <ng-template #availablePlace>
@@ -56,7 +74,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -77,7 +104,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -98,7 +134,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -120,7 +165,16 @@
               >
                 <div class="place" [ngClass]="getPlaceClass(place)">
                   <ng-container *ngIf="place.hasBooking; else availablePlace">
-                    {{ getEmployeeNameInitial(place) }}
+                    <img
+                      class="place"
+                      *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                      [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                      alt="Аватар"
+                      width="100"
+                    />
+                    <ng-template #showInitial>
+                      {{ getEmployeeNameInitial(place) }}
+                    </ng-template>
                   </ng-container>
                   <ng-template #availablePlace>
                     {{ place.code }}
@@ -141,7 +195,16 @@
               >
                 <div class="place" [ngClass]="getPlaceClass(place)">
                   <ng-container *ngIf="place.hasBooking; else availablePlace">
-                    {{ getEmployeeNameInitial(place) }}
+                    <img
+                      class="place"
+                      *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                      [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                      alt="Аватар"
+                      width="100"
+                    />
+                    <ng-template #showInitial>
+                      {{ getEmployeeNameInitial(place) }}
+                    </ng-template>
                   </ng-container>
                   <ng-template #availablePlace>
                     {{ place.code }}
@@ -164,7 +227,16 @@
               >
                 <div class="place" [ngClass]="getPlaceClass(place)">
                   <ng-container *ngIf="place.hasBooking; else availablePlace">
-                    {{ getEmployeeNameInitial(place) }}
+                    <img
+                      class="place"
+                      *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                      [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                      alt="Аватар"
+                      width="100"
+                    />
+                    <ng-template #showInitial>
+                      {{ getEmployeeNameInitial(place) }}
+                    </ng-template>
                   </ng-container>
                   <ng-template #availablePlace>
                     {{ place.code }}
@@ -185,7 +257,16 @@
               >
                 <div class="place" [ngClass]="getPlaceClass(place)">
                   <ng-container *ngIf="place.hasBooking; else availablePlace">
-                    {{ getEmployeeNameInitial(place) }}
+                    <img
+                      class="place"
+                      *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                      [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                      alt="Аватар"
+                      width="100"
+                    />
+                    <ng-template #showInitial>
+                      {{ getEmployeeNameInitial(place) }}
+                    </ng-template>
                   </ng-container>
                   <ng-template #availablePlace>
                     {{ place.code }}
@@ -206,7 +287,16 @@
               >
                 <div class="place" [ngClass]="getPlaceClass(place)">
                   <ng-container *ngIf="place.hasBooking; else availablePlace">
-                    {{ getEmployeeNameInitial(place) }}
+                    <img
+                      class="place"
+                      *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                      [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                      alt="Аватар"
+                      width="100"
+                    />
+                    <ng-template #showInitial>
+                      {{ getEmployeeNameInitial(place) }}
+                    </ng-template>
                   </ng-container>
                   <ng-template #availablePlace>
                     {{ place.code }}
@@ -237,7 +327,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -260,7 +359,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -281,7 +389,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -302,7 +419,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}
@@ -323,8 +449,16 @@
             >
               <div class="place" [ngClass]="getPlaceClass(place)">
                 <ng-container *ngIf="place.hasBooking; else availablePlace">
-                  {{ getEmployeeNameInitial(place) }}
-                  <!-- {{ getEmployeeAvatar(place) }} -->
+                  <img
+                    class="place"
+                    *ngIf="place.bookingInfo?.employee?.avatar; else showInitial"
+                    [src]="'data:image/jpeg;base64,' + place.bookingInfo?.employee?.avatar"
+                    alt="Аватар"
+                    width="100"
+                  />
+                  <ng-template #showInitial>
+                    {{ getEmployeeNameInitial(place) }}
+                  </ng-template>
                 </ng-container>
                 <ng-template #availablePlace>
                   {{ place.code }}

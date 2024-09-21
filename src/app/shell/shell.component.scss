@@ -80,6 +80,15 @@
       width: 156px;
       text-align: left;
       border-radius: 4px 4px 4px 4px;
+
+      &:hover {
+        background-color: #f0f0f0;
+        color: #000;
+        display: block;
+      }
+    }
+    &:hover {
+      background-color: #e0e0e0;
     }
   }
 
@@ -95,6 +104,11 @@
     align-items: center;
     width: 56px;
     height: 56px;
+
+    &:hover {
+      background-color: #abeeff;
+      border-radius: 3px;
+    }
   }
 
   &.expanded .nav-back-icon {
@@ -163,9 +177,9 @@
 }
 
 .notification-img:hover {
-  background-color: #00000026; /* Более темный фон при наведении */
-  transform: scale(1.1); /* Легкое увеличение при наведении */
-  cursor: pointer; /* Указывает, что элемент кликабелен */
+  background-color: #00000026;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 .avat-img {

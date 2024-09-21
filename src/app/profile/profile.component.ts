@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthenticationService } from '../auth/authentication.service';
 import { Router } from '@angular/router';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -7,6 +7,7 @@ import { EmployeeService, Employee, Booking } from '../employees/employee.servic
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AvatarComponent } from '../profile/avatar/avatar.component';
+import { StateService } from './state.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +27,8 @@ export class ProfileComponent implements OnInit {
   hasTomorrowBookings: boolean = true;
   todayBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
   tomorrowBookings$: Observable<{ bookingDate: string; place: string; id: number }[]> | undefined;
-  selectedFile: File | null = null;
+  employee: Employee | null = null;
+  @Output() bookingDeleted = new EventEmitter<void>();
 
   constructor(
     private router: Router,
@@ -34,7 +36,8 @@ export class ProfileComponent implements OnInit {
     private dialogRef: MatDialogRef<ProfileComponent>,
     private employeeService: EmployeeService,
     private bookingService: BookingService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private stateService: StateService
   ) {}
 
   getTodayBookings(): void {
@@ -90,6 +93,15 @@ export class ProfileComponent implements OnInit {
     this.bookingService.getTomorrowBookings().subscribe((places) => {
       this.tomorrowBookings = places;
     });
+
+    this.employeeService.currentEmployee$.subscribe(
+      (employee) => {
+        this.employee = employee;
+      },
+      (error) => {
+        console.error('Error fetching current employee', error);
+      }
+    );
   }
 
   loadCurrentEmployee() {
@@ -130,6 +142,7 @@ export class ProfileComponent implements OnInit {
     this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
       () => {
         console.log('Бронь успешно удалена');
+        this.stateService.notifyBookingUpdated();
         this.getTomorrowBookings();
       },
       (error) => {
@@ -139,27 +152,11 @@ export class ProfileComponent implements OnInit {
   }
 
   openAvatarForm() {
-    this.dialog.open(AvatarComponent);
-  }
+    const dialogRef = this.dialog.open(AvatarComponent);
 
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.selectedFile = input.files[0];
-    }
-  }
-
-  uploadAvatar(): void {
-    if (this.selectedFile && this.currentEmployee) {
-      this.employeeService.uploadEmployeeAvatar(this.currentEmployee.id, this.selectedFile).subscribe(
-        () => {
-          console.log('Аватар успешно загружен');
-          this.loadCurrentEmployee(); // Обновляем данные сотрудника после загрузки аватара
-        },
-        (error) => {
-          console.error('Ошибка загрузки аватара', error);
-        }
-      );
-    }
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadCurrentEmployee();
+      this.stateService.notifyBookingUpdated();
+    });
   }
 }

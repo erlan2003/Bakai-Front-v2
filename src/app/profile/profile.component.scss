@@ -15,22 +15,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 64px;
-  background-color: #0000000d;
-  font-size: 18px;
-  color: #005caa;
-  font-weight: 590;
-  border: none;
-}
-
-.user-avatarka {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
+  width: 60px;
+  height: 60px;
   border-radius: 64px;
   background-color: #0000000d;
   font-size: 18px;
@@ -190,4 +176,34 @@
 
 .not-place {
   margin-top: 3px;
+}
+
+.avatar-edit {
+  top: 37px;
+  left: 37px;
+  position: absolute;
+  border: none;
+  background-color: #00000060;
+  border-radius: 15px;
+  width: 30px;
+  height: 30px;
+}
+
+.avatar-container {
+  display: flex;
+  position: relative;
+}
+
+.user-avatarka {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 64px;
+  background-color: #0000000d;
+  font-size: 18px;
+  color: #005caa;
+  font-weight: 590;
+  border: none;
 }

@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
 import { SettingsComponent } from '@app/settings/settings.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shell',
@@ -32,9 +33,25 @@ export class ShellComponent implements OnInit {
     private _dialog: MatDialog
   ) {}
 
+  // ngOnInit() {
+  //   this.loadCurrentEmployee();
+  //   this.setCurrentMonthYear();
+  // }
+
   ngOnInit() {
     this.loadCurrentEmployee();
     this.setCurrentMonthYear();
+
+    // Подписка на изменения текущего сотрудника
+    this.employeeService.currentEmployee$.subscribe(
+      (employee) => {
+        this.currentEmployee = employee;
+        this.setLastNameInitial(); // Обновляем инициал фамилии
+      },
+      (error) => {
+        console.error('Ошибка при получении текущего сотрудника', error);
+      }
+    );
   }
 
   setCurrentMonthYear() {
@@ -84,7 +101,11 @@ export class ShellComponent implements OnInit {
   }
 
   openProfileForm() {
-    this._dialog.open(ProfileComponent, {});
+    const dialogRef = this._dialog.open(ProfileComponent, {});
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.employeeService.loadCurrentEmployee();
+    });
   }
 
   openNotificationForm() {

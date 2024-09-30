@@ -1,36 +1,3 @@
-// import { Component } from '@angular/core';
-//
-// @Component({
-//   selector: 'app-reports', // измените на 'app-reports'
-//   templateUrl: './reports.component.html',
-//   styleUrls: ['./reports.component.scss'],
-// })
-// export class ReportsComponent {
-//   // измените на ReportsComponent
-//   // Добавляем массив employees с примерными данными
-//   employees = [
-//     {
-//       lastName: 'Иванов',
-//       firstName: 'Иван',
-//       middleName: 'Иванович',
-//       team: 'Команда 1',
-//       position: 'Должность 1',
-//       location: 'Место 1',
-//       date: '01.08.2024',
-//     },
-//     {
-//       lastName: 'Петров',
-//       firstName: 'Петр',
-//       middleName: 'Петрович',
-//       team: 'Команда 2',
-//       position: 'Должность 2',
-//       location: 'Место 2',
-//       date: '02.08.2024',
-//     },
-//     // Добавьте другие данные по необходимости
-//   ];
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { ReportsService } from '@app/reports/reports.service';
 
@@ -45,6 +12,8 @@ export class ReportsComponent implements OnInit {
   fromDate: string = '';
   toDate: string = '';
   selectedTeam: string = '';
+  sortField: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc'; // Порядок сортировки
 
   constructor(private reportsService: ReportsService) {}
 
@@ -59,13 +28,33 @@ export class ReportsComponent implements OnInit {
 
     this.reportsService.getReports(from, to, FIO).subscribe(
       (data) => {
-        console.log('Полученные данные:', data);
         this.employees = data;
+        this.sortEmployees(); // Сортируем данные при загрузке
       },
       (error) => {
         console.error('Ошибка при загрузке отчетов:', error);
       }
     );
+  }
+
+  sortEmployees(): void {
+    const direction = this.sortDirection === 'asc' ? 1 : -1;
+    this.employees.sort((a, b) => {
+      const fieldA = a.employee[this.sortField]?.toLowerCase() || '';
+      const fieldB = b.employee[this.sortField]?.toLowerCase() || '';
+      return fieldA > fieldB ? direction : fieldA < fieldB ? -direction : 0;
+    });
+  }
+
+  onSort(field: string): void {
+    if (this.sortField === field) {
+      // Если поле сортировки то же самое, меняем направление сортировки
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortField = field;
+      this.sortDirection = 'asc'; // По умолчанию сортируем по возрастанию
+    }
+    this.sortEmployees(); // Выполняем сортировку
   }
 
   onDoneClick(): void {

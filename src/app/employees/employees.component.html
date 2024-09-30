@@ -31,9 +31,15 @@
       <table class="report-table">
         <thead>
           <tr>
-            <th>Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
-            <th>Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
-            <th>Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" /></th>
+            <th (click)="sortBy('lastName')">
+              Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
+            <th (click)="sortBy('firstName')">
+              Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
+            <th (click)="sortBy('middleName')">
+              Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
             <th>Команда</th>
             <th>Должность</th>
             <th>Почта</th>

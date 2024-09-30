@@ -11,8 +11,8 @@ export class EmployeesComponent implements OnInit {
   filteredEmployees: Employee[] = [];
   searchQuery: string = '';
   selectedTeam: string = '';
-  currentEmployee: Employee | null = null;
-  lastNameInitial: string = '';
+  sortField: string = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(private employeeService: EmployeeService) {}
 
@@ -26,6 +26,25 @@ export class EmployeesComponent implements OnInit {
         console.error('Error fetching employees', error);
       }
     );
+  }
+
+  sortBy(field: string): void {
+    if (this.sortField === field) {
+      // Переключение направления сортировки
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      // Задаем новое поле для сортировки
+      this.sortField = field;
+      this.sortDirection = 'asc';
+    }
+
+    this.filteredEmployees.sort((a, b) => {
+      const valueA = (a as any)[field]?.toString().toLowerCase() || '';
+      const valueB = (b as any)[field]?.toString().toLowerCase() || '';
+      if (valueA < valueB) return this.sortDirection === 'asc' ? -1 : 1;
+      if (valueA > valueB) return this.sortDirection === 'asc' ? 1 : -1;
+      return 0;
+    });
   }
 
   clearSearch() {

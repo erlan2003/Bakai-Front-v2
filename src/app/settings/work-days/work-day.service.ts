@@ -23,6 +23,14 @@ export class WorkDaysService {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    return this.http.post<any>(`${this.apiUrl}/weekends`, data, { headers });
+    return this.http.post<any>(`${this.apiUrl}weekends`, data, { headers });
+  }
+
+  deleteWeekend(date: string): Observable<any> {
+    console.log('ID DELETE = ', date);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this.credentialsService.token}`,
+    });
+    return this.http.delete(`${this.apiUrl}weekends/${date}`, { headers });
   }
 }

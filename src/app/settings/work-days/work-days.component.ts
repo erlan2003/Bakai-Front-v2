@@ -69,4 +69,18 @@ export class WorkDaysComponent implements OnInit {
       }
     );
   }
+
+  deleteWeekend(date: string): void {
+    this.workDaysService.deleteWeekend(date).subscribe(
+      (response) => {
+        console.log('Team deleted successfully:', response);
+        this.fetchNonWorkingDays(); // Refresh team list after deletion
+      },
+      (error) => {
+        console.error('Error deleting team:', error);
+      }
+    );
+  }
+
+  protected readonly parseFloat = parseFloat;
 }

@@ -17,8 +17,15 @@
   <mat-form-field>
     <mat-label>Не рабочие дни</mat-label>
     <mat-select>
-      <mat-option *ngFor="let day of nonWorkingDays" [value]="day.date">
+      <mat-option
+        *ngFor="let day of nonWorkingDays"
+        [value]="day.date"
+        (click)="day.id ? deleteWeekend(day.id) : null; $event.stopPropagation()"
+      >
         {{ day.date | date : 'd MMMM' }}
+        <button class="close-icon" (click)="deleteWeekend(day.date); $event.stopPropagation()">
+          <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+        </button>
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -29,6 +36,5 @@
     <span class="switch-label">Доступ бронирования в нерабочие дни</span>
   </label>
 
-  <!--  <button class="add" >Добавить нерабочий день</button>-->
   <button class="add" (click)="openCalendarDialog()">Добавить нерабочий день</button>
 </div>

@@ -1,41 +1,42 @@
 <div class="container">
   <div class="header">
-    <h4>Бронь рабочих мест</h4>
+    <h4>Бронь переговорной</h4>
     <button class="close-icon" (click)="closeDialog()">
       <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
     </button>
   </div>
+
   <h5>Доступно</h5>
   <div class="time">
     <div class="time_input">
-      <input class="timee__input" type="text" id="bf" required />
-      <label class="timee__label" for="time_input">С:</label>
+      <input class="timee__input" type="time" [(ngModel)]="meetingOpenTime" required />
+      <label class="timee__label" for="meetingOpenTime">С:</label>
     </div>
 
     <div class="time_input">
-      <input class="timee__input" type="text" id="bf" required />
-      <label class="timee__label" for="time_input">До:</label>
+      <input class="timee__input" type="time" [(ngModel)]="meetingCloseTime" required />
+      <label class="timee__label" for="meetingCloseTime">До:</label>
     </div>
   </div>
 
-  <p>Интервал</p>
-
+  <h5>Длительность встречи</h5>
   <div class="time">
     <div class="time_input">
-      <input class="timee__input" type="text" id="bf" required />
-      <label class="timee__label" for="time_input">С:</label>
+      <input class="timee__input" type="number" min="0" [(ngModel)]="minMeetingDuration" required />
+      <label class="timee__label" for="minMeetingDuration">Минимум (мин.):</label>
     </div>
 
     <div class="time_input">
-      <input class="timee__input" type="text" id="bf" required />
-      <label class="timee__label" for="time_input">До:</label>
+      <input class="timee__input" type="number" min="0" [(ngModel)]="maxMeetingDuration" required />
+      <label class="timee__label" for="maxMeetingDuration">Максимум (мин.):</label>
     </div>
   </div>
 
+  <h5>Дни наперед</h5>
   <div class="text-field text-field_floating">
-    <input class="text-field__input" type="text" id="bf" required />
-    <label class="text-field__label" for="day_input">Наперед</label>
-    <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
+    <input class="text-field__input" type="number" [(ngModel)]="daysAhead" min="0" required />
+    <label class="text-field__label" for="day_input">Наперед дней</label>
   </div>
-  <button class="save">Сохранить изменения</button>
+
+  <button class="save" (click)="saveChanges()">Сохранить изменения</button>
 </div>

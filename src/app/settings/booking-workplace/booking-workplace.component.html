@@ -9,21 +9,20 @@
     <h5>Доступно</h5>
     <div class="time">
       <div class="time_input">
-        <input class="timee__input" type="time" id="bf" required />
+        <input class="timee__input" type="time" [(ngModel)]="bookingOpenTime" required />
         <label class="timee__label" for="time_input">С:</label>
       </div>
 
       <div class="time_input">
-        <input class="timee__input" type="time" id="bf" required />
+        <input class="timee__input" type="time" [(ngModel)]="bookingCloseTime" required />
         <label class="timee__label" for="time_input">До:</label>
       </div>
     </div>
-
-    <div class="text-field text-field_floating">
-      <input class="text-field__input" type="text" id="bf" required />
-      <label class="text-field__label" for="day_input">Наперед</label>
-      <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
+    <div class="dayBefore-input">
+      <label for="dayBefore-input" class="dayBefore-label">Наперед дней</label>
+      <input type="number" [(ngModel)]="daysAhead" class="dayBefore" min="0" (input)="validateDaysAhead()" />
     </div>
-    <button class="save">Сохранить изменения</button>
+
+    <button class="save" (click)="saveChanges()">Сохранить изменения</button>
   </div>
 </div>

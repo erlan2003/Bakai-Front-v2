@@ -175,3 +175,36 @@ h5 {
 .save:hover {
   background-color: #004a94;
 }
+.dayBefore-input {
+  background: #f7f8fa;
+  margin-bottom: 16px;
+  margin-top: 36px;
+  width: 538px;
+  height: 72px;
+  padding: 18px 12px 18px 12px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dayBefore-label {
+  position: absolute;
+  //top: 30%;
+  font-family: SF Pro, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.dayBefore {
+  //position: absolute;
+  top: 30%;
+  //all: unset;
+  font-family: SF Pro, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+  height: 19px;
+  margin-top: 17px;
+  border: unset;
+  background: transparent;
+}

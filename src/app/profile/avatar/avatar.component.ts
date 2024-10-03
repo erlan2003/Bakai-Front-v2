@@ -32,26 +32,26 @@ export class AvatarComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    this.imageChangedEvent = event; // Сохраняем событие для обрезки изображения
+    this.imageChangedEvent = event;
   }
 
   imageCropped(event: ImageCroppedEvent) {
-    this.croppedImage = event.base64; // Сохраняем обрезанное изображение в формате Base64
+    this.croppedImage = event.base64;
   }
 
   uploadAvatar(): void {
     if (this.croppedImage && this.currentEmployee) {
       const base64ImageBlob = this.dataURItoBlob(this.croppedImage);
-      const file = this.blobToFile(base64ImageBlob, 'avatar.jpeg'); // Преобразуем Blob в File
+      const file = this.blobToFile(base64ImageBlob, 'avatar.jpeg');
 
       const formData = new FormData();
-      formData.append('image', file); // Используем ключ 'image' для загрузки файла, как требует бэкенд
+      formData.append('image', file);
 
       this.employeeService.uploadEmployeeAvatar(this.currentEmployee.id, formData).subscribe(
         () => {
           console.log('Аватар успешно загружен');
           this.dialogRef.close();
-          this.loadCurrentEmployee(); // Обновляем данные сотрудника после загрузки аватара
+          this.loadCurrentEmployee();
         },
         (error) => {
           console.error('Ошибка загрузки аватара', error);

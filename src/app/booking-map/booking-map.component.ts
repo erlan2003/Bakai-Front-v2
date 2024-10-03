@@ -102,10 +102,10 @@ export class BookingMapComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('Модальное окно закрыто');
-      if (result) {
-        console.log('Выбранное место:', result);
-      }
+      // console.log('Модальное окно закрыто');
+      // if (result) {
+      //   console.log('Выбранное место:', result);
+      // }
     });
   }
 
@@ -188,13 +188,14 @@ export class BookingMapComponent implements OnInit {
           place.bookingInfo = response.booking;
           const employeeId = response.booking.employee.id;
           this.fetchBookingStats(employeeId, place);
-        } else {
-          console.log('Данные о сотруднике не найдены.');
         }
+        //  else {
+        //   console.log('Данные о сотруднике не найдены.');
+        // }
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
-          console.log(`Место с ID ${place.id} на дату ${this.formatDate(this.selectedDate)} не забронировано.`);
+          // console.log(`Место с ID ${place.id} на дату ${this.formatDate(this.selectedDate)} не забронировано.`);
         } else {
           console.error('Ошибка при получении данных о бронировании:', error);
         }
@@ -218,7 +219,6 @@ export class BookingMapComponent implements OnInit {
         const bookingInfo = stats.find((stat) => stat.employee.id === employeeId);
         if (bookingInfo && bookingInfo.employee) {
           const avatarUrl = bookingInfo.employee.avatar;
-          console.log('URL аватара:', avatarUrl);
           if (place.bookingInfo?.employee) {
             place.bookingInfo.employee.avatar = avatarUrl;
           }

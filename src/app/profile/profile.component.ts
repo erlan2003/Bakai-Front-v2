@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
     this.todayBookings$.subscribe(
       (data) => {
         this.hasTodayBookings = data.length > 0;
-        console.log('Бронирования на сегодня:', data);
+        // console.log('Бронирования на сегодня:', data);
       },
       (error) => {
         console.error('Ошибка при получении бронирований на сегодня:', error);
@@ -61,7 +61,7 @@ export class ProfileComponent implements OnInit {
     this.tomorrowBookings$.subscribe(
       (data) => {
         this.hasTomorrowBookings = data.length > 0;
-        console.log('Бронирования на завтра:', data);
+        // console.log('Бронирования на завтра:', data);
       },
       (error) => {
         console.error('Ошибка при получении бронирований на завтра:', error);
@@ -141,7 +141,7 @@ export class ProfileComponent implements OnInit {
 
     this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
       () => {
-        console.log('Бронь успешно удалена');
+        // console.log('Бронь успешно удалена');
         this.stateService.notifyBookingUpdated();
         this.getTomorrowBookings();
       },

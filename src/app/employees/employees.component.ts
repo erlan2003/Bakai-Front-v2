@@ -30,10 +30,8 @@ export class EmployeesComponent implements OnInit {
 
   sortBy(field: string): void {
     if (this.sortField === field) {
-      // Переключение направления сортировки
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
-      // Задаем новое поле для сортировки
       this.sortField = field;
       this.sortDirection = 'asc';
     }

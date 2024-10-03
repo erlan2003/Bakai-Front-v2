@@ -127,8 +127,6 @@ export class EmployeeService {
     const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}bookings/places/stats?from=${date}&to=${date}&employeeId=${employeeId}`;
 
-    console.log('Запрашиваемый URL:', url);
-
     return this.http.get<any[]>(url, { headers });
   }
 

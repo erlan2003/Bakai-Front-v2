@@ -42,11 +42,10 @@ export class ShellComponent implements OnInit {
     this.loadCurrentEmployee();
     this.setCurrentMonthYear();
 
-    // Подписка на изменения текущего сотрудника
     this.employeeService.currentEmployee$.subscribe(
       (employee) => {
         this.currentEmployee = employee;
-        this.setLastNameInitial(); // Обновляем инициал фамилии
+        this.setLastNameInitial();
       },
       (error) => {
         console.error('Ошибка при получении текущего сотрудника', error);

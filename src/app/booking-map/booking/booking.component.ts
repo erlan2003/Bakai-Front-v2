@@ -71,8 +71,6 @@ export class BookingComponent implements OnInit {
       bookingDate: formattedDate,
     };
 
-    console.log('Отправка данных бронирования:', bookingData);
-
     const token = this.credentialsService.token;
     if (!token) {
       throw new Error('Token not available');
@@ -83,7 +81,6 @@ export class BookingComponent implements OnInit {
 
     this.http.post(url, bookingData, { headers }).subscribe(
       (response) => {
-        console.log('Бронирование успешно:', response);
         this.openMessageDialog('Место успешно забронировано');
         this.bookingMapUpdated.emit();
         this.dialogRef.close();

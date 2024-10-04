@@ -1,5 +1,57 @@
-.ttt {
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Семь дней */
+  grid-auto-rows: 60px;
+}
+
+.time-slot {
+  border: 1px solid #ddd;
+  position: relative;
+  min-height: 60px;
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.meeting {
+  position: absolute;
+  background-color: #e0f7fa;
+  padding: 5px;
+  border-radius: 5px;
   width: 100%;
-  height: 100%;
-  background-color: red;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 85px repeat(7, 1fr);
+  gap: 10px; /* Отступы между колонками */
+  padding-bottom: 10px;
+  margin-top: 15px;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 85px 1fr; /* Колонка времени и колонка дней */
+  gap: 10px;
+}
+
+.time-column {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-right: 10px;
+  vertical-align: center;
+  align-items: center;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: bold;
+}
+.time-block {
+  height: 60px;
+  display: flex;
+  align-items: center;
 }

@@ -1,2 +1,31 @@
-<p>conference works!</p>
-<div class="ttt"></div>
+<div class="calendar">
+  <div class="header">
+    <div class="time-column"></div>
+    <!-- Пустая ячейка для угла -->
+    <div *ngFor="let day of days" class="day-header">{{ day | date : 'EEE, d MMM' }}</div>
+  </div>
+  <div class="body">
+    <div class="time-column">
+      <div class="time-block" *ngFor="let time of timeSlots">{{ time }}</div>
+    </div>
+    <div class="days">
+      <div *ngFor="let day of days" class="day">
+        <div *ngFor="let time of timeSlots" class="time-slot">
+          <ng-container *ngFor="let meeting of meetings[day]; let i = index">
+            <div
+              *ngIf="isMeetingInTimeSlot(meeting, time) && i === 0"
+              class="meeting"
+              [style.grid-row]="getMeetingTimeRange(meeting).gridRow"
+            >
+              <h4>{{ meeting.topic }}</h4>
+              <p>{{ meeting.startTime }} - {{ meeting.endTime }}</p>
+              <div *ngFor="let participant of meeting.participants">
+                <p>{{ participant.firstName }} {{ participant.lastName }}</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

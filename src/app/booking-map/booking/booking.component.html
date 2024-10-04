@@ -17,6 +17,95 @@
 
       <button class="booking-button" (click)="sendBooking()">Забронировать</button>
     </ng-container>
-    <ng-container *ngIf="!isWork"> </ng-container>
+    <ng-container *ngIf="!isWork">
+      <!-- <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
+        <div class="form-field">
+            <label for="date">Дата:</label>
+            <input id="date" type="date" formControlName="date" required />
+        </div>
+    
+        <div class="form-field">
+            <label for="startTime">Время начала:</label>
+            <input id="startTime" type="time" formControlName="startTime" required />
+        </div>
+    
+        <div class="form-field">
+            <label for="endTime">Время окончания:</label>
+            <input id="endTime" type="time" formControlName="endTime" required />
+        </div>
+    
+        <div class="form-field">
+            <label for="topic">Тема встречи:</label>
+            <input id="topic" type="text" formControlName="topic" required />
+        </div>
+        
+        <div class="dropdown">
+          <button type="button" class="dropbtn" (click)="toggleDropdown()">
+            {{ dropdownOpen ? 'Скрыть список' : 'Выберите сотрудников' }}
+          </button>
+          <div class="dropdown-content" [class.show]="dropdownOpen">
+            <label *ngFor="let employee of employees">
+              <input
+                type="checkbox"
+                (change)="onEmployeeChange($event, employee)"
+                [checked]="selectedEmployees.includes(employee)"
+              />
+              {{ employee.username }}
+            </label>
+          </div>
+        </div>
+        <div class="form-field">
+            <label for="meetingRoomId">Комната для встречи:</label>
+            <input id="meetingRoomId" type="text" formControlName="meetingRoomId" [value]="1" [disabled]="true" />
+
+        </div>
+    
+        <div>
+            <button type="submit">Забронировать</button>
+        </div>
+    </form> -->
+
+      <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()" class="booking-form">
+        <div class="form-field">
+          <label for="date">Дата:</label>
+          <input id="date" type="date" formControlName="date" required />
+        </div>
+
+        <div class="form-field">
+          <label for="startTime">Время начала:</label>
+          <input id="startTime" type="time" formControlName="startTime" required />
+        </div>
+
+        <div class="form-field">
+          <label for="endTime">Время окончания:</label>
+          <input id="endTime" type="time" formControlName="endTime" required />
+        </div>
+
+        <div class="form-field">
+          <label for="topic">Тема встречи:</label>
+          <input id="topic" type="text" formControlName="topic" required />
+        </div>
+
+        <div class="dropdown">
+          <button type="button" class="dropbtn" (click)="toggleDropdown()">
+            {{ dropdownOpen ? 'Скрыть список' : 'Выберите участников' }}
+          </button>
+          <div class="dropdown-content" [class.show]="dropdownOpen">
+            <label *ngFor="let employee of employees" class="employee-option">
+              <input
+                type="checkbox"
+                (change)="onEmployeeChange($event, employee)"
+                [checked]="selectedEmployees.includes(employee)"
+              />
+              {{ employee.username }}
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <button type="submit" class="booking-button">Забронировать</button>
+        </div>
+      </form>
+    </ng-container>
   </div>
 </div>

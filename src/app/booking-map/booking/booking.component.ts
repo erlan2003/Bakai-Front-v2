@@ -5,6 +5,10 @@ import { Place } from '../booking-map.component';
 import { CredentialsService } from '../../auth/credentials.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BookingResultDialogComponent } from '../booking/booking-result-dialog/booking-result-dialog.component'; // Импортируем новый компонент
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConferenceBookingService } from '../conference-booking.service';
+import { EmployeeService, Employee } from '../../employees/employee.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-booking',
@@ -12,6 +16,13 @@ import { BookingResultDialogComponent } from '../booking/booking-result-dialog/b
   styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent implements OnInit {
+  bookingForm: FormGroup;
+  dropdownOpen: boolean = false;
+  employees: Employee[] = [];
+  selectedEmployees: Employee[] = [];
+
+  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
+
   selectedPlaceId: number;
   allPlaces: Place[] = [];
   selectedPlace: Place | undefined;
@@ -24,14 +35,91 @@ export class BookingComponent implements OnInit {
     private dialogRef: MatDialogRef<BookingComponent>,
     private http: HttpClient,
     private credentialsService: CredentialsService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private conferenceBookingService: ConferenceBookingService,
+    private formBuilder: FormBuilder,
+    private employeeService: EmployeeService
   ) {
     this.selectedPlaceId = data.selectedPlace?.id;
     this.selectedDate = data.selectedDate;
+    this.bookingForm = this.formBuilder.group({
+      startTime: ['', Validators.required],
+      endTime: ['', Validators.required],
+      meetingRoomId: [1, Validators.required],
+      date: ['', Validators.required],
+      participants: [this.selectedEmployees.map((emp) => emp.username)],
+      topic: ['', Validators.required],
+    });
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
+  submitBooking(): void {
+    const startTime = this.bookingForm.value.startTime;
+    const endTime = this.bookingForm.value.endTime;
+
+    if (this.bookingForm.valid) {
+      const bookingData = {
+        ...this.bookingForm.value,
+        participants: this.selectedEmployees.map((emp) => emp.username),
+      };
+
+      this.conferenceBookingService.bookRoom(bookingData).subscribe({
+        next: (response) => {
+          this.openMessageDialog('Вы успешно забронировали переговорную комнату!');
+          this.dialogRef.close();
+          this.bookingMapUpdated.emit();
+        },
+        error: (error) => {
+          this.openMessageDialog(error.message);
+        },
+      });
+    }
+  }
+
+  private getErrorMessage(error: any): string {
+    // Проверяем наличие поля error
+    if (error && error.error) {
+      // Проверяем, что error содержит массив errors
+      if (Array.isArray(error.error.errors) && error.error.errors.length > 0) {
+        // Возвращаем первое сообщение об ошибке
+        return error.error.errors[0].errorMessage || 'Неизвестная ошибка.';
+      }
+
+      // Если errors нет, пытаемся получить сообщение напрямую
+      if (error.error.message) {
+        return error.error.message;
+      }
+    }
+
+    // Если ничего не найдено, возвращаем сообщение по умолчанию
+    return 'Произошла ошибка. Попробуйте позже.';
+  }
+
+  showError(message: string): void {
+    // Открываем диалог с сообщением об ошибке
+    this.dialog.open(BookingResultDialogComponent, {
+      width: '300px',
+      data: { message },
+    });
   }
 
   ngOnInit(): void {
     this.fetchAllPlaces();
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+    this.employeeService.getEmployees().subscribe(
+      (employees: Employee[]) => {
+        this.employees = employees;
+      },
+      (error) => {
+        console.error('Ошибка загрузки сотрудников:', error);
+      }
+    );
   }
 
   fetchAllPlaces(): void {
@@ -122,5 +210,25 @@ export class BookingComponent implements OnInit {
 
   selectMeeting(): void {
     this.isWork = false;
+  }
+
+  // onEmployeeChange(event: MatCheckboxChange, employee: Employee): void {
+  //   if (event.checked) {
+  //     this.selectedEmployees.push(employee);
+  //   } else {
+  //     const index = this.selectedEmployees.indexOf(employee);
+  //     if (index >= 0) {
+  //       this.selectedEmployees.splice(index, 1);
+  //     }
+  //   }
+  // }
+
+  onEmployeeChange(event: Event, employee: any) {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.selectedEmployees.push(employee);
+    } else {
+      this.selectedEmployees = this.selectedEmployees.filter((e) => e !== employee);
+    }
   }
 }

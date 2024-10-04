@@ -92,8 +92,8 @@ export class BookingMapComponent implements OnInit {
 
   openBookingModule(place: Place): void {
     const dialogRef = this.dialog.open(BookingComponent, {
-      width: '594px',
-      height: '325px',
+      // width: '594px',
+      // height: '325px',
       data: { selectedPlace: place, selectedDate: this.selectedDate },
     });
 

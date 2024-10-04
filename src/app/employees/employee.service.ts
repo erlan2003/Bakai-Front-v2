@@ -160,4 +160,21 @@ export class EmployeeService {
       tap((employee) => this.currentEmployeeSubject.next(employee))
     );
   }
+
+  registerEmployee(employeeData: {
+    username: string;
+    password: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    positionId?: number;
+    teamId?: number;
+    roles: string[];
+  }): Observable<Employee> {
+    const headers = this.getAuthHeaders();
+    const url = `${this.apiUrl}employees`;
+
+    return this.http.post<Employee>(url, employeeData, { headers });
+  }
 }

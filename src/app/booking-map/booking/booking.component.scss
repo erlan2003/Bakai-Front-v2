@@ -47,10 +47,111 @@
 }
 
 .booking-button {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
   width: 100%;
   height: 52px;
   background-color: #005caa;
   color: #ffffff;
   border: none;
   border-radius: 6px;
+}
+
+.booking-form {
+  margin-top: 20px;
+}
+
+.form-field {
+  margin-bottom: 20px;
+  font-family: "SF Pro Display", sans-serif;
+}
+
+.form-field label {
+}
+
+.form-field input[type="date"],
+.form-field input[type="time"],
+.form-field input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* Стиль кнопки */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.dropdown {
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.dropbtn {
+  width: 100%;
+  padding: 12px;
+  background-color: #005caa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
+}
+
+.dropbtn:hover {
+  background-color: #0069d9;
+}
+
+.dropdown-content {
+  display: none;
+  position: relative;
+  background-color: #f9f9f9;
+  min-width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  margin-top: 10px;
+  max-height: 200px; /* Ограничение высоты */
+  overflow-y: auto; /* Добавление скролла */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.dropdown-content.show {
+  display: block;
+}
+
+.employee-option {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.employee-option:last-child {
+  border-bottom: none;
+}
+
+.employee-option input[type="checkbox"] {
+  margin-right: 10px;
 }

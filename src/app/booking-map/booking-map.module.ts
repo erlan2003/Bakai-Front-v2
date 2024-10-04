@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BookingMapComponent } from './booking-map.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '@shared';
 import { MaterialModule } from '@app/material.module';
@@ -12,6 +13,14 @@ import { BookingResultDialogComponent } from './booking/booking-result-dialog/bo
 
 @NgModule({
   declarations: [BookingMapComponent, BookingComponent, BookingResultDialogComponent],
-  imports: [CommonModule, TranslateModule, SharedModule, FlexLayoutModule, MaterialModule, BookingMapRoutingModule],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    SharedModule,
+    FlexLayoutModule,
+    MaterialModule,
+    BookingMapRoutingModule,
+    ReactiveFormsModule,
+  ],
 })
 export class BookingMapModule {}

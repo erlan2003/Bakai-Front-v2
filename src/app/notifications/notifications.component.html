@@ -6,13 +6,14 @@
     </button>
   </div>
   <div *ngIf="notifications.length === 0">Уведомлений на сегодня нет!</div>
-
-  <div class="message-card" *ngIf="notifications.length > 0">
-    <div class="line" *ngFor="let notification of notifications">
-      <div class="message-element">
-        <div class="date">{{ notification.date }} / {{ notification.time }}</div>
-        <div class="message">
-          {{ notification.message }}
+  <div class="scroll-table">
+    <div class="message-card" *ngIf="notifications.length > 0">
+      <div class="line" *ngFor="let notification of notifications">
+        <div class="message-element">
+          <div class="date">{{ notification.date }} / {{ notification.time }}</div>
+          <div class="message">
+            {{ notification.message }}
+          </div>
         </div>
       </div>
     </div>

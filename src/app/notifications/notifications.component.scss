@@ -55,3 +55,24 @@
   color: #07203a;
   font-family: "SF Pro Display", sans-serif;
 }
+
+.scroll-table {
+  max-height: 410px;
+  overflow-y: auto;
+  background: transparent;
+  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding-right: 6px;
+}
+.scroll-table::-webkit-scrollbar {
+  width: 10px;
+}
+.scroll-table::-webkit-scrollbar-track {
+  background: #d9d9d9;
+  border-radius: 10px;
+}
+.scroll-table::-webkit-scrollbar-thumb {
+  background: #005caa;
+  border-radius: 10px;
+}

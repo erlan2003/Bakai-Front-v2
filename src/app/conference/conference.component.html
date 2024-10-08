@@ -1,8 +1,13 @@
 <div class="calendar">
   <div class="header">
-    <div class="time-column"></div>
-    <!-- Пустая ячейка для угла -->
-    <div *ngFor="let day of days" class="day-header">{{ day | date : 'EEE, d MMM' }}</div>
+    <div class="time-column1">
+      <div class="grp-arrows">
+        <img src="assets/img/nav-img/arrow1.svg" alt="arrow-right" (click)="showPreviousWeek()" class="arrow" />
+        <img src="assets/img/nav-img/arrow2.svg" alt="arrow-right" (click)="showNextWeek()" class="arrow" />
+      </div>
+    </div>
+
+    <div *ngFor="let day of days" class="day-header">{{ day | date : 'd, EEE' }}</div>
   </div>
   <div class="body">
     <div class="time-column">
@@ -11,16 +16,55 @@
     <div class="days">
       <div *ngFor="let day of days" class="day">
         <div *ngFor="let time of timeSlots" class="time-slot">
-          <ng-container *ngFor="let meeting of meetings[day]; let i = index">
+          <ng-container *ngFor="let meeting of meetings[day]">
             <div
-              *ngIf="isMeetingInTimeSlot(meeting, time) && i === 0"
+              *ngIf="isMeetingInTimeSlot(meeting, time)"
               class="meeting"
               [style.grid-row]="getMeetingTimeRange(meeting).gridRow"
+              [style.height]="
+                expandedMeetings[meeting.id] ? 'auto' : getMeetingTimeRange(meeting).rowSpan * 60 - 10 + 'px'
+              "
+              (click)="toggleMeetingExpansion(meeting.id)"
             >
-              <h4>{{ meeting.topic }}</h4>
-              <p>{{ meeting.startTime }} - {{ meeting.endTime }}</p>
-              <div *ngFor="let participant of meeting.participants">
-                <p>{{ participant.firstName }} {{ participant.lastName }}</p>
+              <div>
+                <h4 class="heder-of-meet">{{ meeting.topic }}</h4>
+                <p class="time-of-meet">{{ meeting.startTime }} - {{ meeting.endTime }}</p>
+              </div>
+
+              <!-- Сокращенный вид -->
+              <div *ngIf="!expandedMeetings[meeting.id]">
+                <div class="avatars">
+                  <ng-container *ngFor="let participant of meeting.participants; let i = index">
+                    <ng-container *ngIf="i < 3">
+                      <img
+                        class="participant-avatar"
+                        *ngIf="participant.avatar; else showInitial"
+                        [src]="'data:image/jpeg;base64,' + participant.avatar"
+                        alt="Аватар"
+                        width="30"
+                        height="30"
+                      />
+                      <!-- Если нет аватара, показываем инициалы -->
+                      <ng-template #showInitial>
+                        <div class="initials">{{ participant.firstName[0] }}{{ participant.lastName[0] }}</div>
+                      </ng-template>
+                    </ng-container>
+                  </ng-container>
+
+                  <!-- Если больше 3 участников, показываем многоточие -->
+                  <ng-container *ngIf="meeting.participants.length > 3">
+                    <div class="more-avatars">+{{ meeting.participants.length - 3 }}</div>
+                  </ng-container>
+                </div>
+              </div>
+
+              <!-- Полный вид -->
+              <div *ngIf="expandedMeetings[meeting.id]">
+                <div *ngFor="let participant of meeting.participants" class="employees-FIO">
+                  <p class="employees-name">
+                    {{ participant.firstName }} {{ participant.lastName || participant.avatar }}
+                  </p>
+                </div>
               </div>
             </div>
           </ng-container>

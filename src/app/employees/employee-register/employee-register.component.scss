@@ -1,0 +1,100 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+}
+
+.user-information-input {
+  background-color: #f7f8fa;
+  width: 538px;
+  height: 64px;
+  border: none;
+  padding-left: 12px;
+  color: #07203a;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  gap: 2px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+.placeholder {
+  position: absolute;
+  top: 10%;
+  color: #2d465b;
+  pointer-events: none;
+  font-size: 13px;
+  padding-left: 12px;
+  font-weight: 400;
+}
+
+.button-container {
+  margin-top: 24px;
+  border-radius: 8px;
+  background-color: #a0b9cd26;
+}
+
+.button-container {
+  margin-top: 24px;
+}
+
+.select-button {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  font-weight: 510;
+  width: 100%;
+  height: 48px;
+  border: none;
+  background-color: #a0b9cd26;
+  color: #2d465b;
+  border-radius: 6px;
+  cursor: not-allowed;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.select-button.active {
+  background-color: #005caa;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.select-button:disabled {
+  background-color: #e0e0e0;
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.select-button:hover:not(:disabled) {
+  background-color: #071e33;
+  color: #ffffff;
+}
+
+.main-text {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 590;
+  color: #07203a;
+  margin-top: 18px;
+  margin-bottom: 25px;
+  font-family: "SF Pro Display", sans-serif;
+}
+
+.close-button {
+  display: flex;
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+}
+
+.input-container.invalid .user-information-input {
+  border: 1px solid #e05a61;
+}
+
+.error-message {
+  color: #e05a61;
+  font-size: 12px;
+  padding-left: 12px;
+  margin-top: 4px;
+}

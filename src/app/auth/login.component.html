@@ -65,6 +65,11 @@
             Поле для ввода пароля пуст
           </div>
           <div class="close-text">Текст может быть скрыт</div>
+
+          <div class="forgot-password">
+            <a href="#" (click)="openResetPasswordDialog()">Забыли пароль?</a>
+          </div>
+
           <button class="submit-button" type="submit" [disabled]="loginForm.invalid || isLoading">
             <span *ngIf="isLoading">Loading...</span>
             <span *ngIf="!isLoading">Войти</span>

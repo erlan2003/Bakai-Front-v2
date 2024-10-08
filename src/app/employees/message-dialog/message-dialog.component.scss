@@ -1,0 +1,34 @@
+.dialog-content {
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.dialog-message {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  text-align: center; /* Выравнивание по центру */
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center; /* Центрирование кнопки */
+  padding: 10px;
+  // background-color: #f1f1f1; /* Цвет фона для действий */
+  // border-top: 1px solid hsl(0, 0%, 80%);
+}
+
+.continue-button {
+  padding: 10px 20px;
+  background-color: #005caa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+  background-color: #0069d9; /* Цвет при наведении */
+}

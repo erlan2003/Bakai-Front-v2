@@ -1,0 +1,285 @@
+<form class="profile-container" (ngSubmit)="onRegister()" #registrationForm="ngForm" novalidate>
+  <div class="content-container">
+    <div class="main-text">
+      Регистрация сотрудника
+      <button class="close-button" (click)="closeDialog()">
+        <img src="../../assets/img/nav-img/close-icon.svg" width="20" height="20" />
+      </button>
+    </div>
+
+    <div class="information">
+      <div *ngIf="username.invalid && username.touched" class="error-message">
+        Поле "Имя пользователя" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="username.invalid && username.touched">
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="registrationData.username"
+          name="username"
+          #username="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        />
+        <label class="placeholder" for="username">Имя пользователя</label>
+      </div>
+
+      <div *ngIf="email.invalid && email.touched" class="error-message">Укажите корректный адрес электронной почты</div>
+      <div class="input-container" [class.invalid]="email.invalid && email.touched">
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="registrationData.email"
+          name="email"
+          #email="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        />
+        <label class="placeholder" for="email">Электронная почта</label>
+      </div>
+
+      <div *ngIf="firstName.invalid && firstName.touched" class="error-message">
+        Поле "Имя" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="firstName.invalid && firstName.touched">
+        <input
+          type="text"
+          id="firstName"
+          [(ngModel)]="registrationData.firstName"
+          name="firstName"
+          #firstName="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        />
+        <label class="placeholder" for="firstName">Имя</label>
+      </div>
+
+      <div *ngIf="lastName.invalid && lastName.touched" class="error-message">
+        Поле "Фамилия" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="lastName.invalid && lastName.touched">
+        <input
+          type="text"
+          id="lastName"
+          [(ngModel)]="registrationData.lastName"
+          name="lastName"
+          #lastName="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        />
+        <label class="placeholder" for="lastName">Фамилия</label>
+      </div>
+
+      <div *ngIf="middleName.invalid && middleName.touched" class="error-message">
+        Поле "Отчество" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="middleName.invalid && middleName.touched">
+        <input
+          type="text"
+          id="middleName"
+          [(ngModel)]="registrationData.middleName"
+          name="middleName"
+          #middleName="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        />
+        <label class="placeholder" for="middleName">Отчество</label>
+      </div>
+
+      <div *ngIf="positionId.invalid && positionId.touched" class="error-message">
+        Поле "Позиция" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="positionId.invalid && positionId.touched">
+        <select
+          id="positionId"
+          [(ngModel)]="registrationData.positionId"
+          name="positionId"
+          #positionId="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        >
+          <option value="" disabled selected>Выберите позицию</option>
+          <option *ngFor="let position of positions" [value]="position.id">
+            {{ position.name }}
+          </option>
+        </select>
+        <label class="placeholder" for="positionId">Позиция</label>
+      </div>
+
+      <div *ngIf="teamId.invalid && teamId.touched" class="error-message">
+        Поле "Команда" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="teamId.invalid && teamId.touched">
+        <select
+          id="teamId"
+          [(ngModel)]="registrationData.teamId"
+          name="teamId"
+          #teamId="ngModel"
+          class="user-information-input"
+          required
+          (ngModelChange)="formDirty = true"
+        >
+          <option value="" disabled selected>Выберите команду</option>
+          <option *ngFor="let team of teams" [value]="team.id">
+            {{ team.name }}
+          </option>
+        </select>
+        <label class="placeholder" for="teamId">Команда</label>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button class="select-button active" type="submit" [disabled]="registrationForm.invalid">
+        Зарегистрировать пользователя
+      </button>
+    </div>
+  </div>
+</form>
+
+<!-- <form class="profile-container" (ngSubmit)="onRegister()" #registrationForm="ngForm" novalidate>
+  <div class="content-container">
+
+    <div class="main-text">
+      Регистрация сотрудника
+      <button class="close-button" (click)="closeDialog()">
+        <img src="../../assets/img/nav-img/close-icon.svg" width="20" height="20" />
+      </button>
+    </div>
+
+    <div class="information">
+
+      <div *ngIf="username.invalid && username.touched" class="error-message">
+        Поле "Имя пользователя" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="username.invalid && username.touched">
+        <input
+          type="text"
+          id="username"
+          [(ngModel)]="registrationData.username"
+          name="username"
+          #username="ngModel"
+          class="user-information-input"
+          required
+        />
+        <label class="placeholder" for="username">Имя пользователя</label>
+      </div>
+
+      <div *ngIf="email.invalid && email.touched" class="error-message">
+        Укажите корректный адрес электронной почты
+      </div>
+      <div class="input-container" [class.invalid]="email.invalid && email.touched">
+        <input
+          type="email"
+          id="email"
+          [(ngModel)]="registrationData.email"
+          name="email"
+          #email="ngModel"
+          class="user-information-input"
+          required
+        />
+        <label class="placeholder" for="email">Электронная почта</label>
+      </div>
+
+      <div *ngIf="firstName.invalid && firstName.touched" class="error-message">
+        Поле "Имя" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="firstName.invalid && firstName.touched">
+        <input
+          type="text"
+          id="firstName"
+          [(ngModel)]="registrationData.firstName"
+          name="firstName"
+          #firstName="ngModel"
+          class="user-information-input"
+          required
+        />
+        <label class="placeholder" for="firstName">Имя</label>
+      </div>
+
+      <div *ngIf="lastName.invalid && lastName.touched" class="error-message">
+        Поле "Фамилия" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="lastName.invalid && lastName.touched">
+        <input
+          type="text"
+          id="lastName"
+          [(ngModel)]="registrationData.lastName"
+          name="lastName"
+          #lastName="ngModel"
+          class="user-information-input"
+          required
+        />
+        <label class="placeholder" for="lastName">Фамилия</label>
+      </div>
+
+      <div *ngIf="middleName.invalid && middleName.touched" class="error-message">
+        Поле "Отчество" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="middleName.invalid && middleName.touched">
+        <input
+          type="text"
+          id="middleName"
+          [(ngModel)]="registrationData.middleName"
+          name="middleName"
+          #middleName="ngModel"
+          class="user-information-input"
+          required
+        />
+        <label class="placeholder" for="middleName">Отчество</label>
+      </div>
+
+      <div *ngIf="positionId.invalid && positionId.touched" class="error-message">
+        Поле "Позиция" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="positionId.invalid && positionId.touched">
+        <select
+          id="positionId"
+          [(ngModel)]="registrationData.positionId"
+          name="positionId"
+          #positionId="ngModel"
+          class="user-information-input"
+          required
+        >
+          <option value="" disabled selected>Выберите позицию</option>
+          <option *ngFor="let position of positions" [value]="position.id">
+            {{ position.name }}
+          </option>
+        </select>
+        <label class="placeholder" for="positionId">Позиция</label>
+      </div>
+
+      <div *ngIf="teamId.invalid && teamId.touched" class="error-message">
+        Поле "Команда" обязательно для заполнения
+      </div>
+      <div class="input-container" [class.invalid]="teamId.invalid && teamId.touched">
+        <select
+          id="teamId"
+          [(ngModel)]="registrationData.teamId"
+          name="teamId"
+          #teamId="ngModel"
+          class="user-information-input"
+          required
+        >
+          <option value="" disabled selected>Выберите команду</option>
+          <option *ngFor="let team of teams" [value]="team.id">
+            {{ team.name }}
+          </option>
+        </select>
+        <label class="placeholder" for="teamId">Команда</label>
+      </div>
+
+    </div>
+
+    <div class="button-container">
+      <button class="select-button active" type="submit" [disabled]="registrationForm.invalid">
+        Зарегистрировать пользователя
+      </button>
+    </div>
+  </div>
+</form> -->

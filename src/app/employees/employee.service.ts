@@ -1,8 +1,11 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { CredentialsService } from '../auth/credentials.service';
 import { map, switchMap, tap } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 export interface Position {
   id: number;
@@ -24,6 +27,7 @@ export interface Employee {
   position: Position | null;
   team: Team | null;
   avatar: string;
+  roles: string[];
 }
 
 export interface Booking {
@@ -163,18 +167,52 @@ export class EmployeeService {
 
   registerEmployee(employeeData: {
     username: string;
-    password: string;
     email: string;
     firstName: string;
     lastName: string;
     middleName: string;
-    positionId?: number;
-    teamId?: number;
+    positionId: number;
+    teamId: string;
     roles: string[];
   }): Observable<Employee> {
     const headers = this.getAuthHeaders();
     const url = `${this.apiUrl}employees`;
-
     return this.http.post<Employee>(url, employeeData, { headers });
+  }
+
+  getTeams(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}teams`, { headers: this.getAuthHeaders() });
+  }
+
+  getPositions(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}positions`, { headers: this.getAuthHeaders() });
+  }
+
+  // changeEmployeeRole(employeeId: number, role: string): Observable<any> {
+  //   const rolesData = { roles: [role] };
+  //   return this.http.post<any>(`${this.apiUrl}employees/${employeeId}/roles`, rolesData, { headers: this.getAuthHeaders() });
+  // }
+
+  changeEmployeeRole(employeeId: number, roles: string[]): Observable<any> {
+    const rolesData = { roles }; // Подготовка данных для отправки
+    const url = `${this.apiUrl}employees/${employeeId}/roles`; // URL для изменения роли
+
+    return this.http
+      .put<any>(url, rolesData, { headers: this.getAuthHeaders() }) // Используйте PUT
+      .pipe(
+        tap(() => console.log(`Роли успешно изменены для сотрудника ID: ${employeeId}`)),
+        catchError((error: HttpErrorResponse) => {
+          console.error('Ошибка при изменении роли сотрудника', error); // Логируем ошибку
+          return throwError(error); // Возвращаем ошибку
+        })
+      );
+  }
+
+  resetPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/reset-password`, { email });
+  }
+
+  recoverPassword(code: string, newPassword: string, confirmPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recover-password`, { code, newPassword, confirmPassword });
   }
 }

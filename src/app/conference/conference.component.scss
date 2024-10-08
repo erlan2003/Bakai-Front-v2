@@ -1,7 +1,9 @@
 .days {
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* Семь дней */
-  grid-auto-rows: 60px;
+  grid-auto-rows: 60px; /* Время отображается в интервалах по 30 минут */
+  position: relative;
+  font-family: "SF Pro Display", sans-serif;
 }
 
 .time-slot {
@@ -10,24 +12,43 @@
   min-height: 60px;
   box-sizing: border-box;
   padding: 5px;
+  font-family: "SF Pro Display", sans-serif;
 }
 
 .meeting {
   position: absolute;
-  background-color: #e0f7fa;
-  padding: 5px;
-  border-radius: 5px;
-  width: 100%;
+  background: #e9edff;
+  padding: 5px 14px;
+  border-radius: 12px;
+  width: 95%;
   box-sizing: border-box;
   z-index: 1;
+  box-shadow: 0px 8px 100px 0px #00000014;
+  font-family: "SF Pro Display", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  cursor: pointer;
+}
+
+.meeting.expanded {
+  height: auto;
+}
+
+.summary {
+  font-weight: bold;
+  color: #666;
 }
 
 .header {
   display: grid;
-  grid-template-columns: 85px repeat(7, 1fr);
+  grid-template-columns: 85px repeat(7, 1fr); /* Колонка времени и 7 дней */
   gap: 10px; /* Отступы между колонками */
   padding-bottom: 10px;
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .body {
@@ -41,17 +62,93 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-right: 10px;
-  vertical-align: center;
   align-items: center;
 }
 
 .day-header {
   text-align: center;
   font-weight: bold;
+  font-family: "SF Pro Display", sans-serif;
 }
+
 .time-block {
   height: 60px;
   display: flex;
   align-items: center;
+  font-family: "SF Pro Display", sans-serif;
+  padding-bottom: 60px;
+}
+.heder-of-meet {
+  margin-bottom: 4px;
+  font-family: "SF Pro Display", sans-serif;
+  color: #07203a;
+  font-weight: 510;
+  font-size: 16px;
+  margin-top: 0;
+}
+.time-of-meet {
+  margin: 0;
+  font-family: "SF Pro Display", sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  color: #2d465b;
+  margin-bottom: 10px;
+}
+
+.employees-name {
+  margin: 5px 0;
+}
+
+.avatars {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.participant-avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 30px;
+  height: 30px;
+  border: 2px solid white;
+}
+
+.initials {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 14px;
+}
+
+.more-avatars {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #000;
+  font-size: 14px;
+  border: 2px solid white;
+}
+
+.time-column1 {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.grp-arrows {
+  display: flex;
+  gap: 30px;
+}
+.arrow {
+  cursor: pointer;
 }

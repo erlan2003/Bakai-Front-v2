@@ -61,7 +61,7 @@
             <td>{{ employee.employee.team?.name || 'null' }}</td>
             <td>{{ employee.employee.position?.name || 'null' }}</td>
             <td>{{ employee.placeCode }}</td>
-            <td>{{ employee.bookingDate }}</td>
+            <td>{{ employee.bookingDate | date : 'dd.MM.yyyy' }}</td>
           </tr>
         </tbody>
       </table>

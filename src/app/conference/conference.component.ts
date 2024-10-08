@@ -31,70 +31,93 @@ export class ConferenceComponent implements OnInit {
     '17:00',
     '17:30',
     '18:00',
-  ]; // Временные интервалы
+  ]; // Интервалы времени
+
+  private currentStartDate: Date = new Date(); // Текущая стартовая дата
 
   constructor(private conferenceService: ConferenceService) {}
+  expandedMeetings: { [meetingId: string]: boolean } = {};
 
   ngOnInit() {
-    const today = new Date();
-    this.days = this.generateDays(today, 7); // Генерация следующих 7 дней
-    this.conferenceService.getBookings().subscribe((data: any) => {
-      console.log('Полученные данные о встречах:', data); // Логируем полученные данные
-      this.meetings = this.mapMeetings(data);
-      console.log('Встречи по дням:', this.meetings); // Логируем распределенные встречи
+    this.loadMeetings();
+  }
+
+  // Загрузить встречи для текущего диапазона дней
+  loadMeetings() {
+    this.days = this.generateDays(this.currentStartDate, 7); // Генерируем 7 дней
+    const startDate = this.days[0]; // Первая дата
+    const endDate = this.days[this.days.length - 1]; // Последняя дата
+
+    // Запрашиваем данные с сервера
+    this.conferenceService.getBookings(1, startDate, endDate).subscribe((data: any) => {
+      console.log('Полученные встречи:', data); // Лог данных
+      this.meetings = this.mapMeetings(data); // Преобразуем встречи по дням
+      console.log('Встречи по дням:', this.meetings);
     });
   }
 
-  // Генерация массивов дней начиная с текущей даты
+  // Генерация массива дней, начиная с текущей даты
   generateDays(start: Date, count: number): string[] {
     const days = [];
     for (let i = 0; i < count; i++) {
       const nextDay = new Date(start);
       nextDay.setDate(start.getDate() + i);
-      days.push(nextDay.toISOString().split('T')[0]); // Форматировать как YYYY-MM-DD
+      days.push(nextDay.toISOString().split('T')[0]); // Формат в виде YYYY-MM-DD
     }
     return days;
   }
 
   // Преобразование данных встреч для отображения по дням
   mapMeetings(data: any): any {
-    // Пример простой логики для отображения по дням
     const meetings = {};
     this.days.forEach((day) => {
-      meetings[day] = data.date === day ? [data] : [];
+      meetings[day] = data.filter((meeting: any) => meeting.date === day);
     });
     return meetings;
   }
 
-  // Метод для вычисления диапазона времени для отображения встречи
+  // Рассчет временного диапазона для встречи
   getMeetingTimeRange(meeting: any) {
     const startHour = +meeting.startTime.split(':')[0];
     const startMinutes = +meeting.startTime.split(':')[1];
     const endHour = +meeting.endTime.split(':')[0];
     const endMinutes = +meeting.endTime.split(':')[1];
 
-    const totalStart = startHour * 60 + startMinutes; // Общее время начала в минутах
-    const totalEnd = endHour * 60 + endMinutes; // Общее время конца в минутах
+    const totalStart = startHour * 60 + startMinutes; // Время начала в минутах с полуночи
+    const totalEnd = endHour * 60 + endMinutes; // Время окончания в минутах с полуночи
 
-    let rowStart = Math.floor(totalStart / 30); // Позиция начала
-    const rowEnd = Math.ceil(totalEnd / 30); // Позиция конца
+    const rowStart = Math.floor(totalStart / 30) + 1; // Ряд для времени начала
+    const rowEnd = Math.ceil(totalEnd / 30) + 1; // Ряд для времени окончания
 
-    // Перемещаем встречу на одну ячейку выше
-    if (rowStart > 0) {
-      rowStart -= 1; // Смещаем встречу на одну ячейку выше
-    }
+    const rowSpan = rowEnd - rowStart; // Высота встречи
 
     return {
-      gridRow: `${rowStart} / span ${rowEnd - rowStart + 1}`, // Увеличиваем интервал для корректного отображения
+      gridRow: `${rowStart} / ${rowEnd}`, // Встреча занимает ряды от начала до конца
+      rowSpan: rowSpan,
     };
   }
 
-  // Проверка, находится ли встреча в текущем временном интервале
+  // Проверка, попадает ли встреча в текущий временной интервал
   isMeetingInTimeSlot(meeting: any, time: string): boolean {
-    const meetingStart = meeting.startTime;
-    const meetingEnd = meeting.endTime;
+    const [meetingStartHour, meetingStartMinutes] = meeting.startTime.split(':').map(Number);
+    const [timeHour, timeMinutes] = time.split(':').map(Number);
 
-    // Проверяем, если текущий временной интервал находится между временем начала и конца встречи
-    return meetingStart <= time && time < meetingEnd;
+    return meetingStartHour === timeHour && meetingStartMinutes === timeMinutes;
+  }
+
+  toggleMeetingExpansion(meetingId: string): void {
+    this.expandedMeetings[meetingId] = !this.expandedMeetings[meetingId];
+  }
+
+  // Показ предыдущих 7 дней
+  showPreviousWeek(): void {
+    this.currentStartDate.setDate(this.currentStartDate.getDate() - 7);
+    this.loadMeetings();
+  }
+
+  // Показ следующих 7 дней
+  showNextWeek(): void {
+    this.currentStartDate.setDate(this.currentStartDate.getDate() + 7);
+    this.loadMeetings();
   }
 }

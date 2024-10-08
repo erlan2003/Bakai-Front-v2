@@ -256,3 +256,49 @@ td {
     width: 100%;
   }
 }
+
+/* Стили для бейджей ролей */
+.role-badge {
+  padding: 3px 6px;
+  border-radius: 3px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.admin-badge {
+  background-color: #d1d1d1; /* Мягкий серый фон для админов */
+  color: #2c2c2c;
+}
+
+.user-badge {
+  background-color: #e8f0f2; /* Нежный голубоватый фон для пользователей */
+  color: #355a5a;
+}
+
+/* Стили кнопок для изменения ролей */
+.role-button {
+  display: inline-block; /* Позволяет задать фиксированный размер */
+  width: 120px; /* Ширина кнопок */
+  height: 35px; /* Высота кнопок */
+  padding: 0; /* Убираем внутренние отступы для фиксированной высоты */
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 4px;
+  background-color: rgba(0, 92, 170, 1); /* Новый фон для кнопок */
+  color: #fff; /* Цвет текста на кнопках - белый для контраста */
+  transition: background-color 0.2s ease;
+  text-align: center; /* Центрируем текст в кнопках */
+}
+
+.role-button:hover {
+  background-color: rgba(0, 72, 130, 1); /* Более темный фон при наведении */
+}
+
+.role-button.admin {
+  color: #fff; /* Белый текст для кнопки "Сделать админом" */
+}
+
+.role-button.user {
+  color: #fff; /* Белый текст для кнопки "Сделать пользователем" */
+}

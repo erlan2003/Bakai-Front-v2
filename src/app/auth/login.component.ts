@@ -5,6 +5,9 @@ import { finalize } from 'rxjs/operators';
 import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { AuthenticationService } from './authentication.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 const log = new Logger('Login');
 
@@ -27,7 +30,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private dialog: MatDialog
   ) {
     this.createForm();
   }
@@ -105,5 +109,11 @@ export class LoginComponent implements OnInit {
   }
   navigate() {
     this.router.navigate(['/home']);
+  }
+
+  openResetPasswordDialog(): void {
+    this.dialog.open(ResetPasswordComponent, {
+      width: '400px',
+    });
   }
 }

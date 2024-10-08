@@ -1,3 +1,70 @@
+<!-- <div class="main-container">
+  <div class="content-container">
+    <div class="header">
+      <h1>Сотрудники</h1>
+    </div>
+    <div class="search-section">
+      <div class="search-container222">
+        <div class="search-container">
+          <div class="search-container333">
+            <input type="text" placeholder="Ф.И.О. / Команда" class="search-input" [(ngModel)]="searchQuery" />
+            <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
+            <button class="close-icon" (click)="clearSearch()">
+              <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+            </button>
+          </div>
+          <div class="button-done111">
+            <button class="button-done" (click)="filterEmployees()">Готово</button>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <select class="button-team" [(ngModel)]="selectedTeam">
+          <option value="">Тип команды</option>
+          <option value="team1">Команда 1</option>
+          <option value="team2">Команда 2</option>
+        </select>
+        <button class="button-done" (click)="openEmployeeRegisterForm()">Открыть форму регистрации</button>
+      </div>
+      
+
+    </div>
+
+    <div class="scroll-table">
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th (click)="sortBy('lastName')">
+              Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
+            <th (click)="sortBy('firstName')">
+              Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
+            <th (click)="sortBy('middleName')">
+              Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+            </th>
+            <th>Команда</th>
+            <th>Должность</th>
+            <th>Почта</th>
+            <th>Роль</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of filteredEmployees">
+            <td>{{ employee.lastName }}</td>
+            <td>{{ employee.firstName }}</td>
+            <td>{{ employee.middleName || 'null' }}</td>
+            <td>{{ employee.team?.name || 'null' }}</td>
+            <td>{{ employee.position?.name || 'null' }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.roles }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> -->
+
 <div class="main-container">
   <div class="content-container">
     <div class="header">
@@ -24,6 +91,7 @@
           <option value="team1">Команда 1</option>
           <option value="team2">Команда 2</option>
         </select>
+        <button class="button-done" (click)="openEmployeeRegisterForm()">Открыть форму регистрации</button>
       </div>
     </div>
 
@@ -43,6 +111,8 @@
             <th>Команда</th>
             <th>Должность</th>
             <th>Почта</th>
+            <th>Роль</th>
+            <th>Операции</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +123,27 @@
             <td>{{ employee.team?.name || 'null' }}</td>
             <td>{{ employee.position?.name || 'null' }}</td>
             <td>{{ employee.email }}</td>
+            <td>
+              <span class="role-badge" [ngClass]="{ 'admin-badge': employee.roles.includes('ROLE_ADMIN') }">
+                {{ employee.roles.includes('ROLE_ADMIN') ? 'Админ' : 'Пользователь' }}
+              </span>
+            </td>
+            <td>
+              <button
+                *ngIf="employee.roles.includes('ROLE_USER')"
+                class="role-button admin"
+                (click)="changeEmployeeRole(employee.id, 'ROLE_ADMIN')"
+              >
+                Сделать админом
+              </button>
+              <button
+                *ngIf="employee.roles.includes('ROLE_ADMIN')"
+                class="role-button user"
+                (click)="changeEmployeeRole(employee.id, 'ROLE_USER')"
+              >
+                Сделать пользователем
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>

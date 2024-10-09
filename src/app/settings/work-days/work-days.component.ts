@@ -4,9 +4,7 @@ import { WorkDaysService } from '../work-days/work-day.service';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-// import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-// import { WorkDaysService } from '../work-day.service';
 import { CalendarDialogComponent } from './calendar-dialog/calendar-dialog.component';
 
 @Component({
@@ -51,7 +49,6 @@ export class WorkDaysComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result: any) => {
-      // Добавляем явное указание типа
       if (result) {
         this.addNonWorkingDay(result);
       }
@@ -74,7 +71,7 @@ export class WorkDaysComponent implements OnInit {
     this.workDaysService.deleteWeekend(date).subscribe(
       (response) => {
         console.log('Team deleted successfully:', response);
-        this.fetchNonWorkingDays(); // Refresh team list after deletion
+        this.fetchNonWorkingDays();
       },
       (error) => {
         console.error('Error deleting team:', error);

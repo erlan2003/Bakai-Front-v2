@@ -8,22 +8,20 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class WorkDaysService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   getNonWorkingDays(): Observable<any> {
-    const token = this.credentialsService.token; // Получение токена из credentialsService
+    const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    return this.http.get<any>(`${this.apiUrl}weekends`, { headers });
+    return this.http.get<any>(`weekends`, { headers });
   }
 
   addNonWorkingDay(data: any): Observable<any> {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    return this.http.post<any>(`${this.apiUrl}weekends`, data, { headers });
+    return this.http.post<any>(`weekends`, data, { headers });
   }
 
   deleteWeekend(date: string): Observable<any> {
@@ -31,6 +29,6 @@ export class WorkDaysService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
-    return this.http.delete(`${this.apiUrl}weekends/${date}`, { headers });
+    return this.http.delete(`weekends/${date}`, { headers });
   }
 }

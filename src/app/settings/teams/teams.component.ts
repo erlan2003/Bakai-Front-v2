@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ReportsService, Team } from 'src/app/settings/teams/teams.service'; // Adjust the import path as needed
+import { ReportsService, Team } from 'src/app/settings/teams/teams.service';
 
 @Component({
   selector: 'app-teams',
@@ -8,19 +8,15 @@ import { ReportsService, Team } from 'src/app/settings/teams/teams.service'; // 
   styleUrls: ['./teams.component.scss'],
 })
 export class TeamsComponent implements OnInit {
-  teamName: string = ''; // Property to store the team name
-  teams: Team[] = []; // Property to store the list of teams
-  isDropdownVisible: boolean = false; // Toggle for dropdown visibility
-  editingTeamId: number | null = null; // State for the currently editing team ID
-  editedTeamName: string = ''; // State for the edited team name
+  teamName: string = '';
+  teams: Team[] = [];
+  isDropdownVisible: boolean = false;
+  editingTeamId: number | null = null;
+  editedTeamName: string = '';
 
-  constructor(
-    private dialogRef: MatDialogRef<TeamsComponent>,
-    private reportsService: ReportsService // Inject the ReportsService
-  ) {}
+  constructor(private dialogRef: MatDialogRef<TeamsComponent>, private reportsService: ReportsService) {}
 
   ngOnInit(): void {
-    // Fetch teams when the component initializes
     this.fetchTeams();
   }
 
@@ -41,12 +37,12 @@ export class TeamsComponent implements OnInit {
       return;
     }
 
-    const teamData = { name: this.teamName }; // Prepare the team data object
+    const teamData = { name: this.teamName };
     this.reportsService.createEmployees(teamData).subscribe(
       (response) => {
         console.log('Team created successfully:', response);
-        this.fetchTeams(); // Refresh team list
-        this.closeDialog(); // Optionally close the dialog after successful creation
+        this.fetchTeams();
+        this.closeDialog();
       },
       (error) => {
         console.error('Error creating team:', error);
@@ -55,19 +51,19 @@ export class TeamsComponent implements OnInit {
   }
 
   toggleTeamsDropdown(): void {
-    this.isDropdownVisible = !this.isDropdownVisible; // Toggle dropdown visibility
+    this.isDropdownVisible = !this.isDropdownVisible;
   }
 
   selectTeam(team: Team): void {
-    this.teamName = team.name; // Update the input field with the selected team's name
-    this.isDropdownVisible = false; // Hide dropdown after selection
+    this.teamName = team.name;
+    this.isDropdownVisible = false;
   }
 
   deleteTeam(id: number): void {
     this.reportsService.deleteTeam(id).subscribe(
       (response) => {
         console.log('Team deleted successfully:', response);
-        this.fetchTeams(); // Refresh team list after deletion
+        this.fetchTeams();
       },
       (error) => {
         console.error('Error deleting team:', error);
@@ -76,8 +72,8 @@ export class TeamsComponent implements OnInit {
   }
 
   editTeam(team: Team): void {
-    this.editingTeamId = team.id !== undefined ? team.id : null; // Проверка на undefined
-    this.editedTeamName = team.name; // Set the initial name for editing
+    this.editingTeamId = team.id !== undefined ? team.id : null;
+    this.editedTeamName = team.name;
   }
 
   saveEditedTeam(): void {
@@ -88,8 +84,8 @@ export class TeamsComponent implements OnInit {
     this.reportsService.updateTeam(updatedTeam).subscribe(
       (response) => {
         console.log('Team updated successfully:', response);
-        this.fetchTeams(); // Refresh team list after updating
-        this.cancelEditing(); // Exit editing mode
+        this.fetchTeams();
+        this.cancelEditing();
       },
       (error) => {
         console.error('Error updating team:', error);
@@ -98,8 +94,8 @@ export class TeamsComponent implements OnInit {
   }
 
   cancelEditing(): void {
-    this.editingTeamId = null; // Reset the editing team ID
-    this.editedTeamName = ''; // Reset the edited team name
+    this.editingTeamId = null;
+    this.editedTeamName = '';
   }
 
   closeDialog(): void {

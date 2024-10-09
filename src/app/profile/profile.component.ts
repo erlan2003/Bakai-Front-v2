@@ -46,7 +46,6 @@ export class ProfileComponent implements OnInit {
     this.todayBookings$.subscribe(
       (data) => {
         this.hasTodayBookings = data.length > 0;
-        // console.log('Бронирования на сегодня:', data);
       },
       (error) => {
         console.error('Ошибка при получении бронирований на сегодня:', error);
@@ -61,7 +60,6 @@ export class ProfileComponent implements OnInit {
     this.tomorrowBookings$.subscribe(
       (data) => {
         this.hasTomorrowBookings = data.length > 0;
-        // console.log('Бронирования на завтра:', data);
       },
       (error) => {
         console.error('Ошибка при получении бронирований на завтра:', error);
@@ -99,7 +97,7 @@ export class ProfileComponent implements OnInit {
         this.employee = employee;
       },
       (error) => {
-        console.error('Error fetching current employee', error);
+        console.error('Ошибка при выборе текущего сотрудника.', error);
       }
     );
   }
@@ -113,7 +111,7 @@ export class ProfileComponent implements OnInit {
         this.isLoading = false;
       },
       (error) => {
-        console.error('Error fetching current employee', error);
+        console.error('Ошибка при выборе текущего сотрудника.', error);
         this.isLoading = false;
       }
     );
@@ -141,7 +139,6 @@ export class ProfileComponent implements OnInit {
 
     this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
       () => {
-        // console.log('Бронь успешно удалена');
         this.stateService.notifyBookingUpdated();
         this.getTomorrowBookings();
       },

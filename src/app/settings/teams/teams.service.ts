@@ -12,35 +12,33 @@ export interface Team {
   providedIn: 'root',
 })
 export class ReportsService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   createEmployees(teamData: Team): Observable<Team[]> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
-    return this.http.post<Team[]>(`${this.apiUrl}teams`, teamData, { headers });
+    return this.http.post<Team[]>(`teams`, teamData, { headers });
   }
 
   getTeams(): Observable<Team[]> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
-    return this.http.get<Team[]>(`${this.apiUrl}teams`, { headers });
+    return this.http.get<Team[]>(`teams`, { headers });
   }
 
   deleteTeam(id: number): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
-    return this.http.delete(`${this.apiUrl}teams/${id}`, { headers });
+    return this.http.delete(`teams/${id}`, { headers });
   }
 
   updateTeam(team: Team): Observable<Team> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
-    return this.http.put<Team>(`${this.apiUrl}teams/${team.id}`, team, { headers });
+    return this.http.put<Team>(`teams/${team.id}`, team, { headers });
   }
 }

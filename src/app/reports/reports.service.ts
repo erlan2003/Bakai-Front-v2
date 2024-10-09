@@ -7,8 +7,6 @@ import { CredentialsService } from '@app/auth/credentials.service';
   providedIn: 'root',
 })
 export class ReportsService {
-  private apiUrl = 'bookings/places';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   getReports(from: string, to: string, FIO?: string, positionId?: number, teamId?: number): Observable<any> {
@@ -18,7 +16,7 @@ export class ReportsService {
     if (FIO) params += `&FIO=${FIO}`;
     if (positionId) params += `&positionId=${positionId}`;
     if (teamId) params += `&teamId=${teamId}`;
-    return this.http.get<any>(`${this.apiUrl}/stats${params}`, { headers });
+    return this.http.get<any>(`bookings/places/stats${params}`, { headers });
   }
 
   downloadReport(from: string, to: string, FIO?: string, positionId?: number, teamId?: number): Observable<Blob> {
@@ -29,9 +27,9 @@ export class ReportsService {
     if (positionId) params += `&positionId=${positionId}`;
     if (teamId) params += `&teamId=${teamId}`;
 
-    return this.http.get(`${this.apiUrl}/report${params}`, {
+    return this.http.get(`bookings/places/report${params}`, {
       headers,
-      responseType: 'blob', // Важно: получаем данные в виде Blob
+      responseType: 'blob',
     });
   }
 }

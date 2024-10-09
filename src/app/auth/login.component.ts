@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { environment } from '@env/environment';
@@ -7,7 +7,6 @@ import { Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { AuthenticationService } from './authentication.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { RecoverPasswordComponent } from './recover-password/recover-password.component';
 
 const log = new Logger('Login');
 

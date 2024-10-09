@@ -30,22 +30,19 @@ export interface Place {
   providedIn: 'root',
 })
 export class BookingService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   getCurrentUserBookings(date: Date): Observable<Place[]> {
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен недоступен!');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const formattedDate = this.formatDate(date);
-    const url = `${this.apiUrl}places?date=${formattedDate}`;
 
     return this.http
-      .get<Place[]>(url, { headers })
+      .get<Place[]>(`places?date=${formattedDate}`, { headers })
       .pipe(map((places) => places.filter((place) => place.hasBooking && place.bookingInfo?.employee.username)));
   }
 

@@ -21,8 +21,6 @@ export class BookingMeetingroomComponent implements OnInit {
   maxDurationId: number = 0;
   daysAheadSettingId: number = 0;
 
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
-
   constructor(
     private closedialogRef: MatDialogRef<BookingMeetingroomComponent>,
     private credentialsService: CredentialsService,
@@ -41,7 +39,7 @@ export class BookingMeetingroomComponent implements OnInit {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    this.http.get(`${this.apiUrl}application-settings`, { headers }).subscribe(
+    this.http.get(`application-settings`, { headers }).subscribe(
       (settings: any) => {
         const openTimeSetting = settings.find((s: any) => s.key === 'BOOKING_ROOMS_ALLOWED_START_TIME');
         const closeTimeSetting = settings.find((s: any) => s.key === 'BOOKING_ROOMS_ALLOWED_END_TIME');
@@ -88,70 +86,45 @@ export class BookingMeetingroomComponent implements OnInit {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    // Обновляем время начала бронирования
     if (this.meetingOpenTime) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.openMeetTimeId}`,
-          { value: this.meetingOpenTime },
-          { headers }
-        )
+        .patch(`application-settings/${this.openMeetTimeId}`, { value: this.meetingOpenTime }, { headers })
         .subscribe(
           () => console.log('Время начала бронирования обновлено'),
           (error) => console.error(error)
         );
     }
 
-    // Обновляем время окончания бронирования
     if (this.meetingCloseTime) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.closeMeetTimeId}`,
-          { value: this.meetingCloseTime },
-          { headers }
-        )
+        .patch(`application-settings/${this.closeMeetTimeId}`, { value: this.meetingCloseTime }, { headers })
         .subscribe(
           () => console.log('Время окончания бронирования обновлено'),
           (error) => console.error(error)
         );
     }
 
-    // Обновляем минимальную продолжительность встречи
     if (this.minMeetingDuration) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.minDurationId}`,
-          { value: this.minMeetingDuration.toString() },
-          { headers }
-        )
+        .patch(`application-settings/${this.minDurationId}`, { value: this.minMeetingDuration.toString() }, { headers })
         .subscribe(
           () => console.log('Минимальная продолжительность встречи обновлена'),
           (error) => console.error(error)
         );
     }
 
-    // Обновляем максимальную продолжительность встречи
     if (this.maxMeetingDuration) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.maxDurationId}`,
-          { value: this.maxMeetingDuration.toString() },
-          { headers }
-        )
+        .patch(`application-settings/${this.maxDurationId}`, { value: this.maxMeetingDuration.toString() }, { headers })
         .subscribe(
           () => console.log('Максимальная продолжительность встречи обновлена'),
           (error) => console.error(error)
         );
     }
 
-    // Обновляем количество дней вперед для бронирования
     if (this.daysAhead >= 0) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.daysAheadSettingId}`,
-          { value: this.daysAhead.toString() },
-          { headers }
-        )
+        .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
         .subscribe(
           () => console.log('Количество дней вперед обновлено'),
           (error) => console.error(error)

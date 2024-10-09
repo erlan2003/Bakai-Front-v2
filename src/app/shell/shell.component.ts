@@ -8,7 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
 import { SettingsComponent } from '@app/settings/settings.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
-import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-shell',
@@ -32,11 +31,6 @@ export class ShellComponent implements OnInit {
     private employeeService: EmployeeService,
     private _dialog: MatDialog
   ) {}
-
-  // ngOnInit() {
-  //   this.loadCurrentEmployee();
-  //   this.setCurrentMonthYear();
-  // }
 
   ngOnInit() {
     this.loadCurrentEmployee();

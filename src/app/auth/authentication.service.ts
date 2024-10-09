@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CredentialsService, Credentials } from './credentials.service';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

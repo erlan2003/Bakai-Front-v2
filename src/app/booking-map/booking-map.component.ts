@@ -75,25 +75,8 @@ export class BookingMapComponent implements OnInit {
     });
   }
 
-  // openBookingModule(place: Place): void {
-  //   const dialogRef = this.dialog.open(BookingComponent, {
-  //     width: '594px',
-  //     height: '325px',
-  //     data: { selectedPlace: place, selectedDate: this.selectedDate },
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     console.log('Модальное окно закрыто');
-  //     if (result) {
-  //       console.log('Выбранное место:', result);
-  //     }
-  //   });
-  // }
-
   openBookingModule(place: Place): void {
     const dialogRef = this.dialog.open(BookingComponent, {
-      // width: '594px',
-      // height: '325px',
       data: { selectedPlace: place, selectedDate: this.selectedDate },
     });
 
@@ -101,24 +84,17 @@ export class BookingMapComponent implements OnInit {
       this.fetchPlaces();
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log('Модальное окно закрыто');
-      // if (result) {
-      //   console.log('Выбранное место:', result);
-      // }
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   fetchPlaces(): void {
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен недоступен!');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `http://localhost:8080/api/places?date=${this.formatDate(this.selectedDate)}`;
-
-    this.http.get<Place[]>(url, { headers }).subscribe((places) => {
+    this.http.get<Place[]>(`places?date=${this.formatDate(this.selectedDate)}`, { headers }).subscribe((places) => {
       this.places = places;
       this.places.forEach((place) => {
         if (place.hasBooking) {
@@ -144,90 +120,62 @@ export class BookingMapComponent implements OnInit {
     });
   }
 
-  // fetchEmployeeInfo(place: Place): void {
-  //   const token = this.credentialsService.token;
-  //   if (!token) {
-  //     throw new Error('Token not available');
-  //   }
-
-  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  //   const url = `http://localhost:8080/api/places/${place.id}?date=${this.formatDate(this.selectedDate)}`;
-
-  //   this.http.get<{ booking: BookingInfo }>(url, { headers }).subscribe(
-  //     (response) => {
-  //       if (response && response.booking && response.booking.employee) {
-  //         place.bookingInfo = response.booking;
-  //         const { firstName, lastName, middleName } = response.booking.employee;
-  //         console.log(`Забронировавший сотрудник: ${lastName} ${firstName} ${middleName}`);
-  //       } else {
-  //         console.log('Данные о сотруднике не найдены.');
-  //       }
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       if (error.status === 404) {
-  //         console.log(`Место с ID ${place.id} на дату ${this.formatDate(this.selectedDate)} не забронировано.`);
-  //       } else {
-  //         console.error('Ошибка при получении данных о бронировании:', error);
-  //       }
-  //     }
-  //   );
-  // }
-
   fetchEmployeeInfo(place: Place): void {
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен недоступен!');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `http://localhost:8080/api/places/${place.id}?date=${this.formatDate(this.selectedDate)}`;
 
-    this.http.get<{ booking: BookingInfo }>(url, { headers }).subscribe(
-      (response) => {
-        if (response && response.booking && response.booking.employee) {
-          place.bookingInfo = response.booking;
-          const employeeId = response.booking.employee.id;
-          this.fetchBookingStats(employeeId, place);
+    this.http
+      .get<{ booking: BookingInfo }>(`places/${place.id}?date=${this.formatDate(this.selectedDate)}`, { headers })
+      .subscribe(
+        (response) => {
+          if (response && response.booking && response.booking.employee) {
+            place.bookingInfo = response.booking;
+            const employeeId = response.booking.employee.id;
+            this.fetchBookingStats(employeeId, place);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+          } else {
+            console.error('Ошибка при получении данных о бронировании:', error);
+          }
         }
-        //  else {
-        //   console.log('Данные о сотруднике не найдены.');
-        // }
-      },
-      (error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          // console.log(`Место с ID ${place.id} на дату ${this.formatDate(this.selectedDate)} не забронировано.`);
-        } else {
-          console.error('Ошибка при получении данных о бронировании:', error);
-        }
-      }
-    );
+      );
   }
 
   fetchBookingStats(employeeId: number, place: Place): void {
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен недоступен!');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    const url = `http://localhost:8080/api/bookings/places/stats?from=${this.formatDate(
-      this.selectedDate
-    )}&to=${this.formatDate(new Date(this.selectedDate.getTime() + 24 * 60 * 60 * 1000))}`;
 
-    this.http.get<any[]>(url, { headers }).subscribe(
-      (stats) => {
-        const bookingInfo = stats.find((stat) => stat.employee.id === employeeId);
-        if (bookingInfo && bookingInfo.employee) {
-          const avatarUrl = bookingInfo.employee.avatar;
-          if (place.bookingInfo?.employee) {
-            place.bookingInfo.employee.avatar = avatarUrl;
+    this.http
+      .get<any[]>(
+        `bookings/places/stats?from=${this.formatDate(this.selectedDate)}&to=${this.formatDate(
+          new Date(this.selectedDate.getTime() + 24 * 60 * 60 * 1000)
+        )}`,
+        { headers }
+      )
+      .subscribe(
+        (stats) => {
+          const bookingInfo = stats.find((stat) => stat.employee.id === employeeId);
+          if (bookingInfo && bookingInfo.employee) {
+            const avatarUrl = bookingInfo.employee.avatar;
+            if (place.bookingInfo?.employee) {
+              place.bookingInfo.employee.avatar = avatarUrl;
+            }
           }
+        },
+        (error: HttpErrorResponse) => {
+          console.error('Ошибка при получении данных о статистике бронирований:', error);
         }
-      },
-      (error: HttpErrorResponse) => {
-        console.error('Ошибка при получении данных о статистике бронирований:', error);
-      }
-    );
+      );
   }
 
   convertToBase64(url: string): Promise<string> {

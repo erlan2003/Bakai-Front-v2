@@ -18,8 +18,6 @@ export class BookingWorkplaceComponent implements OnInit {
 
   isEditingDaysAhead: boolean = false; // Флаг для режима редактирования
 
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
-
   constructor(
     private http: HttpClient,
     private credentialsService: CredentialsService,
@@ -38,7 +36,7 @@ export class BookingWorkplaceComponent implements OnInit {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    this.http.get(`${this.apiUrl}application-settings`, { headers }).subscribe(
+    this.http.get(`application-settings`, { headers }).subscribe(
       (settings: any) => {
         const openTimeSetting = settings.find((s: any) => s.key === 'BOOKING_OPEN_TIME');
         const closeTimeSetting = settings.find((s: any) => s.key === 'BOOKING_CLOSE_TIME');
@@ -69,10 +67,9 @@ export class BookingWorkplaceComponent implements OnInit {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    // Обновляем время открытия
     if (this.bookingOpenTime) {
       this.http
-        .patch(`${this.apiUrl}application-settings/${this.openTimeId}`, { value: this.bookingOpenTime }, { headers })
+        .patch(`application-settings/${this.openTimeId}`, { value: this.bookingOpenTime }, { headers })
         .subscribe(
           () => {
             console.log('Время открытия обновлено');
@@ -83,10 +80,9 @@ export class BookingWorkplaceComponent implements OnInit {
         );
     }
 
-    // Обновляем время закрытия
     if (this.bookingCloseTime) {
       this.http
-        .patch(`${this.apiUrl}application-settings/${this.closeTimeId}`, { value: this.bookingCloseTime }, { headers })
+        .patch(`application-settings/${this.closeTimeId}`, { value: this.bookingCloseTime }, { headers })
         .subscribe(
           () => {
             console.log('Время закрытия обновлено');
@@ -97,14 +93,9 @@ export class BookingWorkplaceComponent implements OnInit {
         );
     }
 
-    // Обновляем количество дней вперед
     if (this.daysAhead) {
       this.http
-        .patch(
-          `${this.apiUrl}application-settings/${this.daysAheadSettingId}`,
-          { value: this.daysAhead.toString() },
-          { headers }
-        )
+        .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
         .subscribe(
           () => {
             console.log('Количество дней вперед обновлено');
@@ -116,26 +107,20 @@ export class BookingWorkplaceComponent implements OnInit {
     }
   }
 
-  // Сохраняем количество дней вперед при потере фокуса
   saveDaysAhead(): void {
     const token = this.credentialsService.token;
     const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : new HttpHeaders();
 
-    // Проверяем, чтобы число было больше нуля
     if (this.daysAhead < 1) {
-      this.daysAhead = 1; // Устанавливаем минимальное значение 1
+      this.daysAhead = 1;
     }
 
     this.http
-      .patch(
-        `${this.apiUrl}application-settings/${this.daysAheadSettingId}`,
-        { value: this.daysAhead.toString() },
-        { headers }
-      )
+      .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
       .subscribe(
         () => {
           console.log('Количество дней вперед обновлено');
-          this.isEditingDaysAhead = false; // Выключаем режим редактирования
+          this.isEditingDaysAhead = false;
         },
         (error) => {
           console.error('Ошибка обновления количества дней вперед:', error);
@@ -143,7 +128,6 @@ export class BookingWorkplaceComponent implements OnInit {
       );
   }
 
-  // Запрет на ввод отрицательных чисел
   checkForNegative(event: KeyboardEvent): void {
     if (event.key === '-' || event.key === 'e') {
       event.preventDefault();

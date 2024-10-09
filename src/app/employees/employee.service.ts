@@ -39,7 +39,6 @@ export interface Booking {
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
   private currentEmployeeSubject = new BehaviorSubject<Employee | null>(null);
   currentEmployee$ = this.currentEmployeeSubject.asObservable();
 
@@ -50,19 +49,19 @@ export class EmployeeService {
   private getAuthHeaders(): HttpHeaders {
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен недоступен!');
     }
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
   getEmployees(): Observable<Employee[]> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Employee[]>(`${this.apiUrl}employees`, { headers });
+    return this.http.get<Employee[]>(`employees`, { headers });
   }
 
   getCurrentEmployee(): Observable<Employee> {
     const headers = this.getAuthHeaders();
-    return this.http.get<Employee>(`${this.apiUrl}employees/me`, { headers });
+    return this.http.get<Employee>(`employees/me`, { headers });
   }
 
   updateEmployee(
@@ -80,9 +79,8 @@ export class EmployeeService {
     }
   ): Observable<Employee> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}employees/${id}`;
 
-    return this.http.put<Employee>(url, profileData, { headers });
+    return this.http.put<Employee>(`employees/${id}`, profileData, { headers });
   }
 
   getTodayBookingsForCurrentEmployee(): Observable<{ bookingDate: string; place: string; id: number }[]> {
@@ -91,7 +89,7 @@ export class EmployeeService {
     return this.getCurrentEmployee().pipe(
       switchMap((employee) => {
         if (!employee || !employee.id) {
-          throw new Error('Employee not found or not logged in');
+          throw new Error('Сотрудник не найден или не авторизован!');
         }
         return this.getBookingStats(today, employee.id);
       }),
@@ -113,7 +111,7 @@ export class EmployeeService {
     return this.getCurrentEmployee().pipe(
       switchMap((employee) => {
         if (!employee || !employee.id) {
-          throw new Error('Employee not found or not logged in');
+          throw new Error('Сотрудник не найден или не авторизован!');
         }
         return this.getBookingStats(formattedTomorrow, employee.id);
       }),
@@ -129,9 +127,8 @@ export class EmployeeService {
 
   getBookingStats(date: string, employeeId: number): Observable<any[]> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}bookings/places/stats?from=${date}&to=${date}&employeeId=${employeeId}`;
 
-    return this.http.get<any[]>(url, { headers });
+    return this.http.get<any[]>(`bookings/places/stats?from=${date}&to=${date}&employeeId=${employeeId}`, { headers });
   }
 
   private formatDate(date: Date): string {
@@ -143,23 +140,21 @@ export class EmployeeService {
 
   deleteTomorrowBooking(bookingId: number): Observable<void> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}bookings/places/${bookingId}`;
 
-    return this.http.delete<void>(url, { headers });
+    return this.http.delete<void>(`bookings/places/${bookingId}`, { headers });
   }
 
   loadCurrentEmployee() {
     this.getCurrentEmployee().subscribe(
       (employee) => this.currentEmployeeSubject.next(employee),
-      (error) => console.error('Error fetching current employee', error)
+      (error) => console.error('Ошибка при выборе текущего сотрудника.', error)
     );
   }
 
   uploadEmployeeAvatar(employeeId: number, formData: FormData): Observable<any> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}employees/${employeeId}/avatar`;
 
-    return this.http.post(url, formData, { headers }).pipe(
+    return this.http.post(`employees/${employeeId}/avatar`, formData, { headers }).pipe(
       switchMap(() => this.getCurrentEmployee()),
       tap((employee) => this.currentEmployeeSubject.next(employee))
     );
@@ -176,43 +171,35 @@ export class EmployeeService {
     roles: string[];
   }): Observable<Employee> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}employees`;
-    return this.http.post<Employee>(url, employeeData, { headers });
+
+    return this.http.post<Employee>(`employees`, employeeData, { headers });
   }
 
   getTeams(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}teams`, { headers: this.getAuthHeaders() });
+    return this.http.get<any[]>(`teams`, { headers: this.getAuthHeaders() });
   }
 
   getPositions(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}positions`, { headers: this.getAuthHeaders() });
+    return this.http.get<any[]>(`positions`, { headers: this.getAuthHeaders() });
   }
 
-  // changeEmployeeRole(employeeId: number, role: string): Observable<any> {
-  //   const rolesData = { roles: [role] };
-  //   return this.http.post<any>(`${this.apiUrl}employees/${employeeId}/roles`, rolesData, { headers: this.getAuthHeaders() });
-  // }
-
   changeEmployeeRole(employeeId: number, roles: string[]): Observable<any> {
-    const rolesData = { roles }; // Подготовка данных для отправки
-    const url = `${this.apiUrl}employees/${employeeId}/roles`; // URL для изменения роли
+    const rolesData = { roles };
 
-    return this.http
-      .put<any>(url, rolesData, { headers: this.getAuthHeaders() }) // Используйте PUT
-      .pipe(
-        tap(() => console.log(`Роли успешно изменены для сотрудника ID: ${employeeId}`)),
-        catchError((error: HttpErrorResponse) => {
-          console.error('Ошибка при изменении роли сотрудника', error); // Логируем ошибку
-          return throwError(error); // Возвращаем ошибку
-        })
-      );
+    return this.http.put<any>(`employees/${employeeId}/roles`, rolesData, { headers: this.getAuthHeaders() }).pipe(
+      tap(() => console.log(`Роли успешно изменены для сотрудника ID: ${employeeId}`)),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Ошибка при изменении роли сотрудника', error);
+        return throwError(error);
+      })
+    );
   }
 
   resetPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reset-password`, { email });
+    return this.http.post(`reset-password`, { email });
   }
 
   recoverPassword(code: string, newPassword: string, confirmPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/recover-password`, { code, newPassword, confirmPassword });
+    return this.http.post(`recover-password`, { code, newPassword, confirmPassword });
   }
 }

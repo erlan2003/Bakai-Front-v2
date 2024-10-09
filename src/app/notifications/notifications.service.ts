@@ -14,8 +14,6 @@ interface AppNotification {
   providedIn: 'root',
 })
 export class NotificationService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || 'http://localhost:8080/api/notifications';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
   getNotifications(date: string): Observable<AppNotification[]> {
@@ -23,8 +21,6 @@ export class NotificationService {
       Authorization: `Bearer ${this.credentialsService.token}`,
     });
 
-    const url = `${this.apiUrl}`;
-
-    return this.http.get<AppNotification[]>(url, { headers });
+    return this.http.get<AppNotification[]>('notifications', { headers });
   }
 }

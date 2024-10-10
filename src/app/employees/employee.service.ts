@@ -194,12 +194,4 @@ export class EmployeeService {
       })
     );
   }
-
-  resetPassword(email: string): Observable<any> {
-    return this.http.post(`reset-password`, { email });
-  }
-
-  recoverPassword(code: string, newPassword: string, confirmPassword: string): Observable<any> {
-    return this.http.post(`recover-password`, { code, newPassword, confirmPassword });
-  }
 }

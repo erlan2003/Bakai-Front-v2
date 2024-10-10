@@ -8,7 +8,7 @@ import { BookingResultDialogComponent } from '../booking/booking-result-dialog/b
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConferenceBookingService } from '../conference-booking.service';
 import { EmployeeService, Employee } from '../../employees/employee.service';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-booking',
@@ -38,7 +38,8 @@ export class BookingComponent implements OnInit {
     private dialog: MatDialog,
     private conferenceBookingService: ConferenceBookingService,
     private formBuilder: FormBuilder,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private snackBar: MatSnackBar
   ) {
     this.selectedPlaceId = data.selectedPlace?.id;
     this.selectedDate = data.selectedDate;
@@ -80,30 +81,16 @@ export class BookingComponent implements OnInit {
   }
 
   private getErrorMessage(error: any): string {
-    // Проверяем наличие поля error
     if (error && error.error) {
-      // Проверяем, что error содержит массив errors
       if (Array.isArray(error.error.errors) && error.error.errors.length > 0) {
-        // Возвращаем первое сообщение об ошибке
         return error.error.errors[0].errorMessage || 'Неизвестная ошибка.';
       }
 
-      // Если errors нет, пытаемся получить сообщение напрямую
       if (error.error.message) {
         return error.error.message;
       }
     }
-
-    // Если ничего не найдено, возвращаем сообщение по умолчанию
     return 'Произошла ошибка. Попробуйте позже.';
-  }
-
-  showError(message: string): void {
-    // Открываем диалог с сообщением об ошибке
-    this.dialog.open(BookingResultDialogComponent, {
-      width: '300px',
-      data: { message },
-    });
   }
 
   ngOnInit(): void {
@@ -137,7 +124,7 @@ export class BookingComponent implements OnInit {
         this.selectedPlace = this.allPlaces.find((place) => place.id === this.selectedPlaceId);
       },
       (error) => {
-        console.error('Ошибка при загрузке мест:', error);
+        this.openSnackbar('Ошибка при загрузке мест');
       }
     );
   }
@@ -148,7 +135,7 @@ export class BookingComponent implements OnInit {
 
   sendBooking(): void {
     if (!this.selectedPlace || !this.selectedDate) {
-      console.error('Не выбрано место или дата');
+      this.openSnackbar('Не выбрано место или дата');
       return;
     }
 
@@ -161,7 +148,7 @@ export class BookingComponent implements OnInit {
 
     const token = this.credentialsService.token;
     if (!token) {
-      throw new Error('Token not available');
+      throw new Error('Токен не доступен!');
     }
 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -174,7 +161,6 @@ export class BookingComponent implements OnInit {
         this.dialogRef.close();
       },
       (error) => {
-        console.error('Ошибка при бронировании:', error);
         let errorMessage = 'Неизвестная ошибка';
         if (error.error && error.error.errors && error.error.errors.length > 0) {
           errorMessage = error.error.errors[0].errorMessage;
@@ -197,7 +183,6 @@ export class BookingComponent implements OnInit {
     this.dialog
       .open(BookingResultDialogComponent, {
         width: '334px',
-        height: '176px',
         data: { message },
       })
       .afterClosed()
@@ -212,17 +197,6 @@ export class BookingComponent implements OnInit {
     this.isWork = false;
   }
 
-  // onEmployeeChange(event: MatCheckboxChange, employee: Employee): void {
-  //   if (event.checked) {
-  //     this.selectedEmployees.push(employee);
-  //   } else {
-  //     const index = this.selectedEmployees.indexOf(employee);
-  //     if (index >= 0) {
-  //       this.selectedEmployees.splice(index, 1);
-  //     }
-  //   }
-  // }
-
   onEmployeeChange(event: Event, employee: any) {
     const checked = (event.target as HTMLInputElement).checked;
     if (checked) {
@@ -230,5 +204,11 @@ export class BookingComponent implements OnInit {
     } else {
       this.selectedEmployees = this.selectedEmployees.filter((e) => e !== employee);
     }
+  }
+
+  openSnackbar(message: string): void {
+    this.snackBar.open(message, 'Закрыть', {
+      duration: 3000,
+    });
   }
 }

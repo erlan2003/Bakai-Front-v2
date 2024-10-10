@@ -6,7 +6,6 @@ import { environment } from '@env/environment';
 import { Logger, UntilDestroy, untilDestroyed } from '@shared';
 import { AuthenticationService } from './authentication.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const log = new Logger('Login');
 
@@ -57,11 +56,8 @@ export class LoginComponent implements OnInit {
       )
       .subscribe(
         (credentials) => {
-          console.log(credentials);
           if (credentials && credentials.token) {
             this.router.navigate(['/map']);
-            log.debug('${username} успешно вошёл в систему');
-            console.log('Пользователь ${username} успешно вошёл в систему');
           } else {
             this.error = 'Ошибка: некорректный ответ от сервера.';
             this.router.navigate(['/map'], { replaceUrl: true });
@@ -108,11 +104,5 @@ export class LoginComponent implements OnInit {
   }
   navigate() {
     this.router.navigate(['/home']);
-  }
-
-  openResetPasswordDialog(): void {
-    this.dialog.open(ResetPasswordComponent, {
-      width: '400px',
-    });
   }
 }

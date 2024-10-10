@@ -49,56 +49,56 @@
         </div>
         <a [ngStyle]="{ filter: buttonsState[1] ? 'brightness(0) invert(1)' : 'none' }">Совещание</a>
       </button>
+      <ng-container *ngIf="isAdmin()">
+        <button
+          routerLink="/employees"
+          class="nav-item"
+          [ngStyle]="{
+            'background-color': buttonsState[2] ? '#005CAA' : '#ffff',
+            color: buttonsState[2] ? '#ffffff' : '#000000'
+          }"
+          (click)="toggleColor(2)"
+        >
+          <div class="item-img">
+            <img
+              src="../../assets/img/nav-img/employees.svg"
+              [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }"
+              alt="Click me"
+              width="32"
+              height="32"
+            />
+          </div>
+          <a [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }">Сотрудники</a>
+        </button>
 
-      <button
-        routerLink="/employees"
-        class="nav-item"
-        [ngStyle]="{
-          'background-color': buttonsState[2] ? '#005CAA' : '#ffff',
-          color: buttonsState[2] ? '#ffffff' : '#000000'
-        }"
-        (click)="toggleColor(2)"
-      >
-        <div class="item-img">
-          <img
-            src="../../assets/img/nav-img/employees.svg"
-            [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }"
-            alt="Click me"
-            width="32"
-            height="32"
-          />
-        </div>
-        <a [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }">Сотрудники</a>
-      </button>
+        <button
+          routerLink="/reports"
+          class="nav-item"
+          [ngStyle]="{
+            'background-color': buttonsState[3] ? '#005CAA' : '#ffff',
+            color: buttonsState[3] ? '#ffffff' : '#000000'
+          }"
+          (click)="toggleColor(3)"
+        >
+          <div class="item-img">
+            <img
+              src="../../assets/img/nav-img/reports.svg"
+              [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }"
+              alt="Click me"
+              width="32"
+              height="32"
+            />
+          </div>
+          <a [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }">Отчеты</a>
+        </button>
 
-      <button
-        routerLink="/reports"
-        class="nav-item"
-        [ngStyle]="{
-          'background-color': buttonsState[3] ? '#005CAA' : '#ffff',
-          color: buttonsState[3] ? '#ffffff' : '#000000'
-        }"
-        (click)="toggleColor(3)"
-      >
-        <div class="item-img">
-          <img
-            src="../../assets/img/nav-img/reports.svg"
-            [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }"
-            alt="Click me"
-            width="32"
-            height="32"
-          />
-        </div>
-        <a [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }">Отчеты</a>
-      </button>
-
-      <button class="nav-item" (click)="openSettingForm()">
-        <div class="item-img">
-          <img src="../../assets/img/nav-img/settings.svg" alt="Click me" width="32" height="32" />
-        </div>
-        <a>Настройки</a>
-      </button>
-
+        <button class="nav-item" (click)="openSettingForm()">
+          <div class="item-img">
+            <img src="../../assets/img/nav-img/settings.svg" alt="Click me" width="32" height="32" />
+          </div>
+          <a>Настройки</a>
+        </button>
+      </ng-container>
       <div class="nav-back-icon" (click)="toggleExpand()">
         <img src="../../assets/img/nav-img/nav-back-icon.png" alt="Click me" width="24" height="24" />
       </div>
@@ -114,10 +114,6 @@
         <button class="notification-img" (click)="openNotificationForm()">
           <img src="../../assets/img/nav-img/bx-bell.svg" alt="Click me" width="24" height="24" />
         </button>
-
-        <!-- <button class="user-avatarka" (click)="openProfileForm()">
-          <p>{{ lastNameInitial }}</p>
-        </button> -->
 
         <button class="user-avatarka" (click)="openProfileForm()">
           <img

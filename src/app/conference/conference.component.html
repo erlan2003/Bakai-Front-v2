@@ -31,7 +31,6 @@
                 <p class="time-of-meet">{{ meeting.startTime }} - {{ meeting.endTime }}</p>
               </div>
 
-              <!-- Сокращенный вид -->
               <div *ngIf="!expandedMeetings[meeting.id]">
                 <div class="avatars">
                   <ng-container *ngFor="let participant of meeting.participants; let i = index">
@@ -44,21 +43,19 @@
                         width="30"
                         height="30"
                       />
-                      <!-- Если нет аватара, показываем инициалы -->
+
                       <ng-template #showInitial>
                         <div class="initials">{{ participant.firstName[0] }}{{ participant.lastName[0] }}</div>
                       </ng-template>
                     </ng-container>
                   </ng-container>
 
-                  <!-- Если больше 3 участников, показываем многоточие -->
                   <ng-container *ngIf="meeting.participants.length > 3">
                     <div class="more-avatars">+{{ meeting.participants.length - 3 }}</div>
                   </ng-container>
                 </div>
               </div>
 
-              <!-- Полный вид -->
               <div *ngIf="expandedMeetings[meeting.id]">
                 <div *ngFor="let participant of meeting.participants" class="employees-FIO">
                   <p class="employees-name">

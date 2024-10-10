@@ -1,9 +1,32 @@
-.mat-dialog-content {
-  width: 100%;
-  margin-top: 24px;
+.dialog-content {
+  padding: 20px;
+  border-radius: 8px;
 }
 
-.mat-button {
-  margin-top: 36px;
-  width: 100%;
+.dialog-message {
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.continue-button {
+  padding: 10px 20px;
+  background-color: #005caa;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.continue-button:hover {
+  background-color: #0069d9;
 }

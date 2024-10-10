@@ -34,7 +34,6 @@ export class NotificationsComponent implements OnInit {
           ...notification,
           time: this.formatTime(notification.time),
         }));
-        console.log(this.notifications);
       },
       (error) => {
         console.error('Ошибка при получении данных', error);

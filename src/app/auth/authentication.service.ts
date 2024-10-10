@@ -23,7 +23,6 @@ export class AuthenticationService {
         };
         this.credentialsService.setCredentials(credentials, true);
         this.isAuthenticated = true;
-        console.log(`Авторизация прошла успешно для пользователя: ${username}`);
       }),
       catchError(this.handleError)
     );
@@ -32,7 +31,6 @@ export class AuthenticationService {
   logout(): Observable<void> {
     return new Observable<void>((observer) => {
       this.credentialsService.setCredentials(undefined, false);
-      console.log('Пользователь вышел из системы');
       this.router.navigate(['/login'], { replaceUrl: true });
       observer.next();
       observer.complete();

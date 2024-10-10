@@ -23,7 +23,6 @@
 }
 
 .message-card {
-  max-height: 549px;
   height: 87%;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
@@ -39,7 +38,6 @@
 }
 
 .date {
-  padding-top: 18px;
   padding-left: 18px;
   margin-bottom: 4px;
   font-size: 12px;
@@ -57,6 +55,7 @@
 }
 
 .scroll-table {
+  margin-top: 18px;
   max-height: 410px;
   overflow-y: auto;
   background: transparent;

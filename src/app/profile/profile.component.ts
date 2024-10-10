@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { AvatarComponent } from '../profile/avatar/avatar.component';
 import { StateService } from './state.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile',
@@ -37,7 +38,8 @@ export class ProfileComponent implements OnInit {
     private employeeService: EmployeeService,
     private bookingService: BookingService,
     private dialog: MatDialog,
-    private stateService: StateService
+    private stateService: StateService,
+    private snackBar: MatSnackBar
   ) {}
 
   getTodayBookings(): void {
@@ -137,15 +139,28 @@ export class ProfileComponent implements OnInit {
   deleteBooking(bookingId: number): void {
     if (!bookingId) return;
 
-    this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
-      () => {
-        this.stateService.notifyBookingUpdated();
-        this.getTomorrowBookings();
-      },
-      (error) => {
-        console.error('Ошибка при удалении брони:', error);
-      }
-    );
+    const snackBarRef = this.snackBar.open('Вы уверены, что хотите удалить эту бронь?', 'Да', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'bottom',
+    });
+
+    snackBarRef.onAction().subscribe(() => {
+      this.employeeService.deleteTomorrowBooking(bookingId).subscribe(
+        () => {
+          this.stateService.notifyBookingUpdated();
+          this.getTomorrowBookings();
+        },
+        (error) => {
+          this.snackBar.open('Ошибка при удалении брони', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          console.error('Ошибка при удалении брони:', error);
+        }
+      );
+    });
   }
 
   openAvatarForm() {

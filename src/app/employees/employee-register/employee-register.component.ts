@@ -3,7 +3,7 @@ import { EmployeeService } from '../employee.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
+import { MessageDialogComponent } from '../../message-dialog/message-dialog.component';
 
 interface Violation {
   fieldName: string;

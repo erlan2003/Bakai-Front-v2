@@ -95,10 +95,6 @@ export class ShellComponent implements OnInit {
 
   openProfileForm() {
     const dialogRef = this._dialog.open(ProfileComponent, {});
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.employeeService.loadCurrentEmployee();
-    });
   }
 
   openNotificationForm() {
@@ -111,5 +107,9 @@ export class ShellComponent implements OnInit {
 
   openSettingForm() {
     this._dialog.open(SettingsComponent);
+  }
+
+  isAdmin(): boolean {
+    return this.currentEmployee?.roles.includes('ROLE_ADMIN') || false;
   }
 }

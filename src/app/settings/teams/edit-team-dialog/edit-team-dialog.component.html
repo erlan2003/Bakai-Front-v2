@@ -1,0 +1,23 @@
+<!-- <h2 mat-dialog-title>Редактировать команду</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Название команды</mat-label>
+    <input matInput [(ngModel)]="editedTeamName" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Отмена</button>
+  <button mat-button color="primary" (click)="save()">Сохранить</button>
+</mat-dialog-actions> -->
+
+<div class="dialog">
+  <h2 class="dialog-title">Редактировать команду</h2>
+  <div class="dialog-content">
+    <label for="teamName">Название команды</label>
+    <input type="text" id="teamName" [(ngModel)]="editedTeamName" class="input-field" />
+  </div>
+  <div class="dialog-actions">
+    <button class="cancel-button" (click)="cancel()">Отмена</button>
+    <button class="save-button" (click)="save()">Сохранить</button>
+  </div>
+</div>

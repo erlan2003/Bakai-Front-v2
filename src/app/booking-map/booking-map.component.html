@@ -308,11 +308,9 @@
           </div>
         </div>
         <div class="table-meeting-room">
-          <div class="container" *ngFor="let place of filteredPlacesMeetingRoom">
-            <button class="meeting-button" [id]="'place-' + place.id">
-              <div class="meeting-room" [ngClass]="getPlaceClass(place)">
-                {{ place.code }}
-              </div>
+          <div class="container">
+            <button class="meeting-button">
+              <div class="meeting-room">Meetin-room</div>
             </button>
           </div>
         </div>

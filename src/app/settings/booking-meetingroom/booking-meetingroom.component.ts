@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CredentialsService } from '@app/auth/credentials.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-booking-meetingroom',
@@ -9,11 +10,11 @@ import { CredentialsService } from '@app/auth/credentials.service';
   styleUrls: ['./booking-meetingroom.component.scss'],
 })
 export class BookingMeetingroomComponent implements OnInit {
-  meetingOpenTime: string = ''; // Время начала бронирования
-  meetingCloseTime: string = ''; // Время окончания бронирования
-  minMeetingDuration: number = 0; // Мин. продолжительность встречи
-  maxMeetingDuration: number = 0; // Макс. продолжительность встречи
-  daysAhead: number = 0; // Количество дней вперед для бронирования
+  meetingOpenTime: string = '';
+  meetingCloseTime: string = '';
+  minMeetingDuration: number = 0;
+  maxMeetingDuration: number = 0;
+  daysAhead: number = 0;
 
   openMeetTimeId: number = 0;
   closeMeetTimeId: number = 0;
@@ -24,7 +25,8 @@ export class BookingMeetingroomComponent implements OnInit {
   constructor(
     private closedialogRef: MatDialogRef<BookingMeetingroomComponent>,
     private credentialsService: CredentialsService,
-    private http: HttpClient
+    private http: HttpClient,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -89,46 +91,66 @@ export class BookingMeetingroomComponent implements OnInit {
     if (this.meetingOpenTime) {
       this.http
         .patch(`application-settings/${this.openMeetTimeId}`, { value: this.meetingOpenTime }, { headers })
-        .subscribe(
-          () => console.log('Время начала бронирования обновлено'),
-          (error) => console.error(error)
-        );
+        .subscribe(() => {
+          this.snackBar.open('Время начала бронирования обновлено', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.closeDialog();
+        });
     }
 
     if (this.meetingCloseTime) {
       this.http
         .patch(`application-settings/${this.closeMeetTimeId}`, { value: this.meetingCloseTime }, { headers })
-        .subscribe(
-          () => console.log('Время окончания бронирования обновлено'),
-          (error) => console.error(error)
-        );
+        .subscribe(() => {
+          this.snackBar.open('Время окончания бронирования обновлено', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.closeDialog();
+        });
     }
 
     if (this.minMeetingDuration) {
       this.http
         .patch(`application-settings/${this.minDurationId}`, { value: this.minMeetingDuration.toString() }, { headers })
-        .subscribe(
-          () => console.log('Минимальная продолжительность встречи обновлена'),
-          (error) => console.error(error)
-        );
+        .subscribe(() => {
+          this.snackBar.open('Минимальная продолжительность встречи обновлена', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.closeDialog();
+        });
     }
 
     if (this.maxMeetingDuration) {
       this.http
         .patch(`application-settings/${this.maxDurationId}`, { value: this.maxMeetingDuration.toString() }, { headers })
-        .subscribe(
-          () => console.log('Максимальная продолжительность встречи обновлена'),
-          (error) => console.error(error)
-        );
+        .subscribe(() => {
+          this.snackBar.open('Максимальная продолжительность встречи обновлена', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.closeDialog();
+        });
     }
 
     if (this.daysAhead >= 0) {
       this.http
         .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
-        .subscribe(
-          () => console.log('Количество дней вперед обновлено'),
-          (error) => console.error(error)
-        );
+        .subscribe(() => {
+          this.snackBar.open('Количество дней вперед обновлено', 'Закрыть', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+          });
+          this.closeDialog();
+        });
     }
   }
 }

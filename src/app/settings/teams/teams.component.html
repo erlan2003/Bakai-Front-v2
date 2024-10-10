@@ -21,12 +21,10 @@
       <li *ngFor="let team of teams" (click)="selectTeam(team)">
         {{ team.name }}
         <div class="edit-delete">
-          <!-- Кнопка редактирования -->
-          <button class="close-icon">
+          <button class="close-icon" (click)="editTeam(team); $event.stopPropagation()">
             <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
           </button>
 
-          <!-- Кнопка удаления с проверкой на существование team.id -->
           <button class="close-icon" (click)="team.id ? deleteTeam(team.id) : null; $event.stopPropagation()">
             <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
           </button>

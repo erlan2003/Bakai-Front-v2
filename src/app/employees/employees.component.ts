@@ -3,7 +3,7 @@ import { EmployeeService, Employee } from './employee.service';
 import { EmployeeRegisterComponent } from './employee-register/employee-register.component';
 import { MatDialog } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { MessageDialogComponent } from '../employees/message-dialog/message-dialog.component';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-employees',
@@ -99,15 +99,11 @@ export class EmployeesComponent implements OnInit {
       (currentEmployee) => {
         if (currentEmployee && currentEmployee.id === employeeId) {
           this.openMessageDialog('Изменение роли невозможно', 'Невозможно изменить роль текущего пользователя.');
-          return; // Прекращаем выполнение, если пользователь пытается изменить себя
+          return;
         }
 
-        // Если изменяемый сотрудник не является текущим пользователем, продолжаем
         this.employeeService.changeEmployeeRole(employeeId, [role]).subscribe(
           () => {
-            console.log(`Роль успешно изменена на ${role} для сотрудника ID: ${employeeId}`);
-
-            // Обновляем только измененного сотрудника в локальном массиве
             this.employees = this.employees.map((employee) =>
               employee.id === employeeId ? { ...employee, roles: [role] } : employee
             );

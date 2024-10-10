@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarDialogComponent } from './calendar-dialog/calendar-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-work-days',
@@ -20,7 +21,8 @@ export class WorkDaysComponent implements OnInit {
   constructor(
     private closedialogRef: MatDialogRef<WorkDaysComponent>,
     private workDaysService: WorkDaysService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,6 @@ export class WorkDaysComponent implements OnInit {
   fetchNonWorkingDays(): void {
     this.workDaysService.getNonWorkingDays().subscribe(
       (data) => {
-        console.log('Полученные данные:', data);
         this.nonWorkingDays = data;
       },
       (error) => {
@@ -57,12 +58,19 @@ export class WorkDaysComponent implements OnInit {
 
   addNonWorkingDay(date: Date): void {
     this.nonWorkingDays.push({ date });
+
     this.workDaysService.addNonWorkingDay({ weekends: [date] }).subscribe(
       (response) => {
-        console.log('Нерабочий день добавлен:', response);
+        this.snackBar.open('Нерабочий день добавлен', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
       },
       (error) => {
-        console.error('Ошибка при добавлении нерабочего дня', error);
+        this.snackBar.open('Ошибка при добавлении нерабочего дня', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
       }
     );
   }
@@ -70,11 +78,18 @@ export class WorkDaysComponent implements OnInit {
   deleteWeekend(date: string): void {
     this.workDaysService.deleteWeekend(date).subscribe(
       (response) => {
-        console.log('Team deleted successfully:', response);
+        this.snackBar.open('Нерабочий день удалён', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
         this.fetchNonWorkingDays();
       },
       (error) => {
-        console.error('Error deleting team:', error);
+        this.snackBar.open('Ошибка при удалении нерабочего дня', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+        console.error('Ошибка при удалении нерабочего дня:', error);
       }
     );
   }

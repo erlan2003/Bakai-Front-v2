@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService, Employee } from '../../employees/employee.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-avatar',
@@ -14,7 +15,11 @@ export class AvatarComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
-  constructor(private employeeService: EmployeeService, private dialogRef: MatDialogRef<AvatarComponent>) {}
+  constructor(
+    private employeeService: EmployeeService,
+    private dialogRef: MatDialogRef<AvatarComponent>,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loadCurrentEmployee();
@@ -26,7 +31,7 @@ export class AvatarComponent implements OnInit {
         this.currentEmployee = data;
       },
       (error) => {
-        console.error('Error fetching current employee', error);
+        console.error('Ошибка при выборе текущего сотрудника', error);
       }
     );
   }
@@ -49,12 +54,18 @@ export class AvatarComponent implements OnInit {
 
       this.employeeService.uploadEmployeeAvatar(this.currentEmployee.id, formData).subscribe(
         () => {
-          console.log('Аватар успешно загружен');
+          this.snackBar.open('Аватар успешно загружен', 'Закрыть', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
           this.dialogRef.close();
           this.loadCurrentEmployee();
         },
         (error) => {
-          console.error('Ошибка загрузки аватара', error);
+          this.snackBar.open('Ошибка в загрузке аватара!', 'Закрыть', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
         }
       );
     }

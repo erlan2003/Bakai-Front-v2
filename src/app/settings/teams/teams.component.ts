@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ReportsService, Team } from 'src/app/settings/teams/teams.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
+import { EditTeamDialogComponent } from './edit-team-dialog/edit-team-dialog.component';
 
 @Component({
   selector: 'app-teams',
@@ -14,7 +18,12 @@ export class TeamsComponent implements OnInit {
   editingTeamId: number | null = null;
   editedTeamName: string = '';
 
-  constructor(private dialogRef: MatDialogRef<TeamsComponent>, private reportsService: ReportsService) {}
+  constructor(
+    private dialogRef: MatDialogRef<TeamsComponent>,
+    private reportsService: ReportsService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.fetchTeams();
@@ -26,26 +35,35 @@ export class TeamsComponent implements OnInit {
         this.teams = response;
       },
       (error) => {
-        console.error('Error fetching teams:', error);
+        console.error('Ошибка при получении команд:', error);
       }
     );
   }
 
   createTeam(): void {
     if (!this.teamName) {
-      console.error('Team name is required');
+      this.snackBar.open('Укажите название команды!', 'Закрыть', {
+        duration: 3000,
+        verticalPosition: 'bottom',
+      });
       return;
     }
 
     const teamData = { name: this.teamName };
     this.reportsService.createEmployees(teamData).subscribe(
       (response) => {
-        console.log('Team created successfully:', response);
+        this.snackBar.open('Команда успешно создана!', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
         this.fetchTeams();
         this.closeDialog();
       },
       (error) => {
-        console.error('Error creating team:', error);
+        this.snackBar.open('Ошибка создания команды!', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
       }
     );
   }
@@ -62,40 +80,56 @@ export class TeamsComponent implements OnInit {
   deleteTeam(id: number): void {
     this.reportsService.deleteTeam(id).subscribe(
       (response) => {
-        console.log('Team deleted successfully:', response);
+        this.snackBar.open('Команда успешно удалена', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
         this.fetchTeams();
       },
-      (error) => {
-        console.error('Error deleting team:', error);
+      (error: HttpErrorResponse) => {
+        const errorMessage = error.error?.errorMessage || 'Ошибка при удалении команды';
+        this.snackBar.open(errorMessage, 'Закрыть', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+        });
+        console.error('Ошибка при удалении команды:', error);
       }
     );
   }
 
   editTeam(team: Team): void {
-    this.editingTeamId = team.id !== undefined ? team.id : null;
-    this.editedTeamName = team.name;
+    const dialogRef = this.dialog.open(EditTeamDialogComponent, {
+      width: '400px',
+      data: { ...team },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && team.id !== undefined) {
+        this.saveEditedTeam(team.id, result);
+      }
+    });
   }
 
-  saveEditedTeam(): void {
-    if (this.editingTeamId === null) return;
-
-    const updatedTeam: Team = { id: this.editingTeamId, name: this.editedTeamName };
+  saveEditedTeam(id: number, name: string): void {
+    const updatedTeam: Team = { id, name };
 
     this.reportsService.updateTeam(updatedTeam).subscribe(
       (response) => {
-        console.log('Team updated successfully:', response);
+        this.snackBar.open('Команда успешно обновлена', 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
         this.fetchTeams();
-        this.cancelEditing();
       },
-      (error) => {
-        console.error('Error updating team:', error);
+      (error: HttpErrorResponse) => {
+        const errorMessage = error.error?.errorMessage || 'Ошибка при обновлении команды';
+        this.snackBar.open(errorMessage, 'Закрыть', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+        });
+        console.error('Ошибка при обновлении команды:', error);
       }
     );
-  }
-
-  cancelEditing(): void {
-    this.editingTeamId = null;
-    this.editedTeamName = '';
   }
 
   closeDialog(): void {

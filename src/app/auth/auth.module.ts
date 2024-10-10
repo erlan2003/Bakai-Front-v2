@@ -38,8 +38,6 @@ import { MaterialModule } from '@app/material.module';
 import { I18nModule } from '@app/i18n';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login.component';
-import { RecoverPasswordComponent } from './recover-password/recover-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -52,6 +50,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     I18nModule,
     AuthRoutingModule,
   ],
-  declarations: [LoginComponent, RecoverPasswordComponent, ResetPasswordComponent],
+  declarations: [LoginComponent],
 })
 export class AuthModule {}

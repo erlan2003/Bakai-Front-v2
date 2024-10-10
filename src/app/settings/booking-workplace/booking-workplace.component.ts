@@ -2,6 +2,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CredentialsService } from '@app/auth/credentials.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-booking-workplace',
@@ -9,19 +10,20 @@ import { CredentialsService } from '@app/auth/credentials.service';
   styleUrls: ['./booking-workplace.component.scss'],
 })
 export class BookingWorkplaceComponent implements OnInit {
-  bookingOpenTime: string = ''; // Время начала бронирования
-  bookingCloseTime: string = ''; // Время окончания бронирования
-  daysAhead: number = 0; // Количество дней вперед
+  bookingOpenTime: string = '';
+  bookingCloseTime: string = '';
+  daysAhead: number = 0;
   openTimeId: number = 0;
   closeTimeId: number = 0;
   daysAheadSettingId: number = 0;
 
-  isEditingDaysAhead: boolean = false; // Флаг для режима редактирования
+  isEditingDaysAhead: boolean = false;
 
   constructor(
     private http: HttpClient,
     private credentialsService: CredentialsService,
-    private closedialogRef: MatDialogRef<BookingWorkplaceComponent>
+    private closedialogRef: MatDialogRef<BookingWorkplaceComponent>,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +60,10 @@ export class BookingWorkplaceComponent implements OnInit {
         }
       },
       (error) => {
-        console.error('Ошибка загрузки настроек:', error);
+        this.snackBar.open('Ошибка загрузки настроек: ' + error.message, 'Закрыть', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
       }
     );
   }
@@ -72,10 +77,16 @@ export class BookingWorkplaceComponent implements OnInit {
         .patch(`application-settings/${this.openTimeId}`, { value: this.bookingOpenTime }, { headers })
         .subscribe(
           () => {
-            console.log('Время открытия обновлено');
+            this.snackBar.open('Время открытия обновлено', 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
           },
           (error) => {
-            console.error('Ошибка обновления времени открытия:', error);
+            this.snackBar.open('Ошибка обновления времени открытия: ' + error.message, 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
           }
         );
     }
@@ -85,10 +96,17 @@ export class BookingWorkplaceComponent implements OnInit {
         .patch(`application-settings/${this.closeTimeId}`, { value: this.bookingCloseTime }, { headers })
         .subscribe(
           () => {
-            console.log('Время закрытия обновлено');
+            this.snackBar.open('Время закрытия обновлено', 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+            this.closeDialog();
           },
           (error) => {
-            console.error('Ошибка обновления времени закрытия:', error);
+            this.snackBar.open('Ошибка обновления времени закрытия: ' + error.message, 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
           }
         );
     }
@@ -98,10 +116,16 @@ export class BookingWorkplaceComponent implements OnInit {
         .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
         .subscribe(
           () => {
-            console.log('Количество дней вперед обновлено');
+            this.snackBar.open('Количество дней вперед обновлено', 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
           },
           (error) => {
-            console.error('Ошибка обновления количества дней вперед:', error);
+            this.snackBar.open('Ошибка обновления количества дней вперед: ' + error.message, 'Закрыть', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
           }
         );
     }
@@ -119,11 +143,17 @@ export class BookingWorkplaceComponent implements OnInit {
       .patch(`application-settings/${this.daysAheadSettingId}`, { value: this.daysAhead.toString() }, { headers })
       .subscribe(
         () => {
-          console.log('Количество дней вперед обновлено');
+          this.snackBar.open('Количество дней вперед обновлено', 'Закрыть', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
           this.isEditingDaysAhead = false;
         },
         (error) => {
-          console.error('Ошибка обновления количества дней вперед:', error);
+          this.snackBar.open('Ошибка обновления количества дней вперед: ' + error.message, 'Закрыть', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
         }
       );
   }

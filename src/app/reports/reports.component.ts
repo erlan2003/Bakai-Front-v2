@@ -13,7 +13,7 @@ export class ReportsComponent implements OnInit {
   toDate: string = '';
   selectedTeam: string = '';
   sortField: string = '';
-  sortDirection: 'asc' | 'desc' = 'asc'; // Порядок сортировки
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(private reportsService: ReportsService) {}
 
@@ -29,7 +29,7 @@ export class ReportsComponent implements OnInit {
     this.reportsService.getReports(from, to, FIO).subscribe(
       (data) => {
         this.employees = data;
-        this.sortEmployees(); // Сортируем данные при загрузке
+        this.sortEmployees();
       },
       (error) => {
         console.error('Ошибка при загрузке отчетов:', error);
@@ -48,22 +48,21 @@ export class ReportsComponent implements OnInit {
 
   onSort(field: string): void {
     if (this.sortField === field) {
-      // Если поле сортировки то же самое, меняем направление сортировки
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortField = field;
-      this.sortDirection = 'asc'; // По умолчанию сортируем по возрастанию
+      this.sortDirection = 'asc';
     }
-    this.sortEmployees(); // Выполняем сортировку
+    this.sortEmployees();
   }
 
   onDoneClick(): void {
-    this.loadReports(); // Обновление данных на основе введенных параметров
+    this.loadReports();
   }
 
   clearSearch(): void {
-    this.employeeName = ''; // Очистка текста в поле ввода
-    this.loadReports(); // Перезагрузка данных после очистки
+    this.employeeName = '';
+    this.loadReports();
   }
 
   downloadReport(): void {

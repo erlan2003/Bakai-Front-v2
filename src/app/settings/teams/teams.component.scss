@@ -242,3 +242,11 @@ h4 {
   background: #005caa;
   border-radius: 10px;
 }
+
+.custom-snackbar-position {
+  position: fixed;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}

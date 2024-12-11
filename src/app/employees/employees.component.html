@@ -1,70 +1,3 @@
-<!-- <div class="main-container">
-  <div class="content-container">
-    <div class="header">
-      <h1>Сотрудники</h1>
-    </div>
-    <div class="search-section">
-      <div class="search-container222">
-        <div class="search-container">
-          <div class="search-container333">
-            <input type="text" placeholder="Ф.И.О. / Команда" class="search-input" [(ngModel)]="searchQuery" />
-            <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
-            <button class="close-icon" (click)="clearSearch()">
-              <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
-            </button>
-          </div>
-          <div class="button-done111">
-            <button class="button-done" (click)="filterEmployees()">Готово</button>
-          </div>
-        </div>
-      </div>
-      <div class="controls">
-        <select class="button-team" [(ngModel)]="selectedTeam">
-          <option value="">Тип команды</option>
-          <option value="team1">Команда 1</option>
-          <option value="team2">Команда 2</option>
-        </select>
-        <button class="button-done" (click)="openEmployeeRegisterForm()">Открыть форму регистрации</button>
-      </div>
-      
-
-    </div>
-
-    <div class="scroll-table">
-      <table class="report-table">
-        <thead>
-          <tr>
-            <th (click)="sortBy('lastName')">
-              Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
-            </th>
-            <th (click)="sortBy('firstName')">
-              Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
-            </th>
-            <th (click)="sortBy('middleName')">
-              Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
-            </th>
-            <th>Команда</th>
-            <th>Должность</th>
-            <th>Почта</th>
-            <th>Роль</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let employee of filteredEmployees">
-            <td>{{ employee.lastName }}</td>
-            <td>{{ employee.firstName }}</td>
-            <td>{{ employee.middleName || 'null' }}</td>
-            <td>{{ employee.team?.name || 'null' }}</td>
-            <td>{{ employee.position?.name || 'null' }}</td>
-            <td>{{ employee.email }}</td>
-            <td>{{ employee.roles }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div> -->
-
 <div class="main-container">
   <div class="content-container">
     <div class="header">
@@ -75,9 +8,11 @@
         <div class="search-container">
           <div class="search-container333">
             <input type="text" placeholder="Ф.И.О. / Команда" class="search-input" [(ngModel)]="searchQuery" />
-            <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
+
+            <app-icon [size]="18" [svgIcon]="'search'" alt="search-icon" class="search-icon"> </app-icon>
+
             <button class="close-icon" (click)="clearSearch()">
-              <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+              <app-icon [size]="20" [svgIcon]="'close'" alt="close-icon" class="close-icon"> </app-icon>
             </button>
           </div>
           <div class="button-done111">
@@ -85,13 +20,13 @@
           </div>
         </div>
       </div>
+
       <div class="controls">
-        <select class="button-team" [(ngModel)]="selectedTeam">
+        <select class="button-team" [(ngModel)]="selectedTeam" (change)="filterEmployees()">
           <option value="">Тип команды</option>
-          <option value="team1">Команда 1</option>
-          <option value="team2">Команда 2</option>
+          <option *ngFor="let team of teams" [value]="team.name">{{ team.name }}</option>
         </select>
-        <button class="button-done" (click)="openEmployeeRegisterForm()">Открыть форму регистрации</button>
+        <button class="button-done" (click)="openEmployeeRegisterForm()">Открыть форму для регистрации</button>
       </div>
     </div>
 
@@ -100,13 +35,16 @@
         <thead>
           <tr>
             <th (click)="sortBy('lastName')">
-              Фамилия<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              Фамилия
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th (click)="sortBy('firstName')">
-              Имя<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              Имя
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th (click)="sortBy('middleName')">
-              Отчество<img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              Отчество
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th>Команда</th>
             <th>Должность</th>

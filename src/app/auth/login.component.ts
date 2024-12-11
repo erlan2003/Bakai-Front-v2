@@ -21,15 +21,12 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
   passwordFieldType: string = 'password';
-  passwordIcon: string = '../../assets/img/auth-img/eyes.png';
-  iconWidth: string = '18px';
-  iconHeight: string = '18px';
+  isPasswordVisible: boolean = false;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authenticationService: AuthenticationService,
-    private dialog: MatDialog
+    private authenticationService: AuthenticationService
   ) {
     this.createForm();
   }
@@ -65,7 +62,7 @@ export class LoginComponent implements OnInit {
         },
         (error) => {
           log.debug('Ошибка входа: ${error}');
-          this.error = 'Имя пользователя или пароль неправельный';
+          this.error = 'Имя пользователя или пароль неправильный';
           this.router.navigate(['/map']);
         }
       );
@@ -79,28 +76,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  clearEmail() {
-    this.loginForm.get('email')?.setValue('');
-  }
-
   clearUsername() {
     this.loginForm.get('username')?.setValue('');
   }
 
   togglePassword() {
-    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
-    this.passwordIcon =
-      this.passwordFieldType === 'password'
-        ? '../../assets/img/auth-img/eyes.png'
-        : '../../assets/img/auth-img/close-eyes.png';
-
-    if (this.passwordIcon.includes('close-eyes.png')) {
-      this.iconWidth = '20px';
-      this.iconHeight = '20px';
-    } else {
-      this.iconWidth = '18px';
-      this.iconHeight = '18px';
-    }
+    this.isPasswordVisible = !this.isPasswordVisible;
+    this.passwordFieldType = this.isPasswordVisible ? 'text' : 'password';
   }
   navigate() {
     this.router.navigate(['/home']);

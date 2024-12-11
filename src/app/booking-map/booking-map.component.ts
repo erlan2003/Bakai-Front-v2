@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CredentialsService } from '../auth/credentials.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingComponent } from './booking/booking.component';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { StateService } from '../profile/state.service';
+import { StateService } from '@app/profile/state.service';
+import { CredentialsService } from '@app/auth/credentials.service';
+import { BookingComponent } from './booking/booking.component';
 
 export interface Employee {
   id: number;

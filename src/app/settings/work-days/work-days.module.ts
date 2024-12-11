@@ -11,23 +11,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SharedModule } from '@app/@shared';
+import { MaterialModule } from '@app/material.module';
 
 @NgModule({
-  declarations: [
-    // WorkDaysComponent,
-    CalendarDialogComponent,
-  ],
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    WorkDaysRoutingModule,
-    WorkDaysComponent,
-  ],
+  declarations: [WorkDaysComponent, CalendarDialogComponent],
+  imports: [CommonModule, WorkDaysRoutingModule, SharedModule, MaterialModule],
   entryComponents: [CalendarDialogComponent],
 })
 export class WorkDaysModule {}

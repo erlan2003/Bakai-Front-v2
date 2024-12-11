@@ -1,0 +1,27 @@
+<mat-icon
+  *ngIf="type === 'material'; else appIcon"
+  [svgIcon]="svgIcon"
+  [style]="
+    'font-size: ' +
+    size +
+    'px; width: ' +
+    (width || size) +
+    'px; height: ' +
+    (height || size) +
+    'px; line-height: ' +
+    ((height || size) - 2) +
+    'px;'
+  "
+>
+  {{ icon }}
+</mat-icon>
+
+<ng-template #appIcon>
+  <i
+    class="app-icon {{ icon }}"
+    [style.width.px]="width || size"
+    [style.height.px]="height || size"
+    [style.font-size.px]="size"
+    [style.line-height.px]="(height || size) - 2"
+  ></i>
+</ng-template>

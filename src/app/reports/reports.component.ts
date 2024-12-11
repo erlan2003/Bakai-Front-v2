@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportsService } from '@app/reports/reports.service';
+import { EmployeeService, Employee, Team } from '../employees/employee.service';
 
 @Component({
   selector: 'app-reports',
@@ -14,11 +15,21 @@ export class ReportsComponent implements OnInit {
   selectedTeam: string = '';
   sortField: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
+  teams: Team[] = [];
 
-  constructor(private reportsService: ReportsService) {}
+  constructor(private employeeService: EmployeeService, private reportsService: ReportsService) {}
 
   ngOnInit(): void {
     this.loadReports();
+
+    this.employeeService.getTeams().subscribe(
+      (teams: Team[]) => {
+        this.teams = teams;
+      },
+      (error: any) => {
+        console.error('Error fetching teams', error);
+      }
+    );
   }
 
   loadReports(): void {
@@ -29,6 +40,7 @@ export class ReportsComponent implements OnInit {
     this.reportsService.getReports(from, to, FIO).subscribe(
       (data) => {
         this.employees = data;
+        this.filterByTeam();
         this.sortEmployees();
       },
       (error) => {
@@ -57,11 +69,22 @@ export class ReportsComponent implements OnInit {
   }
 
   onDoneClick(): void {
-    this.loadReports();
+    const teamId = this.selectedTeam ? this.teams.find((team) => team.name === this.selectedTeam)?.id : undefined;
+
+    this.reportsService.getReports(this.fromDate, this.toDate, this.employeeName, undefined, teamId).subscribe(
+      (data) => {
+        this.employees = data;
+        this.sortEmployees();
+      },
+      (error) => {
+        console.error('Ошибка при загрузке отчетов:', error);
+      }
+    );
   }
 
   clearSearch(): void {
     this.employeeName = '';
+    this.selectedTeam = '';
     this.loadReports();
   }
 
@@ -86,5 +109,16 @@ export class ReportsComponent implements OnInit {
         console.error('Ошибка при загрузке отчета:', error);
       }
     );
+  }
+
+  filterByTeam(): void {
+    console.log('Selected team:', this.selectedTeam);
+    console.log('All employees:', this.employees);
+
+    if (this.selectedTeam) {
+      this.employees = this.employees.filter((employee) => employee.team?.name === this.selectedTeam);
+    }
+
+    console.log('Filtered employees:', this.employees);
   }
 }

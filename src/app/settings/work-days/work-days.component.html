@@ -2,14 +2,14 @@
   <div class="header">
     <h4>Бронь рабочих мест</h4>
     <button class="close-icon" (click)="closeDialog()">
-      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+      <app-icon [size]="20" [svgIcon]="'close'" alt="close-icon" class="close-icon"> </app-icon>
     </button>
   </div>
 
   <div class="text-field text-field_floating">
     <input class="text-field__input" type="text" id="bf" required />
     <label class="text-field__label" for="day_input">Рабочие дни</label>
-    <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
+    <app-icon [size]="20" [svgIcon]="'red-edit'" alt="Edit_icon" class="text-field__icon"> </app-icon>
   </div>
 
   <h5>Нерабочие дни</h5>
@@ -24,7 +24,7 @@
       >
         {{ day.date | date : 'd MMMM' }}
         <button class="close-icon" (click)="deleteWeekend(day.date); $event.stopPropagation()">
-          <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+          <app-icon [size]="20" [svgIcon]="'red-close'" alt="close-icon" class="close-icon"> </app-icon>
         </button>
       </mat-option>
     </mat-select>

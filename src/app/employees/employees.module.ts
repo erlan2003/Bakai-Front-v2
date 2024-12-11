@@ -6,9 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { EmployeeRegisterComponent } from './employee-register/employee-register.component';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@app/@shared';
 
 @NgModule({
   declarations: [EmployeesComponent, EmployeeRegisterComponent, MessageDialogComponent],
-  imports: [CommonModule, EmployeesRoutingModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, EmployeesRoutingModule, FormsModule, ReactiveFormsModule, SharedModule],
 })
 export class EmployeesModule {}

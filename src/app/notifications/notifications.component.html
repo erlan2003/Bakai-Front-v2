@@ -2,10 +2,10 @@
   <div class="main-text">
     Уведомления
     <button class="close-button" (click)="closeDialog()">
-      <img src="../../assets/img/nav-img/close-icon.svg" width="20" height="20" />
+      <app-icon [size]="20" [svgIcon]="'close'"> </app-icon>
     </button>
   </div>
-  <div *ngIf="notifications.length === 0">Уведомлений на сегодня нет!</div>
+  <div class="no-message" *ngIf="notifications.length === 0">Уведомлений на сегодня нет!</div>
   <div class="scroll-table">
     <div class="message-card" *ngIf="notifications.length > 0">
       <div class="line" *ngFor="let notification of notifications">

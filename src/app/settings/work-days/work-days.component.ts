@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { WorkDaysService } from '../work-days/work-day.service';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { CalendarDialogComponent } from './calendar-dialog/calendar-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,8 +9,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-work-days',
   templateUrl: './work-days.component.html',
   styleUrls: ['./work-days.component.scss'],
-  standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, WorkDaysComponent],
 })
 export class WorkDaysComponent implements OnInit {
   nonWorkingDays: any[] = [];

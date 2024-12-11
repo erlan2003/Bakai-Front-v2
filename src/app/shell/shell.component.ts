@@ -1,13 +1,11 @@
-import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { EmployeeService, Employee } from '../employees/employee.service';
-import { AuthenticationService, CredentialsService } from '@app/auth';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { MatDialog } from '@angular/material/dialog';
 import { ProfileComponent } from '../profile/profile.component';
 import { SettingsComponent } from '@app/settings/settings.component';
 import { NotificationsComponent } from '../notifications/notifications.component';
+import { DialogService } from '@app/sevices/dialog.service';
+import { IconService } from '@app/sevices/icon.service';
 
 @Component({
   selector: 'app-shell',
@@ -24,17 +22,17 @@ export class ShellComponent implements OnInit {
 
   constructor(
     private breakpoint: BreakpointObserver,
-    private router: Router,
-    private titleService: Title,
-    private authenticationService: AuthenticationService,
-    private credentialsService: CredentialsService,
     private employeeService: EmployeeService,
-    private _dialog: MatDialog
+    public dialog: DialogService,
+    private iconService: IconService
   ) {}
 
   ngOnInit() {
+    this.iconService.registerIcons();
     this.loadCurrentEmployee();
     this.setCurrentMonthYear();
+
+    this.setActiveButtonFromStorage();
 
     this.employeeService.currentEmployee$.subscribe(
       (employee) => {
@@ -45,6 +43,16 @@ export class ShellComponent implements OnInit {
         console.error('Ошибка при получении текущего сотрудника', error);
       }
     );
+  }
+
+  setActiveButtonFromStorage() {
+    const storedIndex = localStorage.getItem('activeButtonIndex');
+    if (storedIndex !== null) {
+      const index = parseInt(storedIndex, 10);
+      if (!isNaN(index) && index >= 0 && index < this.buttonsState.length) {
+        this.buttonsState = this.buttonsState.map((_, i) => i === index);
+      }
+    }
   }
 
   setCurrentMonthYear() {
@@ -72,9 +80,7 @@ export class ShellComponent implements OnInit {
   }
 
   setLastNameInitial() {
-    if (this.currentEmployee && this.currentEmployee.lastName) {
-      this.lastNameInitial = this.currentEmployee.lastName.charAt(0).toUpperCase();
-    }
+    this.lastNameInitial = this.currentEmployee?.lastName?.charAt(0).toUpperCase() || '';
   }
 
   toggleExpand() {
@@ -94,19 +100,21 @@ export class ShellComponent implements OnInit {
   }
 
   openProfileForm() {
-    const dialogRef = this._dialog.open(ProfileComponent, {});
+    const dialogRef = this.dialog.openDialog(ProfileComponent, {}, '594px');
   }
 
   openNotificationForm() {
-    this._dialog.open(NotificationsComponent, {});
+    const dialogRef = this.dialog.openDialog(NotificationsComponent, {});
   }
 
   toggleColor(index: number) {
     this.buttonsState = this.buttonsState.map((state, i) => i === index);
+
+    localStorage.setItem('activeButtonIndex', index.toString());
   }
 
   openSettingForm() {
-    this._dialog.open(SettingsComponent);
+    const dialogRef = this.dialog.openDialog(SettingsComponent, {});
   }
 
   isAdmin(): boolean {

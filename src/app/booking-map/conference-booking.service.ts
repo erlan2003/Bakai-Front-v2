@@ -8,11 +8,8 @@ import { CredentialsService } from '../auth/credentials.service';
   providedIn: 'root',
 })
 export class ConferenceBookingService {
-  private apiUrl = localStorage.getItem('apiBaseUrl') || 'http://localhost:8080/api/bookings/rooms';
-
   constructor(private http: HttpClient, private credentialsService: CredentialsService) {}
 
-  // Метод для получения заголовков с токеном
   private getAuthHeaders(): HttpHeaders {
     const token = this.credentialsService.token;
     if (!token) {
@@ -21,16 +18,14 @@ export class ConferenceBookingService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  // Метод для бронирования комнаты
   bookRoom(bookingData: any): Observable<any> {
     const headers = this.getAuthHeaders();
 
-    return this.http.post<any>(this.apiUrl, bookingData, { headers }).pipe(catchError(this.handleError));
+    return this.http.post<any>('bookings/rooms', bookingData, { headers }).pipe(catchError(this.handleError));
   }
 
-  // Метод для обработки ошибок
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Ошибка при бронировании, попробуйте снова позже.';
+    let errorMessage = 'Ошибка при бронировании, попробуйте позже.';
 
     if (error.error && error.error.errors && error.error.errors.length > 0) {
       errorMessage = error.error.errors[0].errorMessage;

@@ -1,5 +1,9 @@
 @import url("https://fonts.cdnfonts.com/css/sf-pro-display");
 
+::ng-deep .mat-dialog-container {
+  border-radius: 12px;
+}
+
 .container {
   max-height: 549px;
   width: 594px;
@@ -71,7 +75,12 @@
   background: #d9d9d9;
   border-radius: 10px;
 }
+
 .scroll-table::-webkit-scrollbar-thumb {
   background: #005caa;
   border-radius: 10px;
+}
+
+.no-message {
+  margin: 18px;
 }

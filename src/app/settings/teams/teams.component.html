@@ -2,7 +2,7 @@
   <div class="header">
     <h4>Команды</h4>
     <button class="close-icon" (click)="closeDialog()">
-      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+      <app-icon [size]="20" [svgIcon]="'close'" alt="close-icon" class="close-icon"> </app-icon>
     </button>
   </div>
   <div class="text-field text-field_floating">
@@ -14,7 +14,7 @@
     <div class="text-field__input empty">
       <p>Список команд</p>
       <button class="close-icon" (click)="toggleTeamsDropdown()">
-        <img src="../../assets/img/nav-img/Shevron_icon.png" alt="Стрелка" class="close-icon" />
+        <app-icon [size]="14" [svgIcon]="'left-arrow'" alt="close-icon" class="close-icon"> </app-icon>
       </button>
     </div>
     <ul *ngIf="isDropdownVisible" class="dropdown-list">
@@ -22,11 +22,11 @@
         {{ team.name }}
         <div class="edit-delete">
           <button class="close-icon" (click)="editTeam(team); $event.stopPropagation()">
-            <img class="text-field__icon" src="../../assets/img/nav-img/Edit_icon.svg" alt="Edit_icon" />
+            <app-icon [size]="20" [svgIcon]="'red-edit'" alt="Edit_icon"> </app-icon>
           </button>
 
           <button class="close-icon" (click)="team.id ? deleteTeam(team.id) : null; $event.stopPropagation()">
-            <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+            <app-icon [size]="14" [svgIcon]="'red-close'" alt="close-icon" class="close-icon"> </app-icon>
           </button>
         </div>
       </li>

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService, Employee } from './employee.service';
+import { EmployeeService, Employee, Team } from './employee.service';
 import { EmployeeRegisterComponent } from './employee-register/employee-register.component';
 import { MatDialog } from '@angular/material/dialog';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
@@ -17,8 +16,8 @@ export class EmployeesComponent implements OnInit {
   selectedTeam: string = '';
   sortField: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
-
   temporaryRoles: { [key: number]: string } = {};
+  teams: Team[] = [];
 
   constructor(private employeeService: EmployeeService, private dialog: MatDialog) {}
 
@@ -30,6 +29,15 @@ export class EmployeesComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error fetching employees', error);
+      }
+    );
+
+    this.employeeService.getTeams().subscribe(
+      (teams: Team[]) => {
+        this.teams = teams;
+      },
+      (error: any) => {
+        console.error('Error fetching teams', error);
       }
     );
   }

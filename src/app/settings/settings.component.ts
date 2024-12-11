@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { BookingWorkplaceComponent } from './booking-workplace/booking-workplace.component';
 import { BookingMeetingroomComponent } from './booking-meetingroom/booking-meetingroom.component';
 import { WorkDaysComponent } from './work-days/work-days.component';
 import { TeamsComponent } from './teams/teams.component';
+import { DialogService } from '@app/sevices/dialog.service';
 
 @Component({
   selector: 'app-settings',
@@ -11,26 +12,28 @@ import { TeamsComponent } from './teams/teams.component';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  dialogRef: MatDialogRef<any> | null = null;
-
-  constructor(private _dialog: MatDialog, private closedialogRef: MatDialogRef<SettingsComponent>) {}
+  constructor(private closedialogRef: MatDialogRef<SettingsComponent>, public dialog: DialogService) {}
 
   ngOnInit(): void {}
 
   openBooking_WorkplaceForm() {
-    this.dialogRef = this._dialog.open(BookingWorkplaceComponent);
+    this.closedialogRef.close();
+    const dialogRef = this.dialog.openDialog(BookingWorkplaceComponent, {});
   }
 
   openBooking_MeetingroomForm() {
-    this.dialogRef = this._dialog.open(BookingMeetingroomComponent);
+    this.closedialogRef.close();
+    const dialogRef = this.dialog.openDialog(BookingMeetingroomComponent, {});
   }
 
   openWork_DaysForm() {
-    this.dialogRef = this._dialog.open(WorkDaysComponent);
+    this.closedialogRef.close();
+    const dialogRef = this.dialog.openDialog(WorkDaysComponent, {});
   }
 
   openTeams_Form() {
-    this.dialogRef = this._dialog.open(TeamsComponent);
+    this.closedialogRef.close();
+    const dialogRef = this.dialog.openDialog(TeamsComponent, {});
   }
 
   closeDialog(): void {

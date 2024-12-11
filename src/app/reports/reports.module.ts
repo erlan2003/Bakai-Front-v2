@@ -4,14 +4,10 @@ import { ReportsComponent } from './reports.component';
 import { ReportsRoutingModule } from './reports-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { SharedModule } from '@app/@shared';
 
 @NgModule({
   declarations: [ReportsComponent],
-  imports: [
-    CommonModule,
-    ReportsRoutingModule,
-    HttpClientModule, // Добавьте HttpClientModule для работы с HTTP запросами
-    FormsModule,
-  ],
+  imports: [CommonModule, ReportsRoutingModule, HttpClientModule, FormsModule, SharedModule],
 })
 export class ReportsModule {}

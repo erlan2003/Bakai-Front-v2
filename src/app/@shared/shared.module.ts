@@ -5,10 +5,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MaterialModule } from '@app/material.module';
 import { LoaderComponent } from './loader/loader.component';
+import { AppIconComponent } from './app-icon/app-icon.component';
+
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  imports: [FlexLayoutModule, MaterialModule, TranslateModule, CommonModule],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent],
+  imports: [FlexLayoutModule, MaterialModule, TranslateModule, CommonModule, MatIconModule],
+  declarations: [LoaderComponent, AppIconComponent],
+  exports: [LoaderComponent, AppIconComponent],
 })
 export class SharedModule {}

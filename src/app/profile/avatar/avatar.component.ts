@@ -62,7 +62,7 @@ export class AvatarComponent implements OnInit {
           this.loadCurrentEmployee();
         },
         (error) => {
-          this.snackBar.open('Ошибка в загрузке аватара!', 'Закрыть', {
+          this.snackBar.open('Ошибка при загрузке аватара!', 'Закрыть', {
             duration: 3000,
             verticalPosition: 'bottom',
           });

@@ -1,177 +1,174 @@
-<div class="profile-container">
-  <div class="close-container">
-    <button class="close-button" (click)="closeDialog()">
-      <img src="../../assets/img/nav-img/close-icon.svg" width="20" height="20" />
-    </button>
-  </div>
-  <div class="head-container">
-    <div class="avatar-container">
-      <button class="user-avatarka">
-        <img
-          class="avat-img"
-          *ngIf="currentEmployee?.avatar; else showInitial"
-          [src]="'data:image/jpeg;base64,' + currentEmployee?.avatar"
-          alt="Аватар"
-          width="60"
-          height="60"
-        />
-        <ng-template #showInitial>
-          <p>{{ lastNameInitial }}</p>
-        </ng-template>
-      </button>
-      <button class="avatar-edit" (click)="openAvatarForm()">
-        <img src="../../assets/img/auth-img/edit.svg" width="20" height="20" />
+<div>
+  <div class="profile-container">
+    <div class="close-container">
+      <button class="close-button" (click)="closeDialog()">
+        <app-icon [size]="20" [svgIcon]="'close'"> </app-icon>
       </button>
     </div>
-
-    <div class="user-FIO" *ngIf="currentEmployee">
-      {{ currentEmployee.lastName }} {{ currentEmployee.firstName }} {{ currentEmployee.middleName }}
-    </div>
-    <div class="username" *ngIf="currentEmployee">
-      {{ currentEmployee.email }}
-    </div>
-  </div>
-
-  <div class="button-container">
-    <button class="select-button" [class.active]="selectedSection === 'profile'" (click)="selectProfile()">
-      Профиль
-    </button>
-    <button class="select-button" [class.active]="selectedSection === 'booking'" (click)="selectBooking()">
-      Брони
-    </button>
-    <button class="select-button" [class.active]="selectedSection === 'statistics'" (click)="selectStatistics()">
-      Статистика
-    </button>
-  </div>
-
-  <div class="content-container">
-    <ng-container *ngIf="selectedSection === 'profile'">
-      <div class="information">
-        <div class="input-container">
-          <input
-            type="text"
-            id="lastName"
-            formControlName="lastName"
-            [value]="currentEmployee?.lastName || ''"
-            class="user-information-input"
-            readonly
+    <div class="head-container">
+      <div class="avatar-container">
+        <button class="user-avatarka">
+          <img
+            class="avat-img"
+            *ngIf="currentEmployee?.avatar; else showInitial"
+            [src]="'data:image/jpeg;base64,' + currentEmployee?.avatar"
+            alt="Аватар"
+            width="60"
+            height="60"
+            alt=""
           />
-          <label class="placeholder" for="placeholder-lastName">Фамилия</label>
-        </div>
-
-        <div class="input-container">
-          <input
-            type="text"
-            id="firstName"
-            formControlName="firstName"
-            [value]="currentEmployee?.firstName || ''"
-            class="user-information-input"
-            readonly
-          />
-          <label class="placeholder" for="firstName">Имя</label>
-        </div>
-
-        <div class="input-container">
-          <input
-            type="text"
-            id="middleName"
-            formControlName="middleName"
-            [value]="currentEmployee?.middleName || ''"
-            class="user-information-input"
-            readonly
-          />
-          <label class="placeholder" for="middleName">Отчество</label>
-        </div>
-
-        <div class="input-container">
-          <input
-            type="text"
-            id="position"
-            formControlName="position"
-            [value]="currentEmployee?.position?.name || ''"
-            class="user-information-input"
-            readonly
-          />
-          <label class="placeholder" for="position">Должность</label>
-        </div>
-
-        <div class="input-container">
-          <label class="placeholder" for="team">Команда</label>
-          <input
-            type="text"
-            id="team"
-            formControlName="team"
-            [value]="currentEmployee?.team?.name || ''"
-            class="user-information-input"
-            readonly
-          />
-        </div>
+          <ng-template #showInitial>
+            <p>{{ lastNameInitial }}</p>
+          </ng-template>
+        </button>
+        <button class="avatar-edit" (click)="openAvatarForm()">
+          <app-icon [size]="20" [svgIcon]="'edit'"> </app-icon>
+        </button>
       </div>
-      <button class="logout-button" (click)="logoutSystem()">
-        Выйти
-        <img src="../../assets/img/nav-img/log out.svg" class="logout-img" />
-      </button>
-    </ng-container>
-    <ng-container *ngIf="selectedSection === 'booking'">
-      <div class="profile-booking-container">
-        <div class="input-container">
-          <input type="text" id="today" value="Сегодня" class="user-information-input" readonly />
 
-          <label for="today">
-            <div class="placeholder_2" *ngIf="todayBookings$ | async as todayBookings; else loadingToday">
-              <div *ngIf="hasTodayBookings; else noTodayBookings">
-                <div *ngFor="let booking of todayBookings">
-                  {{ booking.place }}
+      <div class="user-FIO" *ngIf="currentEmployee">
+        {{ currentEmployee.lastName }} {{ currentEmployee.firstName }} {{ currentEmployee.middleName }}
+      </div>
+      <div class="username" *ngIf="currentEmployee">
+        {{ currentEmployee.email }}
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button class="select-button" [class.active]="selectedSection === 'profile'" (click)="selectProfile()">
+        Профиль
+      </button>
+      <button class="select-button" [class.active]="selectedSection === 'booking'" (click)="selectBooking()">
+        Брони
+      </button>
+      <button class="select-button" [class.active]="selectedSection === 'statistics'" (click)="selectStatistics()">
+        Статистика
+      </button>
+    </div>
+
+    <div class="content-container">
+      <ng-container *ngIf="selectedSection === 'profile'">
+        <div class="information">
+          <div class="input-container">
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              [value]="currentEmployee?.lastName || ''"
+              class="user-information-input"
+              readonly
+            />
+            <label class="placeholder" for="placeholder-lastName">Фамилия</label>
+          </div>
+
+          <div class="input-container">
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              [value]="currentEmployee?.firstName || ''"
+              class="user-information-input"
+              readonly
+            />
+            <label class="placeholder" for="firstName">Имя</label>
+          </div>
+
+          <div class="input-container">
+            <input
+              type="text"
+              id="middleName"
+              formControlName="middleName"
+              [value]="currentEmployee?.middleName || ''"
+              class="user-information-input"
+              readonly
+            />
+            <label class="placeholder" for="middleName">Отчество</label>
+          </div>
+
+          <div class="input-container">
+            <input
+              type="text"
+              id="position"
+              formControlName="position"
+              [value]="currentEmployee?.position?.name || ''"
+              class="user-information-input"
+              readonly
+            />
+            <label class="placeholder" for="position">Должность</label>
+          </div>
+
+          <div class="input-container">
+            <label class="placeholder" for="team">Команда</label>
+            <input
+              type="text"
+              id="team"
+              formControlName="team"
+              [value]="currentEmployee?.team?.name || ''"
+              class="user-information-input"
+              readonly
+            />
+          </div>
+        </div>
+        <button class="logout-button" (click)="logoutSystem()">
+          Выйти
+          <app-icon [size]="30" [svgIcon]="'logout'" class="logout-img"> </app-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="selectedSection === 'booking'">
+        <div class="profile-booking-container">
+          <div class="input-container">
+            <input type="text" id="today" value="Сегодня" class="user-information-input" readonly />
+            <label for="today">
+              <div class="placeholder_2" *ngIf="todayBookings$ | async as todayBookings; else loadingToday">
+                <div *ngIf="hasTodayBookings; else noTodayBookings">
+                  <div *ngFor="let booking of todayBookings">
+                    {{ booking?.place }}
+                  </div>
                 </div>
               </div>
-            </div>
-            <ng-template #loadingToday>
-              <p>Загрузка данных на сегодня...</p>
-            </ng-template>
-            <ng-template #noTodayBookings>
-              <p class="not-place">На сегодня нет бронирований</p>
-            </ng-template>
-          </label>
-        </div>
+              <ng-template #loadingToday>
+                <p>Загрузка данных на сегодня...</p>
+              </ng-template>
+              <ng-template #noTodayBookings>
+                <p class="not-place">На сегодня бронирований нет</p>
+              </ng-template>
+            </label>
+          </div>
 
-        <div class="input-container">
-          <input type="text" id="tomorrow" value="Завтра" class="user-information-input" readonly />
-          <label for="tomorrow">
-            <div class="placeholder_2" *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
-              <div *ngIf="hasTomorrowBookings; else noTomorrowBookings">
+          <div class="input-container">
+            <input type="text" id="tomorrow" value="Завтра" class="user-information-input" readonly />
+            <label for="tomorrow">
+              <div class="placeholder_2" *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
+                <div *ngIf="hasTomorrowBookings; else noTomorrowBookings">
+                  <div *ngFor="let booking of tomorrowBookings">
+                    {{ booking?.place }}
+                  </div>
+                </div>
+              </div>
+              <ng-template #loadingTomorrow>
+                <p>Загрузка данных на завтра...</p>
+              </ng-template>
+              <ng-template class="not-place" #noTomorrowBookings>
+                <p>На завтра бронирований нет</p>
+              </ng-template>
+            </label>
+
+            <div *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
+              <div *ngIf="tomorrowBookings.length > 0">
                 <div *ngFor="let booking of tomorrowBookings">
-                  {{ booking.place }}
+                  <button class="delete-icon">
+                    <app-icon [size]="20" [svgIcon]="'red-close'" (click)="deleteBooking(booking.id)"> </app-icon>
+                  </button>
                 </div>
               </div>
             </div>
             <ng-template #loadingTomorrow>
               <p>Загрузка данных на завтра...</p>
             </ng-template>
-            <ng-template class="not-place" #noTomorrowBookings>
-              <p>На завтра нет бронирований</p>
-            </ng-template>
-          </label>
-
-          <div *ngIf="tomorrowBookings$ | async as tomorrowBookings; else loadingTomorrow">
-            <div *ngIf="tomorrowBookings.length > 0">
-              <div *ngFor="let booking of tomorrowBookings">
-                <button class="delete-icon">
-                  <img
-                    src="../../assets/img/nav-img/red-close-icon.svg"
-                    width="20"
-                    height="20"
-                    (click)="deleteBooking(booking.id)"
-                  />
-                </button>
-              </div>
-            </div>
           </div>
-          <ng-template #loadingTomorrow>
-            <p>Загрузка данных на завтра...</p>
-          </ng-template>
         </div>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="selectedSection === 'statistics'"> </ng-container>
+      </ng-container>
+      <ng-container *ngIf="selectedSection === 'statistics'"> </ng-container>
+    </div>
   </div>
 </div>

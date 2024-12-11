@@ -1,23 +1,8 @@
-<!--<div class="container">-->
-<!--  -->
-<!--  <button class="close_dialog">-->
-<!--    <img class="close_icon" src="../../assets/img/nav-img/close_icon.svg" alt="Close" />-->
-<!--  </button>-->
-<!--  <p>Настройки</p>-->
-<!--  <div class="btns">-->
-<!--    <button>Распределение команд по столам</button>-->
-<!--    <button (click)="openBooking_WorkplaceForm()">Бронь рабочих мест</button>-->
-<!--    <button (click)="openBooking_MeetingroomForm()">Бронь переговорной</button>-->
-<!--    <button (click)="openWork_DaysForm()">Рабочие дни</button>-->
-<!--    <button (click)="openTeams_Form()">Команды</button>-->
-<!--  </div>-->
-<!--</div>-->
-
 <div class="container">
   <div class="header">
     <h1>Настройки</h1>
     <button class="close-icon" (click)="closeDialog()">
-      <img src="assets/img/reports-img/close-icon.svg" alt="Иконка закрытия" class="close-icon" />
+      <app-icon [size]="20" [svgIcon]="'close'" alt="close-icon" class="close-icon"> </app-icon>
     </button>
   </div>
   <div class="btns">

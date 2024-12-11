@@ -3,7 +3,8 @@
     <div class="header">
       <h1>Отчет</h1>
       <button class="download-button" (click)="downloadReport()">
-        Скачать <img src="assets/img/reports-img/download-icon.svg" alt="иконка скачивания" />
+        Скачать
+        <app-icon [size]="19" [svgIcon]="'download'" alt="download-icon" class="arrow"> </app-icon>
       </button>
     </div>
 
@@ -11,17 +12,15 @@
       <div class="search-container222">
         <div class="search-container">
           <input type="text" placeholder="Сотрудник" class="search-input" [(ngModel)]="employeeName" />
-          <img src="assets/img/reports-img/Union.svg" alt="Иконка поиска" class="search-icon" />
+          <app-icon [size]="19" [svgIcon]="'search'" alt="search-icon" class="search-icon"> </app-icon>
           <button class="close-icon" (click)="clearSearch()">
-            <img src="assets/img/reports-img/close-icon.svg" alt="Иконка поиска" class="close-icon" />
+            <app-icon [size]="20" [svgIcon]="'close'" alt="clear-icon" class="close-icon"> </app-icon>
           </button>
         </div>
         <div class="controls">
-          <select class="button-team" [(ngModel)]="selectedTeam">
+          <select class="button-team" [(ngModel)]="selectedTeam" (change)="loadReports()">
             <option value="">Тип команды</option>
-            <option value="team1">Команда 1</option>
-            <option value="team2">Команда 2</option>
-            <option value="team3">Команда 3</option>
+            <option *ngFor="let team of teams" [value]="team.name">{{ team.name }}</option>
           </select>
           <input type="date" class="date-input" [(ngModel)]="fromDate" />
           <input type="date" class="date-input" [(ngModel)]="toDate" />
@@ -37,15 +36,15 @@
           <tr>
             <th (click)="onSort('lastName')">
               Фамилия
-              <img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th (click)="onSort('firstName')">
               Имя
-              <img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th (click)="onSort('middleName')">
               Отчество
-              <img src="assets/img/reports-img/arrow-down.svg" alt="стрелка вниз" class="arrow" />
+              <app-icon [size]="12" [svgIcon]="'down-arrow'" alt="down-icon" class="arrow"> </app-icon>
             </th>
             <th>Команда</th>
             <th>Должность</th>
@@ -68,79 +67,3 @@
     </div>
   </div>
 </div>
-
-<!--<div class="main-container">-->
-<!--  <div class="content-container">-->
-<!--    <div class="header">-->
-<!--      <h1>Отчет</h1>-->
-<!--      <button class="download-button" (click)="downloadReport()">Скачать</button>-->
-<!--    </div>-->
-<!--    <div class="search-section">-->
-<!--      <div class="search-container">-->
-<!--        <input-->
-<!--          type="text"-->
-<!--          placeholder="Сотрудник"-->
-<!--          class="search-input"-->
-<!--          [(ngModel)]="searchFIO"-->
-<!--        />-->
-<!--        <button class="button-done" (click)="loadStats(fromDate, toDate, searchFIO)">Готово</button>-->
-<!--      </div>-->
-<!--      <div class="controls">-->
-<!--        <select-->
-<!--          class="button-team"-->
-<!--          [(ngModel)]="selectedTeamId"-->
-<!--        >-->
-<!--          <option value="">Тип команды</option>-->
-<!--          &lt;!&ndash; Добавьте здесь список команд &ndash;&gt;-->
-<!--          <option value="1">Команда 1</option>-->
-<!--          <option value="2">Команда 2</option>-->
-<!--          <option value="3">Команда 3</option>-->
-<!--        </select>-->
-<!--        <div class="date-container">-->
-<!--          <input-->
-<!--            type="text"-->
-<!--            placeholder="С: 01.08.2024"-->
-<!--            class="date-input"-->
-<!--            [(ngModel)]="fromDate"-->
-<!--          />-->
-<!--          <input-->
-<!--            type="text"-->
-<!--            placeholder="По: 15.08.2024"-->
-<!--            class="date-input"-->
-<!--            [(ngModel)]="toDate"-->
-<!--          />-->
-<!--        </div>-->
-<!--        <button-->
-<!--          class="button-done"-->
-<!--          (click)="loadStats(fromDate, toDate, searchFIO, selectedPositionId, selectedTeamId)"-->
-<!--        >-->
-<!--          Готово-->
-<!--        </button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <table class="report-table">-->
-<!--      <thead>-->
-<!--      <tr>-->
-<!--        <th>Фамилия</th>-->
-<!--        <th>Имя</th>-->
-<!--        <th>Отчество</th>-->
-<!--        <th>Команда</th>-->
-<!--        <th>Должность</th>-->
-<!--        <th>Место</th>-->
-<!--        <th>Дата</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody>-->
-<!--      <tr *ngFor="let employee of employees">-->
-<!--        <td>{{ employee.lastName }}</td>-->
-<!--        <td>{{ employee.firstName }}</td>-->
-<!--        <td>{{ employee.middleName }}</td>-->
-<!--        <td>{{ employee.team }}</td>-->
-<!--        <td>{{ employee.position }}</td>-->
-<!--        <td>{{ employee.location }}</td>-->
-<!--        <td>{{ employee.date }}</td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
-<!--</div>-->

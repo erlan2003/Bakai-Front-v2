@@ -5,10 +5,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { BookingService, Place } from '../booking-map/booking.service';
 import { EmployeeService, Employee, Booking } from '../employees/employee.service';
 import { Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { AvatarComponent } from '../profile/avatar/avatar.component';
 import { StateService } from './state.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogService } from '@app/sevices/dialog.service';
 
 @Component({
   selector: 'app-profile',
@@ -37,9 +37,9 @@ export class ProfileComponent implements OnInit {
     private dialogRef: MatDialogRef<ProfileComponent>,
     private employeeService: EmployeeService,
     private bookingService: BookingService,
-    private dialog: MatDialog,
     private stateService: StateService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    public dialog: DialogService
   ) {}
 
   getTodayBookings(): void {
@@ -50,7 +50,7 @@ export class ProfileComponent implements OnInit {
         this.hasTodayBookings = data.length > 0;
       },
       (error) => {
-        console.error('Ошибка при получении бронирований на сегодня:', error);
+        console.error('Ошибка при бронировании на сегодня:', error);
         this.hasTodayBookings = false;
       }
     );
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
         this.hasTomorrowBookings = data.length > 0;
       },
       (error) => {
-        console.error('Ошибка при получении бронирований на завтра:', error);
+        console.error('Ошибка при бронировании на завтра:', error);
         this.hasTomorrowBookings = false;
       }
     );
@@ -124,7 +124,6 @@ export class ProfileComponent implements OnInit {
       this.lastNameInitial = this.currentEmployee.lastName.charAt(0).toUpperCase();
     }
   }
-
   logoutSystem(): void {
     this.authenticationService.logout().subscribe(() => {
       this.router.navigate(['/login'], { replaceUrl: true });
@@ -164,7 +163,7 @@ export class ProfileComponent implements OnInit {
   }
 
   openAvatarForm() {
-    const dialogRef = this.dialog.open(AvatarComponent);
+    const dialogRef = this.dialog.openDialog(AvatarComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
       this.loadCurrentEmployee();

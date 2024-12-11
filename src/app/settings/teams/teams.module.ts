@@ -5,9 +5,10 @@ import { TeamsRoutingModule } from './teams-routing.module';
 import { TeamsComponent } from './teams.component';
 import { EditTeamDialogComponent } from './edit-team-dialog/edit-team-dialog.component';
 import { MaterialModule } from '../../material.module';
+import { SharedModule } from '@app/@shared';
 
 @NgModule({
   declarations: [TeamsComponent, EditTeamDialogComponent],
-  imports: [CommonModule, TeamsRoutingModule, FormsModule, MaterialModule],
+  imports: [CommonModule, TeamsRoutingModule, FormsModule, MaterialModule, SharedModule],
 })
 export class TeamsModule {}

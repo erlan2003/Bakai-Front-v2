@@ -3,8 +3,8 @@
     <div class="nav-bar">
       <button class="nav-log" (click)="toggleExpand()">
         <div class="log-img">
-          <img src="../../assets/img/nav-img/Group.svg" alt="Small Logo" class="log-img-1" />
-          <img src="../../assets/img/nav-img/bb_logo_web.svg" alt="Large Logo" class="log-img-2" />
+          <app-icon [size]="56" [svgIcon]="'small-logo'" alt="Small Logo" class="log-img-1"></app-icon>
+          <app-icon [width]="126" [height]="29" [svgIcon]="'big-logo'" alt="Large Logo" class="log-img-2"></app-icon>
         </div>
       </button>
 
@@ -18,13 +18,13 @@
         (click)="toggleColor(0)"
       >
         <div class="item-img">
-          <img
-            src="../../assets/img/nav-img/Map.svg"
+          <app-icon
+            [size]="32"
+            [svgIcon]="'map'"
             [ngStyle]="{ filter: buttonsState[0] ? 'brightness(0) invert(1)' : 'none' }"
             alt="Click me"
-            width="32"
-            height="32"
-          />
+          >
+          </app-icon>
         </div>
         <a [ngStyle]="{ filter: buttonsState[0] ? 'brightness(0) invert(1)' : 'none' }">Карта этажа</a>
       </button>
@@ -39,13 +39,13 @@
         (click)="toggleColor(1)"
       >
         <div class="item-img">
-          <img
-            src="../../assets/img/nav-img/meeting.svg"
+          <app-icon
+            [size]="32"
+            [svgIcon]="'meeting'"
             [ngStyle]="{ filter: buttonsState[1] ? 'brightness(0) invert(1)' : 'none' }"
             alt="Click me"
-            width="32"
-            height="32"
-          />
+          >
+          </app-icon>
         </div>
         <a [ngStyle]="{ filter: buttonsState[1] ? 'brightness(0) invert(1)' : 'none' }">Совещание</a>
       </button>
@@ -60,13 +60,13 @@
           (click)="toggleColor(2)"
         >
           <div class="item-img">
-            <img
-              src="../../assets/img/nav-img/employees.svg"
+            <app-icon
+              [size]="32"
+              [svgIcon]="'employees'"
               [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }"
               alt="Click me"
-              width="32"
-              height="32"
-            />
+            >
+            </app-icon>
           </div>
           <a [ngStyle]="{ filter: buttonsState[2] ? 'brightness(0) invert(1)' : 'none' }">Сотрудники</a>
         </button>
@@ -81,26 +81,26 @@
           (click)="toggleColor(3)"
         >
           <div class="item-img">
-            <img
-              src="../../assets/img/nav-img/reports.svg"
+            <app-icon
+              [size]="32"
+              [svgIcon]="'reports'"
               [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }"
               alt="Click me"
-              width="32"
-              height="32"
-            />
+            >
+            </app-icon>
           </div>
           <a [ngStyle]="{ filter: buttonsState[3] ? 'brightness(0) invert(1)' : 'none' }">Отчеты</a>
         </button>
 
         <button class="nav-item" (click)="openSettingForm()">
           <div class="item-img">
-            <img src="../../assets/img/nav-img/settings.svg" alt="Click me" width="32" height="32" />
+            <app-icon [size]="32" [svgIcon]="'settings'" alt="Click me"> </app-icon>
           </div>
           <a>Настройки</a>
         </button>
       </ng-container>
       <div class="nav-back-icon" (click)="toggleExpand()">
-        <img src="../../assets/img/nav-img/nav-back-icon.png" alt="Click me" width="24" height="24" />
+        <app-icon [size]="24" [svgIcon]="'back'" alt="Click me"> </app-icon>
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@
 
       <div class="right-container">
         <button class="notification-img" (click)="openNotificationForm()">
-          <img src="../../assets/img/nav-img/bx-bell.svg" alt="Click me" width="24" height="24" />
+          <app-icon [size]="24" [svgIcon]="'notification'" alt="Click me"> </app-icon>
         </button>
 
         <button class="user-avatarka" (click)="openProfileForm()">

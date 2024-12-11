@@ -21,7 +21,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReportsModule } from './reports/reports.module';
 import { ConferenceModule } from './conference/conference.module';
 
-// Зарегистрируйте русскую локализацию
 registerLocaleData(localeRu);
 
 @NgModule({

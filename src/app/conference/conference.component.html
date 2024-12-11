@@ -2,8 +2,9 @@
   <div class="header">
     <div class="time-column1">
       <div class="grp-arrows">
-        <img src="assets/img/nav-img/arrow1.svg" alt="arrow-right" (click)="showPreviousWeek()" class="arrow" />
-        <img src="assets/img/nav-img/arrow2.svg" alt="arrow-right" (click)="showNextWeek()" class="arrow" />
+        <app-icon [size]="40" [svgIcon]="'right-arrow'" (click)="showPreviousWeek()" class="arrow"> </app-icon>
+
+        <app-icon [size]="40" [svgIcon]="'left-arrow'" (click)="showNextWeek()" class="arrow"> </app-icon>
       </div>
     </div>
 

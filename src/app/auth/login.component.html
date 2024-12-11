@@ -1,77 +1,51 @@
 <div class="login-wrapper">
   <div class="login-container">
-    <div class="login-box">
+    <mat-card class="login-box">
       <div class="headText">Войти</div>
       <form (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
         <div class="login-error" *ngIf="error && !isLoading">{{ error }}</div>
         <div class="login-fields">
-          <div class="input-group">
-            <div class="floating-label">
-              <input
-                id="username"
-                type="text"
-                formControlName="username"
-                autocomplete="username"
-                placeholder=" "
-                required
-                class="custom-input"
-              />
-              <label for="username" class="floating-placeholder">Username</label>
-              <button type="button" class="clear-button" (click)="clearUsername()">
-                <img
-                  src="../../assets/img/auth-img/Textfield_icon.png"
-                  alt="Clear"
-                  class="clear-icon"
-                  width="18"
-                  height="18"
-                />
-              </button>
-            </div>
-          </div>
-          <div
-            class="error-message"
-            *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched"
-          >
-            Поле для ввода имя пользователя пуст
-          </div>
-          <div class="close-text">Текст может быть скрыт</div>
-          <div class="input-group">
-            <div class="floating-label">
-              <input
-                id="password"
-                [type]="passwordFieldType"
-                formControlName="password"
-                autocomplete="current-password"
-                placeholder=" "
-                required
-                class="custom-input"
-              />
-              <label for="password" class="floating-placeholder">Password</label>
-              <button type="button" class="toggle-password-button" (click)="togglePassword()">
-                <img
-                  [src]="passwordIcon"
-                  alt="Toggle Password"
-                  class="toggle-icon"
-                  [style.width]="iconWidth"
-                  [style.height]="iconHeight"
-                />
-              </button>
-            </div>
-          </div>
-          <div
-            class="error-message"
-            *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
-          >
-            Поле для ввода пароля пуст
-          </div>
-          <div class="close-text">Текст может быть скрыт</div>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Логин</mat-label>
+            <input matInput id="username" type="text" formControlName="username" autocomplete="username" required />
+            <button mat-icon-button matSuffix type="button" (click)="clearUsername()" aria-label="Clear">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
+              Поле для ввода имени пользователя пуст
+            </mat-error>
+          </mat-form-field>
 
-          <button class="submit-button" type="submit" [disabled]="loginForm.invalid || isLoading">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Пароль</mat-label>
+            <input
+              matInput
+              id="password"
+              [type]="passwordFieldType"
+              formControlName="password"
+              autocomplete="current-password"
+              required
+            />
+            <button mat-icon-button matSuffix type="button" (click)="togglePassword()" aria-label="Toggle Password">
+              <mat-icon>{{ isPasswordVisible ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+              Поле для ввода пароля пуст
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            class="submit-button"
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading"
+          >
             <span *ngIf="isLoading">Loading...</span>
             <span *ngIf="!isLoading">Войти</span>
           </button>
         </div>
       </form>
-    </div>
+    </mat-card>
   </div>
 </div>

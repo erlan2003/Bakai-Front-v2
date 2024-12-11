@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit, Output, EventEmitter } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Place } from '../booking-map.component';
-import { CredentialsService } from '../../auth/credentials.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BookingResultDialogComponent } from '../booking/booking-result-dialog/booking-result-dialog.component'; // Импортируем новый компонент
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConferenceBookingService } from '../conference-booking.service';
-import { EmployeeService, Employee } from '../../employees/employee.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Employee, Place } from '../booking-map.component';
+import { CredentialsService } from '@app/auth/credentials.service';
+import { ConferenceBookingService } from '../conference-booking.service';
+import { EmployeeService } from '@app/employees/employee.service';
+import { BookingResultDialogComponent } from './booking-result-dialog/booking-result-dialog.component';
 
 @Component({
   selector: 'app-booking',
@@ -20,8 +20,6 @@ export class BookingComponent implements OnInit {
   dropdownOpen: boolean = false;
   employees: Employee[] = [];
   selectedEmployees: Employee[] = [];
-
-  private apiUrl = localStorage.getItem('apiBaseUrl') || '';
 
   selectedPlaceId: number;
   allPlaces: Place[] = [];
